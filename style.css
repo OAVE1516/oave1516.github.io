@@ -1,0 +1,55 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media only screen and (max-width: 768px) {
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+*{
+    font-family: 'Comic Sans', 'Helvetica', 'Arial', sans-serif;
+}
+h1 h2 h3 h4 h5 h6{
+    font-family: 'Oswald', sans-serif;
+}
+body{
+    background-color: #222;
+    
+    font-weight: 800;
+}
+
+p{
+    font-weight: 400;
+    font-style: italic;
+}
+#main{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    text-align: center;
+    background-color: #eee;
+    color: #222;
+    border-radius: 2em;
+    padding: 3em 3em;
+    transition: 0.25s;
+}
+
+#main:hover{
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
