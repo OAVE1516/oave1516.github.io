@@ -26,13 +26,13 @@ h1 h2 h3 h4 h5 h6{
     font-family: 'Oswald', sans-serif;
 }
 body{
-    background-color: #222;
-    
-    font-weight: 800;
+    background-color: #eee;
 }
-
+ul
+{
+    list-style-type: none;   
+}
 p{
-    font-weight: 400;
     font-style: italic;
 }
 #main{
