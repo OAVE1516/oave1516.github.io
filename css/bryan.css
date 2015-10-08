@@ -15,12 +15,9 @@ nav li {
     font-style: bold;
 }
 nav a { 
-<<<<<<< HEAD
     text-decoration: none;
 }
 nav a:visited {
-=======
     color: #222;
->>>>>>> origin/master
     text-decoration: none;
 }
