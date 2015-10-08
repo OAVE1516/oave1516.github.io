@@ -9,18 +9,11 @@ nav {
     background-color: #eeeeee;
 }
 nav li { 
-    color: aqua;
     font-size: 30px; 
     font-family: "Oswald"; 
     font-style: bold;
 }
 nav a { 
-<<<<<<< HEAD
-    text-decoration: none;
-}
-nav a:visited {
-=======
-    color: #222;
->>>>>>> origin/master
+    color: #222222;
     text-decoration: none;
 }
