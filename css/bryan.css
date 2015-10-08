@@ -1,19 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald);
 a:hover { 
-    color: chartreuse; 
+    color: #00ff99; 
 } 
 li {  
     display: inline;
 } 
+nav {
+    background-color: #eeeeee;
+}
 nav li { 
-    color: black;
-    font-size: 50px; 
+    color: aqua;
+    font-size: 30px; 
     font-family: "Oswald"; 
     font-style: bold;
 }
 nav a { 
     text-decoration: none;
 }
-a:visited {
+nav a:visited {
     text-decoration: none;
 }
