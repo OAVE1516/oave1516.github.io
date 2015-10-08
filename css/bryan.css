@@ -12,8 +12,6 @@ nav li {
     font-style: bold;
 }
 nav a { 
-    text-decoration: none;
-}
-a:visited {
+    color: #222;
     text-decoration: none;
 }
