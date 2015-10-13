@@ -38,9 +38,10 @@ ul
 p{
     font-style: italic;
 }
-figure{
+figure h3{
     text-align: center; 
-    width: 250px;   
+    width: 250px;
+    color:grey;
 }
 #main{
     position: fixed;
@@ -68,13 +69,23 @@ p{
 #ct h3, h4{
      line-height: 1px;   
 }
+/*.vp {
+    display: inline-block;
+    height: 200px;
+    width: 250px;
+}*/
+.vp {
+    display: inline-block;
+    width: 250px;
+    height: 200px;
+    text-align: center;
+    margin-bottom: 45px;
+}
 .vp p{
+    margin: 10px;
+}
+/*.loose p{
     display: inline-block;
     text-align: center;
     width: 250px;
-}
-.loose p{
-    display: inline-block;
-    text-align: auto;
-    width: 250px;
-}
+}*/
