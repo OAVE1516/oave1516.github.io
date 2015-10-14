@@ -82,6 +82,10 @@ table {
     padding: 15px;
 }
 
+.row{
+    clear: both;   
+}
+
 body{
     background-color: #EEE;
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
@@ -93,15 +97,16 @@ p{
 
 h1, h2, h3, h4, h5, h6{
     font-family: 'Oswald', sans-serif;
+    padding-bottom: 0.5em;
 }
 
 h1{
-    font-size: 2em;
+    font-size: 3em;
     text-align: center;
 }
 
 h2{
-    font-size: 1em;   
+    font-size: 2em;   
 }
 img{
     width: 100%;   
