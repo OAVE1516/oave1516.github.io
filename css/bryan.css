@@ -6,17 +6,29 @@ li {
     display: inline;
 } 
 nav {
-    background-color: #eeeeee;
+    background-color: indianred;
 }
 nav li { 
     font-size: 30px; 
     font-family: "Oswald"; 
     font-style: bold;
+    padding: 40px;
+    float: right;
 }
 nav a { 
+    color: black;
     text-decoration: none;
 }
 nav a:visited {
-    color: #222222;
     text-decoration: none;
 }
+#haf {
+    float: left;
+}
+p { 
+    font-family: cursive;
+}
+#gaf {
+    width: 150px;
+}
+    
