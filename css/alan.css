@@ -1,5 +1,7 @@
-@media only screen and (max-width: 768px) {
-    [class*="col-"] {
+@media only screen and (max-width: 768px) 
+{
+    [class*="col-"] 
+    {
         width: 100%;
     }
 }
@@ -13,23 +15,13 @@ ul{
 #ct h3, h4{
      line-height: 1px;   
 }
-/*.vp {
-    display: inline-block;
-    height: 200px;
-    width: 250px;
-}*/
-.vp {
+.employee {
     display: inline-block;
     width: auto;
     height: 200px;
     text-align: center;
     margin-bottom: 45px;
 }
-.vp p{
+.employee p{
     margin: 10px;
 }
-/*.loose p{
-    display: inline-block;
-    text-align: center;
-    width: 250px;
-}*/
