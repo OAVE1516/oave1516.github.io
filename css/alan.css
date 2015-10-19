@@ -18,10 +18,13 @@ ul{
 .employee {
     display: inline-block;
     width: auto;
-    height: 200px;
     text-align: center;
     margin-bottom: 45px;
 }
 .employee p{
     margin: 10px;
+}
+.employee img
+{
+    width: 220px;   
 }
