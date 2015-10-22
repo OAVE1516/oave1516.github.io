@@ -98,6 +98,10 @@ table {
 .row{
     clear: both;   
 }
+
+.center-text{
+    text-align: center;   
+}
 body{
     background-color: #EEE;
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
@@ -120,6 +124,10 @@ h1{
 
 h2{
     font-size: 2em;   
+}
+
+h3{
+    font-size: 1em;   
 }
 img{
     width: 100%;
