@@ -1,5 +1,5 @@
 a:hover { 
-    color: #00ff99; 
+    color: #f1c40f;
 } 
 li {  
     display: inline;
@@ -9,17 +9,15 @@ nav li {
     font-style: bold;
     padding: 40px;
     float: right;
+    vertical-align: middle;
 }
 nav a { 
     color: black;
     text-decoration: none;
+    transition: color 0.15s
 }
 nav a:visited {
     text-decoration: none;
-}
-
-#logo{
-    float: left;   
 }
 
 #lunar{
@@ -30,10 +28,12 @@ nav a:visited {
 }
     
 footer{
+    text-align: center;
     color: #eee;
     line-height: 150%;
     clear: both;
     background: #222;
+    overflow: auto;
 }
 footer .row{
     margin-left: auto;
@@ -50,4 +50,13 @@ footer .row{
 #sm{
     display: inline;
     height: 1em;
+}
+
+img{
+    width: 10%;   
+}
+
+footer a{
+    color: #3498db;
+    transition: color 0.15s;
 }
