@@ -4,6 +4,12 @@ a:hover {
 li {  
     display: inline;
 }
+nav{
+    background: #eee;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    overflow: auto;
+}
 nav li { 
     font-size: 30px; 
     font-style: bold;
@@ -42,21 +48,16 @@ footer .row{
     max-width: 900px;
 }
 
-#copy{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #sm{
     display: inline;
     height: 1em;
+    width: 10%;   
 }
 
-img{
-    width: 10%;
+nav img{
+    width: 5em;
+    float: left;
 }
-
 footer a{
     color: #3498db;
     transition: color 0.15s;
