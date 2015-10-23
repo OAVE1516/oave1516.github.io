@@ -8,7 +8,9 @@ nav{
     background: #eee;
     padding-top: 1em;
     padding-bottom: 1em;
+    margin-bottom: 2em;
     overflow: auto;
+    box-shadow: 0 0 25px #000;
 }
 nav li { 
     font-size: 30px; 
