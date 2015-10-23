@@ -76,6 +76,8 @@ table {
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
+.col-fifth{width: 20%;}
+
 [class*="col-"] {
     float: left;
     padding: 15px;
@@ -99,8 +101,6 @@ p{
 
 h1, h2, h3, h4, h5, h6{
     font-family: 'Roboto', sans-serif;
-    /**font-family: 'Oswald', sans-serif;*/
-    padding-bottom: 0.5em;
 }
 
 h1{
@@ -119,27 +119,6 @@ img{
     width: 100%;
 }
 
-button{
-    color: #ffffff;
-    font-size: 30px;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-    transition: background 0.25s;
-    border: 0;
-}
-
-#buy{
-    margin-bottom: 0.5em;
-    background: #2980b9;
-}
-
-#buy:hover{
-    background: #1f608c;
-}
-
-#price{
-    font-weight: bold;
-}
 @media only screen and (max-width: 768px) {
     [class*="col-"] {
         width: 100%;
