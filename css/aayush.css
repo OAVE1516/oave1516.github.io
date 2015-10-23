@@ -3,11 +3,11 @@ video {
     z-index: -1;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-60%);
 }
 
 #video-container {
-    top: -50%;
+    top: 9em;
     position: absolute;
 	width:100%;
     overflow: hidden;
