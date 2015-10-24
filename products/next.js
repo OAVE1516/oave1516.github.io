@@ -1,26 +1,24 @@
+function setDisplay(toNone, toBlock){
+    document.getElementById(toNone).style.display="none";
+    document.getElementById(toBlock).style.display="block";
+}
+function setBackground(element, value){
+    document.getElementById(element).style.background=value;
+}
+
+var pages = ["size", "occasion", "theme", "add-ons", "payment"];
+var progress = ["progress-size", "progress-occasion", "progress-theme", "progress-add-ons", "progress-payment"];
 var completed = "#e74c3c";
 var incomplete = "#e88074";
+var step = 0; //Referring to array index, not user viewed step
 
-var step = 1;
 function next(){
-    switch (step){
-        case 1:
-            document.getElementById("occasion").style.display="none";
-            document.getElementById("size").style.display="block";
-            document.getElementById("progress-size").style.background=completed;
-            step++;
-            break;
-        default: console.log("code is kill");
-    }
+    setDisplay(pages[step], pages[step+1]);
+    setBackground(progress[step+1], completed);
+    step++;
 }
 function back(){
-    switch (step){
-        case 2:
-            document.getElementById("occasion").style.display="block";
-            document.getElementById("size").style.display="none";
-            document.getElementById("progress-size").style.background=incomplete;
-            step--;
-            break;
-        default: console.log("code is kill");
-    }
+    setDisplay(pages[step], pages[step-1]);
+    setBackground(progress[step], incomplete);
+    step--;
 }

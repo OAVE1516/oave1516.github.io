@@ -37,6 +37,7 @@ nav a:visited {
 }
     
 footer{
+    margin-top: 1em;
     text-align: center;
     color: #eee;
     line-height: 150%;
@@ -67,4 +68,17 @@ footer a{
 
 footer h3{
     padding-bottom: 0.5em;   
+}
+
+@media only screen and (max-width: 768px) {
+    li{
+        display: block;   
+    }
+    nav ul li{
+        padding: 1em;
+        font-size: 1em;
+    }
+    nav ul img{
+        width: 10%;   
+    }
 }

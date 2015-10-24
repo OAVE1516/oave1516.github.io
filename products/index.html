@@ -22,43 +22,115 @@
     </nav>
     <div class="container">
     <div class="row" id="progress-bar">
-        <div class="col-fifth" id="progress-occasion"><h3>1. Occasion</h3></div>
-        <div class="col-fifth" id="progress-size"><h3>2. Size</h3></div>
+        <div class="col-fifth" id="progress-size"><h3>1. Size</h3></div>
+        <div class="col-fifth" id="progress-occasion"><h3>2. Occasion</h3></div>
         <div class="col-fifth" id="progress-theme"><h3>3. Theme</h3></div>
         <div class="col-fifth" id="progress-add-ons"><h3>4. Add Ons</h3></div>
         <div class="col-fifth" id="progress-payment"><h3>5. Payment</h3></div>
     </div>
+
+    <!--Size-->
+    <div class="row" id="size">
+        <h1>Pick a size</h1>
+        <div class="col-6">
+            <p>Here at Block Party, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+        </div>
+        <div class="col-6">
+            <form>
+                <input type="radio" name="size"> Small: 50-75<br>
+                <input type="radio" name="size"> Medium: 75-125<br>
+                <input type="radio" name="size"> Large: 125-175<br>
+                <input type="radio" name="size"> Extra Large: 175-250<br>
+                <input type="radio" name="size"> >250: Contact Us<br>
+            </form>
+            <button onclick="next()">Next</button></div>
+    </div>
+
+    <!--Occasion-->
     <div class="row" id="occasion">
+        <h1>Choose an Occasion</h1>
         <div class="col-8">
             <img src="../img/placeholder.png">
+            <h3>Description</h3>
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+        </div>
+        <div class="col-4">
+            <h3>Event Type</h3>
+            <form>
+                <input type="radio" name="base"> Generic Event<br>
+                <input type="radio" name="base"> Birthday<br>
+                <input type="radio" name="base"> Professional Function<br>
+                <input type="radio" name="base"> Outdoors Function<br>
+                <input type="radio" name="base"> High School Dance<br>
+                <input type="radio" name="base"> Instant Rave<br>
+                <input type="radio" name="base"> Holiday<br>
+            </form>
+            <button onclick="next()">Next</button>
+            <button onclick="back()">Back</button>
+        </div>
+    </div>
+
+    <!--Theme-->
+    <div class="row" id="theme">
+        <h1>Pick a theme</h1>
+        <div class="col-8">
+            <img src="../img/placeholder.png">
+            <h3>Description</h3>
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+        </div>
+        <div class="col-4">
+            <h3>Themes</h3>
+            <form>
+                <input type="radio" name="theme"> Sp00ky<br>
+                <input type="radio" name="theme"> Semi-formal<br>
+            </form>
+            <button onclick="next()">Next</button>
+            <button onclick="back()">Back</button>
+        </div>
+    </div>
+
+    <!--Add Ons-->
+    <div class="row" id="add-ons">
+        <h1>Pick some add-ons</h1>
+        <div class="col-8">
+            <img src="../img/placeholder.png">
+            <h3>Description</h3>
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
         </div>
         <div class="col-4">
             <form>
-                <input type="radio" name="base"> Holiday<br>
-                <input type="radio" name="base"> Birthday<br>
-                <input type="radio" name="base"> Religious Event<br>
-                <input type="radio" name="base"> Professional Function<br>
-                <input type="radio" name="base"> Outside Event<br>
-                <input type="radio" name="base"> High School<br>
-                <input type="radio" name="base"> Instant Rave<br>
-                <!--<input type="submit" value="Next" id="button">-->
+                <h3>Audio/Visual</h3>
+                <select name="av">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <h3>Photography</h3>
+                <select name="photography">
+                    <option value="jenny">Jenny Chung Photography</option>
+                </select>
             </form>
-            <button onclick="next()">Next</button>
         </div>
-    </div>
-    <div class="row" id="size">
-        <h1>Pick a size</h1>
+        <button onclick="next()">Next</button>
         <button onclick="back()">Back</button>
-        <button onclick="alert('No code yet!')">Next</button>
     </div>
-    <div class="row" id="theme">
-        <!-- Stuff goes here-->
-    </div>
-    <div class="row" id="add-ons">
-        <!-- Stuff goes here-->
-    </div>
+
+    <!-- Payment-->
     <div class="row" id="payment">
-        <!-- Stuff goes here-->
+        <h1>Throw money at us</h1>
+        <div class="col-12">
+            <h3>Your current total is: $0.00</h3>
+            <p>Please enter in your email to continue to checkout</p>
+            <form>
+                Email<input type="text">
+            </form>
+        </div>
+        <button onclick="alert('No checkout page code yet!')">Next</button>
+        <button onclick="back()">Back</button>
+    </div>
+        
+    <!--Total Cost-->
+    <div class="row" id="cost">
+        <h2>Total Cost: $<span>0.00</span></h2>
     </div>
     </div>
 </body>

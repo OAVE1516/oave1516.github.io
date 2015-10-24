@@ -1,15 +1,16 @@
 #progress-bar{
     margin-top: 2em;
+    margin-bottom: 2em;
     text-align: center;
     overflow: auto;
 }
 
-#progress-occasion{
+#progress-size{
     background: #e74c3c;
     color: #eee;
 }
 
-#progress-size, #progress-theme, #progress-add-ons, #progress-payment{
+#progress-occasion, #progress-theme, #progress-add-ons, #progress-payment{
     background: #e88074;
     color: #eee;
 }
@@ -23,19 +24,25 @@ button, #button{
     color: #eee;
     font-size: 30px;
     padding: 10px 20px 10px 20px;
+    margin: 0.5em 0em 0.5em 0.5em;
     text-decoration: none;
     transition: background 0.25s;
     border: 0;
+    float: right;
 }
 
 button:hover, #button:hover{
     background: #e88074;
 }
 
-#occasion{
+#size{
     display: block;
 }
 
-#size, #theme, #add-ons, #payment{
+#occasion, #theme, #add-ons, #payment{
     display: none;
+}
+
+#cost{
+    
 }
