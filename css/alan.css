@@ -16,11 +16,10 @@ ul{
      line-height: 1px;   
 }
 .employee {
-    display: inline-block;
+    display: block;
     width: auto;
     text-align: center;
     margin-top: auto;
-    margin-left: 19%;
 }
 .employee p{
     margin: 10px;
@@ -28,4 +27,12 @@ ul{
 .employee img
 {
     width: 221px;   
+}
+.col-12 h2
+{
+    text-align: center;
+}
+.col-6 h2
+{
+    text-align: center;
 }
