@@ -24,7 +24,9 @@ nav a {
 nav a:visited {
     text-decoration: none;
 }
-
+logo{
+    width: 250px;
+}
 #lunar{
     width: 242px;
     display: block;
@@ -55,8 +57,9 @@ footer .row{
 }
 
 nav img{
-    width: 5em;
+    width: 7em;
     float: left;
+    vertical-align: middle;
 }
 footer a{
     transition: color 0.15s;
@@ -77,4 +80,7 @@ footer h3{
     nav ul img{
         width: 10%;   
     }
+}
+a.hah{
+    
 }
