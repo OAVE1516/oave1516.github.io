@@ -6,12 +6,12 @@
 }
 
 #progress-size{
-    background: #e74c3c;
+    background: #C8005A;
     color: #eee;
 }
 
 #progress-occasion, #progress-theme, #progress-add-ons, #progress-payment{
-    background: #e88074;
+    background: #1B75BB; /** TO BE REPLACED BY ALT MAGENTA */
     color: #eee;
 }
 
@@ -20,7 +20,7 @@ form{
 }
 
 button, #button{
-    background-color: #e74c3c;
+    background-color: #C8005A;
     color: #eee;
     font-size: 30px;
     padding: 10px 20px 10px 20px;
@@ -32,7 +32,7 @@ button, #button{
 }
 
 button:hover, #button:hover{
-    background: #e88074;
+    background: #1B75BB; /** TO BE REPLACED BY ALT MAGENTA */
 }
 
 #size{

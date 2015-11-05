@@ -1,6 +1,3 @@
-a:hover { 
-    color: #f1c40f;
-} 
 li {  
     display: inline;
 }
@@ -10,7 +7,7 @@ nav{
     padding-bottom: 1em;
     margin-bottom: 2em;
     overflow: auto;
-    box-shadow: 0 0 25px #000;
+    box-shadow: 0 0 25px #222;
 }
 nav li { 
     font-size: 2em; 
@@ -62,7 +59,6 @@ nav img{
     float: left;
 }
 footer a{
-    color: #3498db;
     transition: color 0.15s;
 }
 

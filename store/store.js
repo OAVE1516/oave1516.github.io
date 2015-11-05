@@ -8,8 +8,8 @@ function setBackground(element, value){
 
 var pages = ["size", "occasion", "theme", "add-ons", "payment"];
 var progress = ["progress-size", "progress-occasion", "progress-theme", "progress-add-ons", "progress-payment"];
-var completed = "#e74c3c";
-var incomplete = "#e88074";
+var completed = "#C8005A";
+var incomplete = "#1B75BB"; //TO BE REPLACED BY ALT MAGENTA
 var step = 0; //Referring to array index, not user viewed step
 
 function next(){

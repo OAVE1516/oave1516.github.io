@@ -33,6 +33,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+    color: #222;
 	line-height: 1;
 }
 ol, ul {
@@ -99,6 +100,21 @@ p{
     line-height: 150%;
 }
 
+a{
+    color: #1B75BB;
+}
+
+a:hover{
+    color: #0098CB;
+}
+
+#dark a{
+    color: #0098CB;
+}
+
+#dark a:hover{
+    color: #1B75BB; 
+}
 h1, h2, h3, h4, h5, h6{
     font-family: 'Roboto', sans-serif;
 }
