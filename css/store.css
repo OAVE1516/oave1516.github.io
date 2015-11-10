@@ -11,7 +11,7 @@
 }
 
 #progress-occasion, #progress-theme, #progress-add-ons, #progress-payment{
-    background: #1B75BB; /** TO BE REPLACED BY ALT MAGENTA */
+    background: #E00069;
     color: #eee;
 }
 
@@ -32,7 +32,7 @@ button, #button{
 }
 
 button:hover, #button:hover{
-    background: #1B75BB; /** TO BE REPLACED BY ALT MAGENTA */
+    background: #E00069;
 }
 
 #size{
