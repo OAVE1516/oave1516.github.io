@@ -27,7 +27,6 @@ h2, h3{
 
 .graybg{
     background: #555;
-    height: 250px;
 }
 
 .graybg p{
@@ -35,7 +34,6 @@ h2, h3{
 }
 
 .whitebg{
-    height: 250px;
 }
 
 .whitebg h2, .whitebg p{
