@@ -92,6 +92,10 @@ table {
 .center-text{
     text-align: center;   
 }
+
+.white{
+   color: white;
+}
 body{
     background-color: #EEE;
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
@@ -118,11 +122,11 @@ a:hover{
 }
 h1, h2, h3, h4, h5, h6{
     font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
 
 h1{
     font-size: 3em;
-    text-align: center;
 }
 
 h2{
@@ -132,6 +136,7 @@ h2{
 h3{
     font-size: 1.5em;   
 }
+
 img{
     width: 100%;
 }
