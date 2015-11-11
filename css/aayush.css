@@ -28,14 +28,16 @@ h2, h3{
 .graybg{
     background: #555;
     height: 250px;
-    color: #eee;
+}
+
+.graybg p{
+    color: #eee;   
 }
 
 .whitebg{
     height: 250px;
-    color: #222;
 }
 
-.whitebg h2{
-    color:#222;   
+.whitebg h2, .whitebg p{
+    color: #222;   
 }
