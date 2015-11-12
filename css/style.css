@@ -102,10 +102,8 @@ table {
 .left-text{text-align: left;}
 .right-text{text-align: right;}
 .justify-text{text-align: justify;}
+.white{color: white;}
 
-.white{
-   color: white;
-}
 body{
     background-color: #EEE;
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
