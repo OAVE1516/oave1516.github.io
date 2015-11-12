@@ -1,8 +1,10 @@
 #progress-bar{
     margin-top: 2em;
-    margin-bottom: 2em;
     text-align: center;
     overflow: auto;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 #progress-size{
@@ -17,22 +19,6 @@
 
 form{
     line-height: 200%;   
-}
-
-button, #button{
-    background-color: #C8005A;
-    color: #eee;
-    font-size: 30px;
-    padding: 10px 20px 10px 20px;
-    margin: 0.5em 0em 0.5em 0.5em;
-    text-decoration: none;
-    transition: background 0.25s;
-    border: 0;
-    float: right;
-}
-
-button:hover, #button:hover{
-    background: #E00069;
 }
 
 #size{

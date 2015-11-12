@@ -4,7 +4,6 @@
     <meta name="viewport" content = "width=device-width, intial-scale = 1.0">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/navfooter.css">
-    <link rel="stylesheet" href="../css/contact.css">
     <title>Block Party || Contact Page</title>
     <link rel="icon" href="../img/favicon.png">
 </head>   
@@ -19,34 +18,23 @@
 	   </ul>
         </div>
     </nav>
-<div class="container">	
-    <div>
-		<div>
-			<h2>Contact Us</h2>
-			<p>Thanks for your interest in Block Party! If you have any additional questions about Block Party specifically, you can reach               us using the contact form below, or at <a href="mailto:contact@veblockparty.com">contact@veblockparty.com</a>.</p>
-			<p>If you would like to reach us through mail, you can write to us, Block Party, at <a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5">11125 Knott Ave, Cypress, CA 90630</a>.</p>
-		</div>
-		<div>
-			<form method="POST">
-				<input type="hidden" name="token" value="946e58149d0fa75d8ea2920bf7b9a73c" />
-				<table class="plain" id="contact">
-					<tr>
-						<td>Name</td><td><input type="text" name="name" /></td>
-						<td>E-mail</td><td><input type="text" name="email" /></td>
-					</tr>
-                    <tr>
-                    	<td>Subject</td><td colspan="3"><input type="text" name="subject" class="sub_input" /></td>
-                    </tr>
-					<tr>
-						<td colspan="4"><textarea name="message" rows="14" cols="50"></textarea></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="text-right"><input type="submit" name="submit" value="Submit" /></td>
-					</tr>
-				</table>
+<div class="container">
+    <h2>Contact Us</h2>
+        <div class="row">
+            <div class="col-6">
+                <p>Thanks for your interest in Block Party! If you have any additional questions about Block Party specifically, you can reach us using the contact form on this page, or by e-mailing us at <a href="mailto:contact@veblockparty.com">contact@veblockparty.com</a>.</p><br>
+			     <p>If you would like to reach us through mail, you can write to us, Block Party, at <a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5">11125 Knott Ave, Cypress, CA 90630*</a>.</p>
+                <img id="contact-image" src="http://i.istockimg.com/file_thumbview_approve/12107870/6/stock-photo-12107870-cute-business-customer-service-woman-smiling.jpg">
+            </div>
+            <div class="col-6 contact-form">
+                <form method="POST" action="contact.php">
+                    <h3>Name</h3><input type="text" name="name">
+                    <h3>E-mail</h3><input type="text" name="email">
+                    <h3>Subject</h3><input type="text" name="subject">
+                    <h3>Message</h3><textarea rows="11" name="message"></textarea>
+                    <input type="submit" name="submit" value="Submit">
 			</form>
-		</div>
+        </div>
 	</div>
-	</div>
-    </body>    
+</body>    
 </html>

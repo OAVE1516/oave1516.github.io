@@ -98,9 +98,10 @@ table {
     clear: both;   
 }
 
-.center-text{
-    text-align: center;   
-}
+.center-text{text-align: center;}
+.left-text{text-align: left;}
+.right-text{text-align: right;}
+.justify-text{text-align: justify;}
 
 .white{
    color: white;
@@ -132,6 +133,7 @@ a:hover{
 h1, h2, h3, h4, h5, h6{
     font-family: 'Roboto', sans-serif;
     text-align: center;
+    padding: 5px 0;
 }
 
 h1{
@@ -150,12 +152,62 @@ img{
     width: 100%;
 }
 
+
+textarea{
+    width: 100%;
+    resize: none;
+}
+
+input[type='text']{
+    width: 100%;
+}
+
+input[type='submit']{
+    background-color: #C8005A;
+    color: #eee;
+    font-size: 30px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    transition: background 0.25s;
+    border: 0;
+    width: 100%;
+}
+
+input[type='submit']:hover{
+    background: #E00069;
+}
+
+.contact-form h3{
+       text-align: left;
+}
+
+button{
+    background-color: #C8005A;
+    color: #eee;
+    font-size: 30px;
+    padding: 10px 20px 10px 20px;
+    margin: 0.5em 0em 0.5em 0.5em;
+    text-decoration: none;
+    transition: background 0.25s;
+    border: 0;
+    float: right;
+}
+
+button:hover{
+    background: #E00069;
+}
+
 @media only screen and (max-width: 768px) {
     [class*="col-"] {
         width: 100%;
     }
-    
     button{
         width: 100%;   
+    }
+    .contact-form h3{
+        text-align: center;   
+    }
+    #contact-image{
+        display: none;   
     }
 }
