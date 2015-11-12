@@ -21,6 +21,9 @@ nav a {
     text-decoration: none;
     transition: color 0.15s
 }
+nav a:hover{
+    color: #1B75BB;   
+}
 nav a:visited {
     text-decoration: none;
 }
@@ -80,7 +83,4 @@ footer h3{
     nav ul img{
         width: 10%;   
     }
-}
-a.hah{
-    
 }

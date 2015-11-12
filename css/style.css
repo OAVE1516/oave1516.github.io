@@ -123,6 +123,9 @@ a:hover{
     color: #0098CB;
 }
 
+/**   Primary/Alt variations of blue are inverted on dark backings so
+        the shown color is lighter (and hover is darker)
+*/
 #dark a{
     color: #0098CB;
 }
