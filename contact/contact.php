@@ -29,16 +29,16 @@ $mail->isHTML(true);
 
 $mail->addAddress('contact@veblockparty.com');
 $mail->Subject = $subject;
-$mail->Body = "Message from: " . $name . "(". $email . "):<br><br>" . $message;
+$mail->Body = "Message from " . $name . " (". $email . "):<br><br>" . $message;
 
+$location = "Location: http://veblockparty.com/contact/index.php?text=";
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if(!$mail->send()) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        header($location . "Message could not be sent. Mailer Error: " . $mail ->ErrorInfo);
     } else {
-        echo 'Message has been sent';
+        header($location . "Success! Message has been sent.");
     }
 }
 else{
-    echo 'Invalid email';   
+    header($location . "Please enter a valid email address");
 }

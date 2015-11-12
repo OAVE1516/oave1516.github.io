@@ -183,9 +183,17 @@ input[type='submit']:hover{
 }
 
 .contact-form h3{
-       text-align: left;
+   text-align: left;
 }
-
+.contact-form button{
+    width: 100%;   
+}
+#contact-response{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    color: #C8005A;   
+}
 button{
     background-color: #C8005A;
     color: #eee;
