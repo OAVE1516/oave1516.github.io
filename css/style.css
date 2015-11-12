@@ -171,6 +171,8 @@ input[type='submit']{
     transition: background 0.25s;
     border: 0;
     width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 
 input[type='submit']:hover{
@@ -191,6 +193,8 @@ button{
     transition: background 0.25s;
     border: 0;
     float: right;
+    font-family: 'Robot', sans-serif;
+    font-weight: bold;
 }
 
 button:hover{
