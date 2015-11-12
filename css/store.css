@@ -1,13 +1,3 @@
-.store input[type="radio"]:checked + label{
-    background: blue;
-}
-.store input[type="radio"]:hover{
-    background: red;   
-}
-.store input{
-    list-style-type: none;   
-}
-
 #progress-bar{
     margin-top: 2em;
     text-align: center;
