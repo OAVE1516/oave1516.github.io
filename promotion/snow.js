@@ -1,6 +1,6 @@
-window.onload = function () {
+window.onload = function(){
 	//canvas init
-	var use strict canvas = document.getElementById("canvas");
+	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext("2d");
 	
 	//canvas dimensions
@@ -80,3 +80,7 @@ window.onload = function () {
 			}
 		}
 	}
+	
+	//animation loop
+	setInterval(draw, 33);
+}
