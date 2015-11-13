@@ -28,7 +28,6 @@
         <div class="col-fifth" id="progress-add-ons">4. Add Ons</div>
         <div class="col-fifth" id="progress-payment">5. Payment</div>
     </div>
-
     <!--Size-->
     <div class="row" id="size">
         <h1>Pick a size</h1>
@@ -37,14 +36,19 @@
         </div>
         <div class="col-6">
             <form>
+                <label><input type="radio" name="size" id="small"><span>Small: 50-75</span></label>
+                <label><input type="radio" name="size" id="medium"><span>Medium: 75-125</span></label>
+                <label><input type="radio" name="size" id="large"><span>Large: 125-175</span></label>
+                <label><input type="radio" name="size" id="xlarge"><span>Extra Large: 175-250</span></label>
+                <!--
                 <input type="radio" name="size" id="small">Small: 50-75<br>
                 <input type="radio" name="size" id="medium">Medium: 75-125<br>
                 <input type="radio" name="size" id="large">Large: 125-175<br>
                 <input type="radio" name="size" id="xlarge">Extra Large: 175-250<br>
                 <input type="radio" name="size" id="contact">>250: Contact Us<br>
-            </form>
-            <button onclick="next()">Next</button></div>
-    </div>
+            --></form>
+        </div>
+        <button onclick="next()">Next</button></div>
 
     <!--Occasion-->
     <div class="row" id="occasion">
@@ -59,9 +63,9 @@
             <form>
                 <input type="radio" name="base">Generic Event<br>
             </form>
-            <button onclick="next()">Next</button>
-            <button onclick="back()">Back</button>
         </div>
+        <button onclick="next()">Next</button>
+        <button onclick="back()">Back</button>
     </div>
 
     <!--Theme-->
@@ -79,9 +83,9 @@
                 <input type="radio" name="theme">Masquerade<br>
                 <input type="radio" name="theme">1920s<br>
             </form>
-            <button onclick="next()">Next</button>
-            <button onclick="back()">Back</button>
         </div>
+        <button onclick="next()">Next</button>
+        <button onclick="back()">Back</button>
     </div>
 
     <!--Add Ons-->
@@ -123,9 +127,9 @@
                 <h3>Street Address</h3><input type="text" name="address" id="address">
                 <h3>City</h3><input type="text" name="city" id="city">
                 <h3>State</h3>
-                <select name="state">
-                    <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
-                </select>
+                <div class="center"><select name="state">
+                <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                </select></div>
                 <h3>Zip Code</h3><input type="text" name="zip" id="zip">
                 <!--<input type="submit" name="submit" value="Submit">-->
             </form>
@@ -136,7 +140,7 @@
         
     <!--Total Cost-->
     <div class="row" id="cost">
-        <h2>Total Cost: $<span>0.00</span></h2>
+        <h2>Total Cost: $0.00</h2>
     </div>
     </div>
 </body>

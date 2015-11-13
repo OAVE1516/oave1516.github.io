@@ -29,6 +29,34 @@ form{
     display: none;
 }
 
-#cost{
-    
+.store label{
+    background-color: #1B75BB;
+    color: #eee;
+    font-size: 30px;
+    margin: 0.5em 0em;
+    text-decoration: none;
+    transition: background 0.25s;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.store label input{
+    position: absolute;
+    visibility: hidden;
+}
+
+.store label:hover{
+    background-color:#0098CB;   
+}
+.store label input:checked + span{
+    background-color: #0098CB;
+}
+
+.store span {
+    padding: 10px 20px 10px 20px;
+    display:block;
 }

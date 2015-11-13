@@ -103,7 +103,10 @@ table {
 .right-text{text-align: right;}
 .justify-text{text-align: justify;}
 .white{color: white;}
-
+.center{
+    margin-right: auto;
+    margin-left: auto;
+}
 body{
     background-color: #EEE;
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
@@ -202,7 +205,7 @@ button{
     transition: background 0.25s;
     border: 0;
     float: right;
-    font-family: 'Robot', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
 }
 
@@ -222,5 +225,8 @@ button:hover{
     }
     #contact-image{
         display: none;   
+    }
+    select{
+        text-align: center;
     }
 }
