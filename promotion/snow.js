@@ -2,13 +2,11 @@ window.onload = function(){
 	//canvas init
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext("2d");
-	
 	//canvas dimensions
 	var W = window.innerWidth;
 	var H = window.innerHeight;
 	canvas.width = W;
 	canvas.height = H;
-	
 	//snowflake particles
 	var mp = 25; //max particles
 	var particles = [];
@@ -21,7 +19,6 @@ window.onload = function(){
 			d: Math.random()*mp //density
 		})
 	}
-	
 	//Lets draw the flakes
 	function draw()
 	{
@@ -38,7 +35,6 @@ window.onload = function(){
 		ctx.fill();
 		update();
 	}
-	
 	//Function to move the snowflakes
 	//angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
 	var angle = 0;
@@ -54,7 +50,6 @@ window.onload = function(){
 			//Lets make it more random by adding in the radius
 			p.y += Math.cos(angle+p.d) + 1 + p.r/2;
 			p.x += Math.sin(angle) * 2;
-			
 			//Sending flakes back from the top when it exits
 			//Lets make it a bit more organic and let flakes enter from the left and right also.
 			if(p.x > W+5 || p.x < -5 || p.y > H)
@@ -80,7 +75,6 @@ window.onload = function(){
 			}
 		}
 	}
-	
 	//animation loop
 	setInterval(draw, 33);
 }
