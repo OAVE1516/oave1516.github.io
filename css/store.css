@@ -60,3 +60,30 @@ form{
     padding: 10px 20px 10px 20px;
     display:block;
 }
+
+#fullnext{
+    width: 100%;   
+}
+#next{
+    width: 47.5%;
+    float: right;
+}
+#back{
+    width: 47.5%;
+    float: left;
+}
+
+#cost{
+    width: 100%;
+    color: #fff;
+    background-color: #555;
+    padding: 0.5em 0em;
+    
+}
+@media only screen and (max-width: 768px) {
+    #cost{
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+    }
+}

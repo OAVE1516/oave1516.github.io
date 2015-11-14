@@ -33,92 +33,143 @@
         <h1>Pick a size</h1>
         <div class="col-6">
             <p>Here at Block Party, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+            <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6">
             <form>
                 <label><input type="radio" name="size" id="small"><span>Small: 50-75</span></label>
                 <label><input type="radio" name="size" id="medium"><span>Medium: 75-125</span></label>
                 <label><input type="radio" name="size" id="large"><span>Large: 125-175</span></label>
-                <label><input type="radio" name="size" id="xlarge"><span>Extra Large: 175-250</span></label>
-                <!--
-                <input type="radio" name="size" id="small">Small: 50-75<br>
-                <input type="radio" name="size" id="medium">Medium: 75-125<br>
-                <input type="radio" name="size" id="large">Large: 125-175<br>
-                <input type="radio" name="size" id="xlarge">Extra Large: 175-250<br>
-                <input type="radio" name="size" id="contact">>250: Contact Us<br>
-            --></form>
+                <label><input type="radio" name="size" id="xlarge"><span>Extra Large: 175-250</span></label></form>
+            <button onclick="next()" id="fullnext">Next</button></div>
         </div>
-        <button onclick="next()">Next</button></div>
 
     <!--Occasion-->
     <div class="row" id="occasion">
         <h1>Choose an Occasion</h1>
-        <div class="col-8">
-            <img src="../img/placeholder.png">
-            <h3>Description</h3>
+        <p>GOT AN OCCASION? WE CAN HOOK YOU UP!</p>
+        <form>
+        <div class="grid-3">
+            <h3>Holiday</h3>
+            <img src="/img/placeholder.png">
             <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $80.38</span></label>
         </div>
-        <div class="col-4">
-            <h3>Event Type</h3>
-            <form>
-                <input type="radio" name="base">Generic Event<br>
-            </form>
+        <div class="grid-3">
+            <h3>Birthday</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $100.00</span></label>
         </div>
-        <button onclick="next()">Next</button>
-        <button onclick="back()">Back</button>
+        <div class="grid-3">
+            <h3>Religious Event</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $80.00</span></label>
+        </div>
+        <div class="grid-3">
+            <h3>Professional Function</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $400.00</span></label>
+        </div>
+        <div class="grid-3">
+            <h3>Outdoor Event</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $120.00</span></label>
+        </div>
+        <div class="grid-3">
+            <h3>High School Event</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $157.00</span></label>
+        </div>
+        <div class="grid-3">
+            <h3>InstaRave&trade;</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="occasion"><span>Add $164.22</span></label>
+        </div>
+        </form>
+        <button onclick="next()" id="next">Next</button>
+        <button onclick="back()" id="back">Back</button>
     </div>
 
     <!--Theme-->
     <div class="row" id="theme">
         <h1>Pick a theme</h1>
-        <div class="col-8">
-            <img src="../img/placeholder.png">
-            <h3>Description</h3>
+        <p>THEMES ARE DANK, YO! PICK ONE!</p>
+        <div class="grid-3">
+            <h3>Masquerade</h3>
+            <img src="/img/placeholder.png">
             <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="theme"><span>Select</span></label>
         </div>
-        <div class="col-4">
-            <h3>Themes</h3>
-            <form>
-                <input type="radio" name="theme">Current Popular Movie<br>
-                <input type="radio" name="theme">Masquerade<br>
-                <input type="radio" name="theme">1920s<br>
-            </form>
+        <div class="grid-3">
+            <h3>1920s</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="theme"><span>Select</span></label>
         </div>
-        <button onclick="next()">Next</button>
-        <button onclick="back()">Back</button>
+        <div class="grid-3">
+            <h3>Beach</h3>
+            <img src="/img/placeholder.png">
+            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="theme"><span>Select</span></label>
+        </div>
+            <button onclick="next()" id="next">Next</button>
+            <button onclick="back()" id="back">Back</button>
     </div>
 
     <!--Add Ons-->
     <div class="row" id="add-ons">
-        <h1>Pick some add-ons</h1>
-        <div class="col-8">
-            <img src="../img/placeholder.png">
-            <h3>Description</h3>
-            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+        <h1>Toss in some Add-ons!</h1>
+        <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
+        <h2 class="left-text">Food</h2>
+        <div class="grid-3">
+            <h3>Popcorn Machine</h3>
+            <img src="/img/placeholder.png">
+            <p>It makes popcorn. What did you expect? Serves ~100 people</p>
+            <label><input type="checkbox" name="add-on"><span>Add $30.00</span></label>
         </div>
-        <div class="col-4">
-            <form>
-                <h3>Audio/Visual</h3>
-                <select name="av">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-                <h3>Photography</h3>
-                <select name="photography">
-                    <option value="jenny">Jenny Chung Photography</option>
-                </select>
-            </form>
+        <div class="grid-3">
+            <h3>Snow Cone Machine</h3>
+            <img src="/img/placeholder.png">
+            <p>It makes snow cones. What did you expect? Serves ~100 people</p>
+            <label><input type="checkbox" name="add-on"><span>Add $30.00</span></label>
         </div>
-        <button onclick="next()">Next</button>
-        <button onclick="back()">Back</button>
+        <div class="grid-3">
+            <h3>Cotton Candy Machine</h3>
+            <img src="/img/placeholder.png">
+            <p>It makes cotton candy. What did you expect? Serves ~100 people</p>
+            <label><input type="checkbox" name="add-on"><span>Add $30.00</span></label>
+        </div>
+        
+        <h2 class="left-text">Performers</h2>
+        <div class="grid-3">
+            <h3>DJ aPATEL</h3>
+            <img src="/img/placeholder.png">
+            <p>It was the only DJ we could find that would be willing to fit and live in a box for a few days while being shipped. Serves dank beats.</p>
+            # of Hours <input type="number">
+            <label><input type="radio" name="add-on"><span>Add $100/hr</span></label>
+        </div>
+        <div class="grid-3">
+            <h3>Musical Performers</h3>
+            <img src="/img/placeholder.png">
+            <p>Live musicians. We don't actually have any so you'll have to contact us for "more information".</p>
+            <label><input type="radio" name="add-on"><span>Contact Us</span></label>
+        </div>
+            <button onclick="next()" id="next">Next</button>
+            <button onclick="back()" id="back">Back</button>
     </div>
 
     <!-- Payment-->
     <div class="row" id="payment">
         <h1>Checkout</h1>
         <div class="col-6">
-            <p>Thanks for buying our stuff you're gonna be p happy about it. pls fill out form to continue.</p>
-            <img id="contact-image" src="/img/placeholder.png">
+            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing Block Party LLC*.</p>
+            <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6 contact-form">
             <form action="send_invoice.php" method="POST">
@@ -126,22 +177,25 @@
                 <h3>Your E-mail</h3><input type="text" name="email" id="email">
                 <h3>Street Address</h3><input type="text" name="address" id="address">
                 <h3>City</h3><input type="text" name="city" id="city">
-                <h3>State</h3>
-                <div class="center"><select name="state">
-                <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
-                </select></div>
-                <h3>Zip Code</h3><input type="text" name="zip" id="zip">
+                <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
+                    <h3>State</h3>
+                    <select name="state">
+                    <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                    </select>
+                </div>
+                <div style="width: 75%; float: left; padding: 0px;">
+                    <h3>Zip Code</h3><input type="text" name="zip" id="zip">
+                </div>
                 <!--<input type="submit" name="submit" value="Submit">-->
             </form>
+            <button onclick="alert('No checkout page code yet!')" id="next">Next</button>
+            <button onclick="back()" id="back">Back</button>
         </div>
-        <button onclick="alert('No checkout page code yet!')">Next</button>
-        <button onclick="back()">Back</button>
     </div>
-        
+    </div>
     <!--Total Cost-->
-    <div class="row" id="cost">
-        <h2>Total Cost: $0.00</h2>
-    </div>
+    <div id="cost">
+        <h2>Total Cost: $DOES NOT WORK YET :(</h2>
     </div>
 </body>
     <footer id="dark">

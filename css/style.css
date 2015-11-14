@@ -73,6 +73,15 @@ table {
     height: 0;
 }
 
+.grid-2{width:49%;}
+.grid-3{width: 33%;}
+.grid-4{width: 24%;}
+
+[class*="grid-"]{
+    display: inline-block;
+    padding: 15px;
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -82,7 +91,6 @@ table {
 .col-7 {width: 58.33%;}
 .col-8 {width: 66.66%;}
 .col-9 {width: 75%;}
-.col-9_5 {width: 78%}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
@@ -166,6 +174,10 @@ input[type='text']{
     width: 100%;
 }
 
+select{
+    width: 100%;   
+}
+
 input[type='submit']{
     background-color: #C8005A;
     color: #eee;
@@ -200,7 +212,7 @@ button{
     color: #eee;
     font-size: 30px;
     padding: 10px 20px 10px 20px;
-    margin: 0.5em 0em 0.5em 0.5em;
+    /**margin: 0.5em 0em 0.5em 0.5em;*/
     text-decoration: none;
     transition: background 0.25s;
     border: 0;
@@ -214,8 +226,11 @@ button:hover{
 }
 
 @media only screen and (max-width: 768px) {
-    [class*="col-"] {
+    [class*="col-"]{
         width: 100%;
+    }
+    [class*="grid-"]{
+        width: 100%;   
     }
     button{
         width: 100%;   
@@ -223,7 +238,7 @@ button:hover{
     .contact-form h3{
         text-align: center;   
     }
-    #contact-image{
+    .hide-on-mobile{
         display: none;   
     }
     select{
