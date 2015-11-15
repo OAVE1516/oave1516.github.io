@@ -17,17 +17,43 @@ $themes = $conn->query("SELECT * FROM products WHERE category = 3");
 $addons = $conn->query("SELECT * FROM products WHERE category = 4");
 $totalPrice = 0;
 
-echo "List of occasions<br>";
-while ($row = $occasions->fetch_assoc())
-    echo "Name: " . $row["name"] . "<br>";
+function putInGrid($category, $name, $image, $price, $description){
+    //Sets default values if the database is empty
+    if (empty($image))
+        $image = "http://oave1516.github.io/img/placeholder.png";
+    if (empty($price))
+        $price = 0.00;
+    if (empty($description))
+        $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
+    //Uses the template to print data into the html grid
+       echo "
+        <div class='grid-3'>" . "
+                <h3>" . $name . "</h3>" . "
+        <img src='" . $image . "'>" ."
+        <label><input type='radio' name='" . $category . "'><span>Add $" . $price . "</span></label>" . "
+        <p>" . $description . "</p></div>";
+}
 
-echo "List of themes<br>";
-while ($row = $themes->fetch_assoc())
-    echo "Name: " . $row["name"] . "<br>";   
+function writeOccasions(){
+    global $occasions;
+    while ($row = $occasions->fetch_assoc()){
+           putInGrid("occasion", $row["name"], $row["image"], $row["price"], $row["description"]);
+    }
+}
 
-echo "List of addons<br>";
-while ($row = $addons->fetch_assoc())
-    echo "Name: " . $row["name"] . "<br>";
+function writeThemes(){
+    global $themes;
+    while ($row = $themes->fetch_assoc()){
+           putInGrid("theme", $row["name"], $row["image"], $row["price"], $row["description"]);
+    }
+}
+
+function writeAddons(){
+    global $addons;
+    while ($row = $addons->fetch_assoc()){
+           putInGrid("add-on", $row["name"], $row["image"], $row["price"], $row["description"]);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,14 +109,9 @@ while ($row = $addons->fetch_assoc())
         <h1>Choose an Occasion</h1>
         <p>GOT AN OCCASION? WE CAN HOOK YOU UP!</p>
         <form>
-            <!--
-        <div class="grid-3">
-            <h3>Holiday</h3>
-            <img src="/img/placeholder.png">
-            <label><input type="radio" name="occasion"><span>Add $80.38</span></label>
-            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.</p>
-        </div>
-            -->
+            <?php
+                writeOccasions();
+            ?>
         </form>
         <div class="col-12">
             <button onclick="next()" id="next">Next</button>
@@ -103,14 +124,9 @@ while ($row = $addons->fetch_assoc())
         <h1>Pick a theme</h1>
         <p>THEMES ARE DANK, YO! PICK ONE!</p>
         <form>
-            <!--
-        <div class="grid-3">
-            <h3>Masquerade</h3>
-            <img src="/img/placeholder.png">
-            <label><input type="radio" name="theme"><span>Select</span></label>
-            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
-        </div>
-            -->
+            <?php
+                writeThemes();
+            ?>
         </form>
         <div class="col-12">
             <button onclick="next()" id="next">Next</button>
@@ -123,6 +139,9 @@ while ($row = $addons->fetch_assoc())
         <h1>Toss in some Add-ons!</h1>
         <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
         <form>
+            <?php
+                writeAddons();
+            ?>
             <!--
         <h2 class="left-text">Food</h2>
         <div class="grid-3">
