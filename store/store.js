@@ -16,9 +16,11 @@ function next(){
     setDisplay(pages[step], pages[step+1]);
     setBackground(progress[step+1], completed);
     step++;
+    document.getElementById("progress-bar").scrollIntoView();
 }
 function back(){
     setDisplay(pages[step], pages[step-1]);
     setBackground(progress[step], incomplete);
     step--;
+    document.getElementById("progress-bar").scrollIntoView();
 }
