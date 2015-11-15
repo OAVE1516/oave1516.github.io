@@ -1,12 +1,44 @@
+<?php
+require 'passwords.php';
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error)
+    die("Connection failed to the server failed. Please email it@veblockparty.com<br>" . $conn->connect_error);
+
+// Check database selection
+if (!$conn->select_db($database))
+    echo "Failed to select the products database. Please email it@veblockparty.com";
+
+$occasions = $conn->query("SELECT * FROM products WHERE category = 2");
+$themes = $conn->query("SELECT * FROM products WHERE category = 3");
+$addons = $conn->query("SELECT * FROM products WHERE category = 4");
+$totalPrice = 0;
+
+echo "List of occasions<br>";
+while ($row = $occasions->fetch_assoc())
+    echo "Name: " . $row["name"] . "<br>";
+
+echo "List of themes<br>";
+while ($row = $themes->fetch_assoc())
+    echo "Name: " . $row["name"] . "<br>";   
+
+echo "List of addons<br>";
+while ($row = $addons->fetch_assoc())
+    echo "Name: " . $row["name"] . "<br>";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../img/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/store.css">
-    <link rel="stylesheet" href="../css/navfooter.css">
-    <script src="store.js"></script>
+    <link rel="icon" href="../../img/favicon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/store.css">
+    <link rel="stylesheet" href="../../css/navfooter.css">
+    <script src="../store.js"></script>
     <title>Block Party || Store</title>
 </head>
 <body>
@@ -158,3 +190,8 @@
         </div>
     </footer>
 </html>
+
+<?php
+//Close conn...why do I need to comment this
+$conn->close();
+?>
