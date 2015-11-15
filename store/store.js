@@ -18,6 +18,7 @@ function next(){
     step++;
     document.getElementById("progress-bar").scrollIntoView();
 }
+
 function back(){
     setDisplay(pages[step], pages[step-1]);
     setBackground(progress[step], incomplete);

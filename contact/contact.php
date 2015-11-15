@@ -1,5 +1,6 @@
 <?php
 require '../PHPMailer/PHPMailerAutoload.php';
+require '../passwords.php';
 
 $name = $_POST["name"];
 $email = $_POST["email"];
@@ -14,9 +15,9 @@ $mail->Host = 'mail.veblockparty.com';
 // Enable SMTP authentication
 $mail->SMTPAuth = true; 
 // SMTP username
-$mail->Username = 'website@veblockparty.com';
+$mail->Username = $webuser;
 // SMTP password
-$mail->Password = '$W3bPass!'; 
+$mail->Password = $webpass;
 // Enable TLS encryption, `ssl` also accepted
 $mail->SMTPSecure = 'tls';
 // TCP port to connect to

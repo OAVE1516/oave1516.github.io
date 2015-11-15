@@ -1,3 +1,71 @@
+<?php
+require '../passwords.php';
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error)
+    die("Connection failed to the server failed. Please email it@veblockparty.com<br>" . $conn->connect_error);
+
+// Check database selection
+if (!$conn->select_db($database))
+    echo "Failed to select the products database. Please email it@veblockparty.com";
+
+$occasions = $conn->query("SELECT * FROM products WHERE category = 2");
+$themes = $conn->query("SELECT * FROM products WHERE category = 3");
+$addons = $conn->query("SELECT * FROM products WHERE category = 4");
+$totalPrice = 0;
+
+function putInGrid($category, $name, $image, $price, $description){
+    //Sets default values if the database is empty
+    if (empty($image))
+        $image = "http://oave1516.github.io/img/placeholder.png";
+    if (empty($price))
+        $price = 0.00;
+    if (empty($description))
+        $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
+    
+    //Non priced items (multipliers) are logged as -1 in the database
+    if ($price < 0){
+        if ($category == "theme"){
+            $price = number_format((float)$totalPrice * 0.4, 2, '.', '');
+        }
+    }
+    $buttonText = "Add $" . $price;
+    //Uses a template to print data into the html grid
+       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='radio' name='" . $category . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
+}
+
+function writeOccasions(){
+    global $occasions;
+    while ($row = $occasions->fetch_assoc()){
+           putInGrid("occasion", $row["name"], $row["image"], $row["price"], $row["description"]);
+    }
+}
+
+function writeThemes(){
+    global $themes;
+    while ($row = $themes->fetch_assoc()){
+           putInGrid("theme", $row["name"], $row["image"], $row["price"], $row["description"]);
+    }
+}
+
+function writeAddons(){
+    global $addons;
+    $food = 0;
+    $performers = 1;
+    $photography = 2;
+    $av = 3;
+    $setup = 4;
+    $outdoor = 5;
+    $subcategories = array("Food", "Performers", "Photography", "Audio/Visual Equipment", "Setup", "Outdoor Equipment");
+    while ($row = $addons->fetch_assoc()){
+           putInGrid("add-on", $row["name"], $row["image"], $row["price"], $row["description"]);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +78,26 @@
     <title>Block Party || Store</title>
 </head>
 <body>
+    <div class="desktop-nav">
     <nav>
         <div class="container">
-	   <ul> 
-		  <a href="/"><img src="/img/logo.svg"></a>
-		  <li><a href="/contact">Contact</a></li>
-		  <li><a href="/store">Store</a></li>
-          <li><a href="/about">About</a></li>
+        <ul> 
+            <a href="/"><img src="/img/logo.svg"></a>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/about">About</a></li>
 	   </ul>
         </div>
     </nav>
+    </div>
+    <div class="mobile-nav row">
+    <nav>
+        <div class="mobile-nav-icon"><a href="/"><img src="/img/home.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/about"><img src="/img/about.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/store"><img src="/img/store.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/contact/"><img src="/img/contact.svg"></a></div>
+    </nav>
+    </div>
     <div class="store container">
     <div class="row" id="progress-bar">
         <div class="col-fifth" id="progress-size">1. Size</div>
@@ -37,7 +115,7 @@
         </div>
         <div class="col-6">
             <form>
-                <label><input type="radio" name="size" id="small"><span>Small: 50-75</span></label>
+                <label><input type="radio" name="size" id="small" checked><span>Small: 50-75</span></label>
                 <label><input type="radio" name="size" id="medium"><span>Medium: 75-125</span></label>
                 <label><input type="radio" name="size" id="large"><span>Large: 125-175</span></label>
                 <label><input type="radio" name="size" id="xlarge"><span>Extra Large: 175-250</span></label>
@@ -51,14 +129,15 @@
         <h1>Choose an Occasion</h1>
         <p>GOT AN OCCASION? WE CAN HOOK YOU UP!</p>
         <form>
-            <!--
         <div class="grid-3">
-            <h3>Holiday</h3>
+            <h3>Generic</h3>
             <img src="/img/placeholder.png">
-            <label><input type="radio" name="occasion"><span>Add $80.38</span></label>
-            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.</p>
+            <label><input type="radio" name="occasion" checked><span>Add $0.00</span></label>
+            <p>Even the description is generic.</p>
         </div>
-            -->
+            <?php
+                writeOccasions();
+            ?>
         </form>
         <div class="col-12">
             <button onclick="next()" id="next">Next</button>
@@ -71,14 +150,15 @@
         <h1>Pick a theme</h1>
         <p>THEMES ARE DANK, YO! PICK ONE!</p>
         <form>
-            <!--
         <div class="grid-3">
-            <h3>Masquerade</h3>
+            <h3>No Theme</h3>
             <img src="/img/placeholder.png">
-            <label><input type="radio" name="theme"><span>Select</span></label>
-            <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra. Sed in dui ac justo scelerisque convallis a in dui. Phasellus ipsum nisl, facilisis a massa et, sodales malesuada neque.</p>
+            <label><input type="radio" name="theme" checked><span>Add $0.00</span></label>
+            <p>Maybe you don't need a crazy theme to have fun. Plain decorations all around.</p>
         </div>
-            -->
+            <?php
+                writeThemes();
+            ?>
         </form>
         <div class="col-12">
             <button onclick="next()" id="next">Next</button>
@@ -91,6 +171,9 @@
         <h1>Toss in some Add-ons!</h1>
         <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
         <form>
+            <?php
+                writeAddons();
+            ?>
             <!--
         <h2 class="left-text">Food</h2>
         <div class="grid-3">
@@ -158,3 +241,8 @@
         </div>
     </footer>
 </html>
+
+<?php
+//Close conn...why do I need to comment this
+$conn->close();
+?>

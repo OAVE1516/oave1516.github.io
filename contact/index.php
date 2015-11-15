@@ -8,17 +8,27 @@
     <script src="contact.js"></script>
     <title>Block Party || Contact Page</title>
 </head>   
-<body>  
+<body> 
+    <div class="desktop-nav">
     <nav>
         <div class="container">
-	   <ul> 
-		  <a href="/"><img src="/img/logo.svg"></a>
-		  <li><a href="/contact">Contact</a></li>
-		  <li><a href="/store">Store</a></li>
-          <li><a href="/about">About</a></li>
+        <ul> 
+            <a href="/"><img src="/img/logo.svg"></a>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/about">About</a></li>
 	   </ul>
         </div>
     </nav>
+    </div>
+    <div class="mobile-nav row">
+    <nav>
+        <div class="mobile-nav-icon"><a href="/"><img src="/img/home.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/about"><img src="/img/about.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/store"><img src="/img/store.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/contact/"><img src="/img/contact.svg"></a></div>
+    </nav>
+    </div>
 <div class="container">
     <div class="row center-text">
         <div id="contact-response">
