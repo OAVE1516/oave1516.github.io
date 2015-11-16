@@ -17,10 +17,18 @@ $occasions = $conn->query("SELECT * FROM products WHERE category = 2");
 $themes = $conn->query("SELECT * FROM products WHERE category = 3");
 $addons = $conn->query("SELECT * FROM products WHERE category = 4");
 $totalPrice = 0;
+
+$sel_size;
+$sel_occasion;
+$sel_theme;
+$sel_addons;
+
 //default size multiplier;
 $size = 1;
+
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
-function putInGrid($category, $name, $image, $price, $description){
+function putInGrid($id, $category, $subcategory, $name, $image, $price, $description){
+    global $size, $totalPrice;
     //Sets default values if the database is empty
     if (empty($image))
         $image = "http://oave1516.github.io/img/placeholder.png";
@@ -35,33 +43,40 @@ function putInGrid($category, $name, $image, $price, $description){
     if ($price < 0){
         if ($category == "theme"){
             //All themes are to provide a multiplier of 1.4 to the price, so we add 40% of total to the button
-            $price = $totalPrice * 0.4;
-            //$price = number_format((float)$totalPrice * 0.4, 2, '.', '');
+            $price = number_format((float)$totalPrice * 0.4, 2, '.', '');
         }
     }
     else{
-        //Size is the price multiplier from due to the size. Here it is formatted to two decimals
-        echo "@ line 45 it is a " . gettype($size);
-        $price = $price * $size;
-        //$price = number_format((float)$price * $size, 2, '.', '');
+        //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
+        if ($category == "add-on" && $subcategory != 0){
+            $price = number_format((float)$price, 2, '.', '');
+        }
+        //Otherwise, we multiply price by the $size multiplier
+        else{
+            $price = number_format((float)$price * $size, 2, '.', '');
+        }
     }
     $buttonText = "Add $" . $price;
     
+    if ($category != "add-on")
+        $type = "radio";
+    else
+        $type = "checkbox";
     //Uses a template to print data into the html grid
-       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='radio' name='" . $category . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
+       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='" . $type . "' name='" . $category . "' value='" . $name . "' id='" . $id . "' data-price='" . $price . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
 }
 
 function writeOccasions(){
     global $occasions;
     while ($row = $occasions->fetch_assoc()){
-           putInGrid("occasion", $row["name"], $row["image"], $row["price"], $row["description"]);
+           putInGrid($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
 function writeThemes(){
     global $themes;
     while ($row = $themes->fetch_assoc()){
-           putInGrid("theme", $row["name"], $row["image"], $row["price"], $row["description"]);
+           putInGrid($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
@@ -85,7 +100,7 @@ function writeAddons(){
             echo "<h2 class='left-text'>Setup</h2>";
         if ($row["subcategory"] == $OUTDOOR)
             echo "<h2 class='left-text'>Outdoor Equipment</h2>";
-        putInGrid("add-on", $row["name"], $row["image"], $row["price"], $row["description"]);
+        putInGrid($row["id"], "add-on", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 ?>
@@ -144,19 +159,23 @@ function writeAddons(){
                 <label><input type="radio" name="size" value="large"><span>Large: 125-175</span></label>
                 <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
                 <p>For sizes larger than 250 people, please <a href="/contact/">contact us.</a></p>
-                <input type="submit" name="submit" value="Next">
+                <input type="submit" value="Next">
             </form>
             <?php
                 //When the user submits the size, the form posts
                 if (isset($_POST["size"])){
                     switch ($_POST["size"]){
                         case "small":
+                        $sel_size = "Small";
                         $size = 1; break;
                         case "medium":
+                        $sel_size = "Medium";
                         $size = 1.75; break;
                         case "large":
+                        $sel_size = "Large";
                         $size = 2.3; break;
                         case "xlarge":
+                        $sel_size = "Extra Large";
                         $size = 2.6; break;
                         default:
                             echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
@@ -164,11 +183,9 @@ function writeAddons(){
                     //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         next();
-                    });</script>";
-                    echo "@ line 168 it is a " . gettype($size);
+                    });</script>";   
                 }
             ?>
-            <!--<button onclick="next()" id="fullnext">Next</button>-->
         </div>
     </div>
 
@@ -176,20 +193,39 @@ function writeAddons(){
     <div class="row" id="occasion">
         <h1>Choose an Occasion</h1>
         <p>GOT AN OCCASION? WE CAN HOOK YOU UP!</p>
-        <form>
+        <form method="post">
         <div class="grid-3">
             <h3>Generic</h3>
             <img src="/img/placeholder.png">
-            <label><input type="radio" name="occasion" checked><span>Add $0.00</span></label>
+            <label><input type="radio" name="occasion" value="generic" checked id="generic" data-price="0.00"><span>Add $0.00</span></label>
             <p>Even the description is generic.</p>
         </div>
-            <?php
-                writeOccasions();
-            ?>
-        </form>
+        <?php
+            writeOccasions();
+            if (isset($_POST["occasion"])){
+                $post_val = $_POST["occasion"];
+                if ($post_val != "generic"){
+                    $post_price = $conn->query("SELECT price FROM products WHERE category = 2 AND name = '" . $post_val . "'");
+                    $post_price *= $size;
+                }
+                else
+                    $post_price = 0; //THIS SHOULD NOT BE NON ZERO, PLEASE CONTACT SALES DEPT ASAP
+                $totalPrice += $post_price;
+                $sel_occasion = array($post_val, $post_price);
+                //Go next twice to get to Step 3 (posting to own page brings you back to the start)
+                echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                    next();next();
+                });</script>";
+            }
+        ?>
         <div class="col-12">
-            <button onclick="next()" id="next">Next</button>
+            <input type="submit" value="Next" id="next">
+        </form>
             <button onclick="back()" id="back">Back</button> 
+            <?php
+                //Debug code
+                echo "Total Price: " . $totalPrice;
+            ?>
         </div>
     </div>
 
@@ -197,20 +233,38 @@ function writeAddons(){
     <div class="row" id="theme">
         <h1>Pick a theme</h1>
         <p>THEMES ARE DANK, YO! PICK ONE!</p>
-        <form>
+        <form method="post">
         <div class="grid-3">
             <h3>No Theme</h3>
             <img src="/img/placeholder.png">
-            <label><input type="radio" name="theme" checked><span>Add $0.00</span></label>
+            <label><input type="radio" name="theme" value="no-theme" checked id="no-theme" data-price="0.00"><span>Add $0.00</span></label>
             <p>Maybe you don't need a crazy theme to have fun. Plain decorations all around.</p>
         </div>
             <?php
                 writeThemes();
+                if (isset($_POST["theme"])){
+                    $post_val = $_POST["theme"];
+                    if ($post_val != "no-theme"){
+                        $post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'");
+                        $post_price *= 1.4;
+                    }
+                    else
+                        $post_price = 0;
+                $totalPrice += $post_price;
+                $sel_theme = array($post_val, $post_price);
+                echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                    next();next();next();
+                });</script>";
+            }
             ?>
-        </form>
         <div class="col-12">
-            <button onclick="next()" id="next">Next</button>
-            <button onclick="back()" id="back">Back</button> 
+            <input type="submit" value="Next" id="next">
+        </form>
+            <button onclick="back()" id="back">Back</button>
+            <?php
+                //Debug code
+                echo "Total Price: " . $totalPrice;
+            ?>
         </div>
     </div>
 
@@ -218,23 +272,38 @@ function writeAddons(){
     <div class="row" id="add-ons">
         <h1>Toss in some Add-ons!</h1>
         <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
-        <form>
+        <form method="post">
             <?php
                 writeAddons();
+                if (isset($_POST["add-ons"])){
+                    $post_val = $_POST["add-ons"];
+                    $post_price = 0;
+                    foreach ($post_val as $item){
+                        //foreach item, select the price
+                        $temp_price = $conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'");
+                        //if a size multiplier is to be applied, apply it
+                        if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
+                            $temp_price *= $size;
+                        //otherwise, use price as is and add this item's price to $post_price
+                        $post_price += $tempPrice;
+                    }
+                    //when done iterating, add this money value to total
+                    $totalPrice += post_price;
+                    //This would contain an array of items and then the TOTAL cost
+                    $sel_addons = array($post_val, $post_price);
+                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                        next();next();next();next();
+                    });</script>";
+                }
             ?>
-            <!--
-        <h2 class="left-text">Food</h2>
-        <div class="grid-3">
-            <h3>Popcorn Machine</h3>
-            <img src="/img/placeholder.png">
-            <label><input type="checkbox" name="add-on"><span>Add $30.00</span></label>
-            <p>It makes popcorn. What did you expect? Serves ~100 people</p>
-        </div>
-            -->
-        </form>
         <div class="col-12">
-            <button onclick="next()" id="next">Next</button>
-            <button onclick="back()" id="back">Back</button> 
+            <input type="submit" value="Next" id="next">
+        </form>
+            <button onclick="back()" id="back">Back</button>
+            <?php
+                //Debug code
+                echo "Total Price: " . $totalPrice;
+            ?>
         </div>
     </div>
 
@@ -263,13 +332,17 @@ function writeAddons(){
                 <!--<input type="submit" name="submit" value="Submit">-->
             </form>
             <button onclick="alert('No checkout page code yet!')" id="next">Next</button>
-            <button onclick="back()" id="back">Back</button> 
+            <button onclick="back()" id="back">Back</button>
+            <?php
+                //Debug code
+                echo "Total Price: " . $totalPrice;
+            ?>
         </div>
     </div>
     </div>
     <!--Total Cost-->
     <div id="cost">
-        <h2>Total Cost: $<span>0.00</span></h2>
+        <h2>Total Cost: $<span>Code WIP</span></h2>
     </div>
 </body>
     <footer id="dark">
