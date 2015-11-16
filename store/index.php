@@ -12,27 +12,41 @@ if ($conn->connect_error)
 if (!$conn->select_db($database))
     echo "Failed to select the products database. Please email it@veblockparty.com";
 
+//Grab products from their categories and puts them into individual arrays
 $occasions = $conn->query("SELECT * FROM products WHERE category = 2");
 $themes = $conn->query("SELECT * FROM products WHERE category = 3");
 $addons = $conn->query("SELECT * FROM products WHERE category = 4");
 $totalPrice = 0;
-
+//default size multiplier;
+$size = 1;
+//The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
 function putInGrid($category, $name, $image, $price, $description){
     //Sets default values if the database is empty
     if (empty($image))
         $image = "http://oave1516.github.io/img/placeholder.png";
+    //Prices entered in DB should not be empty -- Should be a real price or -1
     if (empty($price))
-        $price = 0.00;
+        $price = number_format((float)0, 2, '.', '');
+    //Good 'ol lorem ipsum
     if (empty($description))
         $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
     
     //Non priced items (multipliers) are logged as -1 in the database
     if ($price < 0){
         if ($category == "theme"){
-            $price = number_format((float)$totalPrice * 0.4, 2, '.', '');
+            //All themes are to provide a multiplier of 1.4 to the price, so we add 40% of total to the button
+            $price = $totalPrice * 0.4;
+            //$price = number_format((float)$totalPrice * 0.4, 2, '.', '');
         }
     }
+    else{
+        //Size is the price multiplier from due to the size. Here it is formatted to two decimals
+        echo "@ line 45 it is a " . gettype($size);
+        $price = $price * $size;
+        //$price = number_format((float)$price * $size, 2, '.', '');
+    }
     $buttonText = "Add $" . $price;
+    
     //Uses a template to print data into the html grid
        echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='radio' name='" . $category . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
 }
@@ -53,15 +67,25 @@ function writeThemes(){
 
 function writeAddons(){
     global $addons;
-    $food = 0;
-    $performers = 1;
-    $photography = 2;
-    $av = 3;
-    $setup = 4;
-    $outdoor = 5;
-    $subcategories = array("Food", "Performers", "Photography", "Audio/Visual Equipment", "Setup", "Outdoor Equipment");
+    $FOOD = 0;
+    $PERFORMERS = 1;
+    $PHOTOGRAPHY = 2;
+    $AV = 3;
+    $SETUP = 4;
+    $OUTDOOR = 5;
+    echo "<h2 class='left-text'>Food</h2>";
     while ($row = $addons->fetch_assoc()){
-           putInGrid("add-on", $row["name"], $row["image"], $row["price"], $row["description"]);
+        if ($row["subcategory"] == $PERFORMERS)
+            echo "<h2 class='left-text'>Performers</h2>";
+        if ($row["subcategory"] == $PHOTOGRAPHY)
+            echo "<h2 class='left-text'>Photography</h2>";
+        if ($row["subcategory"] == $AV)
+            echo "<h2 class='left-text'>Audio/Visual Equipment</h2>";
+        if ($row["subcategory"] == $SETUP)
+            echo "<h2 class='left-text'>Setup</h2>";
+        if ($row["subcategory"] == $OUTDOOR)
+            echo "<h2 class='left-text'>Outdoor Equipment</h2>";
+        putInGrid("add-on", $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 ?>
@@ -114,13 +138,37 @@ function writeAddons(){
             <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6">
-            <form>
-                <label><input type="radio" name="size" id="small" checked><span>Small: 50-75</span></label>
-                <label><input type="radio" name="size" id="medium"><span>Medium: 75-125</span></label>
-                <label><input type="radio" name="size" id="large"><span>Large: 125-175</span></label>
-                <label><input type="radio" name="size" id="xlarge"><span>Extra Large: 175-250</span></label>
+            <form method="post">
+                <label><input type="radio" name="size" value="small" checked><span>Small: 50-75</span></label>
+                <label><input type="radio" name="size" value="medium"><span>Medium: 75-125</span></label>
+                <label><input type="radio" name="size" value="large"><span>Large: 125-175</span></label>
+                <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
+                <p>For sizes larger than 250 people, please <a href="/contact/">contact us.</a></p>
+                <input type="submit" name="submit" value="Next">
             </form>
-            <button onclick="next()" id="fullnext">Next</button>
+            <?php
+                //When the user submits the size, the form posts
+                if (isset($_POST["size"])){
+                    switch ($_POST["size"]){
+                        case "small":
+                        $size = 1; break;
+                        case "medium":
+                        $size = 1.75; break;
+                        case "large":
+                        $size = 2.3; break;
+                        case "xlarge":
+                        $size = 2.6; break;
+                        default:
+                            echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
+                    }
+                    //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
+                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                        next();
+                    });</script>";
+                    echo "@ line 168 it is a " . gettype($size);
+                }
+            ?>
+            <!--<button onclick="next()" id="fullnext">Next</button>-->
         </div>
     </div>
 
