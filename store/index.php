@@ -195,7 +195,7 @@ function writeAddons(){
                     //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         setDisplay(1);
-                    });</script>";   
+                    });</script>";
                 }
             ?>
         </div>
@@ -209,26 +209,34 @@ function writeAddons(){
         <div class="grid-3">
             <h3>Generic</h3>
             <img src="/img/placeholder.png">
-            <label><input type="radio" name="occasion" value="generic" checked id="generic" data-price="0.00"><span>Add $0.00</span></label>
+            <label><input type="radio" name="occasion" value="generic" checked id="generic" data-price="30.00"><span>Add $30.00</span></label>
             <p>Even the description is generic.</p>
         </div>
         <?php
             writeOccasions();
-            if (isset($_POST["occasion"])){
+            if (isset($_POST["occasion"]) && !$_SESSION["DONE"]){
                 $post_val = $_POST["occasion"];
                 if ($post_val != "generic"){
                     $post_price = $conn->query("SELECT price FROM products WHERE category = 2 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
                     $post_price *= $_SESSION["size"];
                 }
                 else{
-                    $post_price = 0; //THIS SHOULD NOT BE NON ZERO, PLEASE CONTACT SALES DEPT ASAP
+                    $post_price = 30;
                 }
                 $_SESSION["totalPrice"] = $post_price;
                 $_SESSION["sel_occasion"] =  array($post_val, $post_price);
+                $_SESSION["DONE"] = true;
+            }
+            if ($_SESSION["DONE"]){
                 echo "<script>document.addEventListener('DOMContentLoaded', function() {
                     setDisplay(2);
                 });</script>";
+                $_SESSION["DONE"] = false;
             }
+            else
+                echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                    setDisplay(0);
+                });</script>";
         ?>
         <div class="col-12">
             <input type="submit" value="Back" id="back">
