@@ -13,9 +13,9 @@ if (!$conn->select_db($database))
     echo "Failed to select the products database. Please email it@veblockparty.com";
 
 //Grab products from their categories and puts them into individual arrays
-$occasions = $conn->query("SELECT * FROM products WHERE category = 2");
-$themes = $conn->query("SELECT * FROM products WHERE category = 3");
-$addons = $conn->query("SELECT * FROM products WHERE category = 4");
+$occasions = $conn->query("SELECT * FROM products WHERE category = 2 ORDER BY name");
+$themes = $conn->query("SELECT * FROM products WHERE category = 3 ORDER BY name");
+$addons = $conn->query("SELECT * FROM products WHERE category = 4 ORDER BY subcategory ASC, name");
 
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
 function putInGrid($id, $category, $subcategory, $name, $image, $price, $description){
@@ -38,7 +38,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     }
     else{
         //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
-        if ($category == "add-on" && $subcategory != 0){
+        if ($category == "add-on[]" && $subcategory != 0){
             $price = number_format((float)$price, 2, '.', '');
         }
         //Otherwise, we multiply price by the $size multiplier
@@ -48,7 +48,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     }
     $buttonText = "Add $" . $price;
     
-    if ($category != "add-on")
+    if ($category != "add-on[]")
         $type = "radio";
     else
         $type = "checkbox";
@@ -78,19 +78,32 @@ function writeAddons(){
     $AV = 3;
     $SETUP = 4;
     $OUTDOOR = 5;
+    $step = 1;
     echo "<h2 class='left-text'>Food</h2>";
+    //Subcategories should be grouped together in the query
+    //Print the header once, then increment the step so it does not print each time
     while ($row = $addons->fetch_assoc()){
-        if ($row["subcategory"] == $PERFORMERS)
+        if ($row["subcategory"] == $PERFORMERS && $step == $PERFORMERS){
             echo "<h2 class='left-text'>Performers</h2>";
-        if ($row["subcategory"] == $PHOTOGRAPHY)
+            $step++;
+        }
+        if ($row["subcategory"] == $PHOTOGRAPHY && $step == $PHOTOGRAPHY){
             echo "<h2 class='left-text'>Photography</h2>";
-        if ($row["subcategory"] == $AV)
+            $step++;
+        }
+        if ($row["subcategory"] == $AV && $step == $AV){
             echo "<h2 class='left-text'>Audio/Visual Equipment</h2>";
-        if ($row["subcategory"] == $SETUP)
+            $step++;
+        }
+        if ($row["subcategory"] == $SETUP && $step == $SETUP){
             echo "<h2 class='left-text'>Setup</h2>";
-        if ($row["subcategory"] == $OUTDOOR)
+            $step++;
+        }
+        if ($row["subcategory"] == $OUTDOOR && $step == $OUTDOOR){
             echo "<h2 class='left-text'>Outdoor Equipment</h2>";
-        putInGrid($row["id"], "add-on", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
+            $step++;
+        }
+        putInGrid($row["id"], "add-on[]", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 ?>
@@ -139,7 +152,7 @@ function writeAddons(){
     <div class="row" id="size">
         <h1>Pick a size</h1>
         <div class="col-6">
-            <p>Here at Block Party, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+            <p>Here at BlockParty, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
             <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6">
@@ -265,22 +278,31 @@ function writeAddons(){
         <h1>Toss in some Add-ons!</h1>
         <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
         <form method="post">
+            <!-- php runs with isset so something needs to be checked to set it -->
+            <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
             <?php
                 writeAddons();
                 if (isset($_POST["add-on"])){
                     $post_val = $_POST["add-on"];
-                    $post_price = 0;
+                    $post_price = 0.00;
                     foreach ($post_val as $item){
-                        //foreach item, select the price
-                        $temp_price = $conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
-                        //if a size multiplier is to be applied, apply it
-                        if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
-                            $temp_price *= $_SESSION["size"];
-                        //otherwise, use price as is and add this item's price to $post_price
-                        $post_price += $tempPrice;
+                        if ($item != "emptyObject"){
+                            //foreach item, select the price
+                            echo $item;
+                            $temp_price = (double)$conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
+                            //if a size multiplier is to be applied, apply it
+                            if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
+                                $temp_price *= $_SESSION["size"];
+                            echo "Temp Price" . $temp_price . gettype($temp_price);
+                            echo "Session Size: " . $_SESSION["size"] . gettype($_SESSION["size"]);
+                            //otherwise, use price as is and add this item's price to $post_price
+                            $post_price = $tempPrice;
+                            //$price = number_format((float)$price * $_SESSION["size"], 2, '.', '');
+                            echo "Post Price" . $post_price . gettype($post_price);
+                        }
                     }
                     //when done iterating, add this money value to total
-                    $_SESSION["totalPrice"] += post_price;
+                    $_SESSION["totalPrice"] += $post_price;
                     //This would contain an array of items and then the TOTAL cost
                     $_SESSION["sel_addons"] = array($post_val, $post_price);
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
@@ -303,7 +325,7 @@ function writeAddons(){
     <div class="row" id="payment">
         <h1>Checkout</h1>
         <div class="col-6">
-            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing Block Party LLC*.</p>
+            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC*.</p>
             <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6 contact-form">
