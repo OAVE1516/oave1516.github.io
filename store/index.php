@@ -148,6 +148,13 @@ function writeAddons(){
         <div class="col-fifth" id="progress-add-ons">4. Add Ons</div>
         <div class="col-fifth" id="progress-payment">5. Payment</div>
     </div>
+    <div class="row center-text">
+        <div id="contact-response">
+            <?php
+                echo $_REQUEST["text"];
+            ?>
+        </div>
+    </div>
     <!--Size-->
     <div class="row" id="size">
         <h1>Pick a size</h1>
@@ -250,8 +257,14 @@ function writeAddons(){
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "no-theme"){
+<<<<<<< HEAD
                         $post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
                         $post_price *= 1.4;
+=======
+                        //$post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
+                        //$post_price *= 1.4;
+                        $post_price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
+>>>>>>> origin/master
                     }
                     else
                         $post_price = 0;
@@ -284,10 +297,21 @@ function writeAddons(){
                 writeAddons();
                 if (isset($_POST["add-on"])){
                     $post_val = $_POST["add-on"];
+<<<<<<< HEAD
                     $post_price = 0.00;
                     foreach ($post_val as $item){
                         //emptyObject exists just so isset would work
                         if ($item != "emptyObject"){
+=======
+                    //If any addon is selected (default is 1 bc of the emptyObject, then remove emptyObject, index 0
+                    if (count($post_val) > 1){
+                        unset($post_val[0]);   
+                    }
+                    $post_price = 0.00;
+                    foreach ($post_val as $item){
+                        //emptyObject exists just so isset would work
+                        //if ($item != "emptyObject"){
+>>>>>>> origin/master
                             //foreach item, select the price
                             $temp_price = (double)$conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
                             //if a size multiplier is to be applied, apply it
@@ -295,7 +319,11 @@ function writeAddons(){
                                 $temp_price *= $_SESSION["size"];
                             //otherwise, use price as is and add this item's price to $post_price
                             $post_price += $temp_price;
+<<<<<<< HEAD
                         }
+=======
+                        //}
+>>>>>>> origin/master
                     }
                     //when done iterating, add this money value to total
                     $_SESSION["totalPrice"] += $post_price;
@@ -339,9 +367,13 @@ function writeAddons(){
                 <div style="width: 75%; float: left; padding: 0px;">
                     <h3>Zip Code</h3><input type="text" name="zip" id="zip">
                 </div>
-                <!--<input type="submit" name="submit" value="Submit">-->
+                <input type="submit" name="submit" value="Submit" id="next">
             </form>
+<<<<<<< HEAD
             <button onclick="alert('No checkout page code yet!')" id="next">Next</button>
+=======
+            <!--<button onclick="alert('No checkout page code yet!')" id="next">Next</button>-->
+>>>>>>> origin/master
             <button onclick="setDisplay(3)" id="back">Back</button>
             <?php
                 //Debug code
