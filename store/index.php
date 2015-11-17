@@ -286,19 +286,15 @@ function writeAddons(){
                     $post_val = $_POST["add-on"];
                     $post_price = 0.00;
                     foreach ($post_val as $item){
+                        //emptyObject exists just so isset would work
                         if ($item != "emptyObject"){
                             //foreach item, select the price
-                            echo $item;
                             $temp_price = (double)$conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
                             //if a size multiplier is to be applied, apply it
                             if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
                                 $temp_price *= $_SESSION["size"];
-                            echo "Temp Price" . $temp_price . gettype($temp_price);
-                            echo "Session Size: " . $_SESSION["size"] . gettype($_SESSION["size"]);
                             //otherwise, use price as is and add this item's price to $post_price
-                            $post_price = $tempPrice;
-                            //$price = number_format((float)$price * $_SESSION["size"], 2, '.', '');
-                            echo "Post Price" . $post_price . gettype($post_price);
+                            $post_price += $temp_price;
                         }
                     }
                     //when done iterating, add this money value to total
