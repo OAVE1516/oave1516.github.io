@@ -14,7 +14,17 @@ video {
     height: inherit;
 }
 
-
+.mbback{
+    position: absolute;
+    top: 0;
+    left: 0;
+    left: 0;
+    right: 0;
+    background-color: #C8005A;
+    width: 100%;
+    height: 2500px;
+    z-index: -100;
+}
 
 .maintext{
     color: #eee;

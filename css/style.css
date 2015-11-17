@@ -245,7 +245,8 @@ button:hover{
         text-align: center;   
     }
     .hide-on-mobile{
-        display: none;   
+        display: none; 
+
     }
     .hide-on-desktop{
         display: block;   
