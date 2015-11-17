@@ -13,22 +13,12 @@ if (!$conn->select_db($database))
     echo "Failed to select the products database. Please email it@veblockparty.com";
 
 //Grab products from their categories and puts them into individual arrays
-$occasions = $conn->query("SELECT * FROM products WHERE category = 2");
-$themes = $conn->query("SELECT * FROM products WHERE category = 3");
-$addons = $conn->query("SELECT * FROM products WHERE category = 4");
-$totalPrice = 0;
-
-$sel_size;
-$sel_occasion;
-$sel_theme;
-$sel_addons;
-
-//default size multiplier;
-$size = 1;
+$occasions = $conn->query("SELECT * FROM products WHERE category = 2 ORDER BY name");
+$themes = $conn->query("SELECT * FROM products WHERE category = 3 ORDER BY name");
+$addons = $conn->query("SELECT * FROM products WHERE category = 4 ORDER BY subcategory ASC, name");
 
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
 function putInGrid($id, $category, $subcategory, $name, $image, $price, $description){
-    global $size, $totalPrice;
     //Sets default values if the database is empty
     if (empty($image))
         $image = "http://oave1516.github.io/img/placeholder.png";
@@ -42,23 +32,23 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     //Non priced items (multipliers) are logged as -1 in the database
     if ($price < 0){
         if ($category == "theme"){
-            //All themes are to provide a multiplier of 1.4 to the price, so we add 40% of total to the button
-            $price = number_format((float)$totalPrice * 0.4, 2, '.', '');
+            //All themes are to provide a multiplier of 1.4 to the price
+            $price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
         }
     }
     else{
         //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
-        if ($category == "add-on" && $subcategory != 0){
+        if ($category == "add-on[]" && $subcategory != 0){
             $price = number_format((float)$price, 2, '.', '');
         }
         //Otherwise, we multiply price by the $size multiplier
         else{
-            $price = number_format((float)$price * $size, 2, '.', '');
+            $price = number_format((float)$price * $_SESSION["size"], 2, '.', '');
         }
     }
     $buttonText = "Add $" . $price;
     
-    if ($category != "add-on")
+    if ($category != "add-on[]")
         $type = "radio";
     else
         $type = "checkbox";
@@ -88,19 +78,32 @@ function writeAddons(){
     $AV = 3;
     $SETUP = 4;
     $OUTDOOR = 5;
+    $step = 1;
     echo "<h2 class='left-text'>Food</h2>";
+    //Subcategories should be grouped together in the query
+    //Print the header once, then increment the step so it does not print each time
     while ($row = $addons->fetch_assoc()){
-        if ($row["subcategory"] == $PERFORMERS)
+        if ($row["subcategory"] == $PERFORMERS && $step == $PERFORMERS){
             echo "<h2 class='left-text'>Performers</h2>";
-        if ($row["subcategory"] == $PHOTOGRAPHY)
+            $step++;
+        }
+        if ($row["subcategory"] == $PHOTOGRAPHY && $step == $PHOTOGRAPHY){
             echo "<h2 class='left-text'>Photography</h2>";
-        if ($row["subcategory"] == $AV)
+            $step++;
+        }
+        if ($row["subcategory"] == $AV && $step == $AV){
             echo "<h2 class='left-text'>Audio/Visual Equipment</h2>";
-        if ($row["subcategory"] == $SETUP)
+            $step++;
+        }
+        if ($row["subcategory"] == $SETUP && $step == $SETUP){
             echo "<h2 class='left-text'>Setup</h2>";
-        if ($row["subcategory"] == $OUTDOOR)
+            $step++;
+        }
+        if ($row["subcategory"] == $OUTDOOR && $step == $OUTDOOR){
             echo "<h2 class='left-text'>Outdoor Equipment</h2>";
-        putInGrid($row["id"], "add-on", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
+            $step++;
+        }
+        putInGrid($row["id"], "add-on[]", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 ?>
@@ -149,7 +152,7 @@ function writeAddons(){
     <div class="row" id="size">
         <h1>Pick a size</h1>
         <div class="col-6">
-            <p>Here at Block Party, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+            <p>Here at BlockParty, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
             <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6">
@@ -166,23 +169,25 @@ function writeAddons(){
                 if (isset($_POST["size"])){
                     switch ($_POST["size"]){
                         case "small":
-                        $sel_size = "Small";
-                        $size = 1; break;
+                        $_SESSION["sel_size"] = "Small";
+                        $_SESSION["size"] = 1; break;
                         case "medium":
-                        $sel_size = "Medium";
-                        $size = 1.75; break;
+                        $_SESSION["sel_size"] = "Medium";
+                        $_SESSION["size"] = 1.75; break;
                         case "large":
-                        $sel_size = "Large";
-                        $size = 2.3; break;
+                        $_SESSION["sel_size"] = "Large";
+                        $_SESSION["size"] = 2.3; break;
                         case "xlarge":
-                        $sel_size = "Extra Large";
-                        $size = 2.6; break;
+                        $_SESSION["sel_size"] = "Extra Large";
+                        $SESSION["size"] = 2.6; break;
                         default:
                             echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
                     }
+                    //Define totalPrice as 0 at the start so past data does not interfere
+                    $_SESSION["totalPrice"] = 0;
                     //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                        next();
+                        setDisplay(1);
                     });</script>";   
                 }
             ?>
@@ -205,26 +210,26 @@ function writeAddons(){
             if (isset($_POST["occasion"])){
                 $post_val = $_POST["occasion"];
                 if ($post_val != "generic"){
-                    $post_price = $conn->query("SELECT price FROM products WHERE category = 2 AND name = '" . $post_val . "'");
-                    $post_price *= $size;
+                    $post_price = $conn->query("SELECT price FROM products WHERE category = 2 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
+                    $post_price *= $_SESSION["size"];
                 }
-                else
+                else{
                     $post_price = 0; //THIS SHOULD NOT BE NON ZERO, PLEASE CONTACT SALES DEPT ASAP
-                $totalPrice += $post_price;
-                $sel_occasion = array($post_val, $post_price);
-                //Go next twice to get to Step 3 (posting to own page brings you back to the start)
+                }
+                $_SESSION["totalPrice"] = $post_price;
+                $_SESSION["sel_occasion"] =  array($post_val, $post_price);
                 echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                    next();next();
+                    setDisplay(2);
                 });</script>";
             }
         ?>
         <div class="col-12">
             <input type="submit" value="Next" id="next">
         </form>
-            <button onclick="back()" id="back">Back</button> 
+            <button onclick="setDisplay(0)" id="back">Back</button>
             <?php
                 //Debug code
-                echo "Total Price: " . $totalPrice;
+                echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "Post Price: " . $post_price . "Size: " . $_SESSION["size"] . "</div>";
             ?>
         </div>
     </div>
@@ -245,25 +250,25 @@ function writeAddons(){
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "no-theme"){
-                        $post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'");
+                        $post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
                         $post_price *= 1.4;
                     }
                     else
                         $post_price = 0;
-                $totalPrice += $post_price;
-                $sel_theme = array($post_val, $post_price);
+                $_SESSION["totalPrice"] += $post_price;
+                $_SESSION["sel_theme"] = array($post_val, $post_price);
                 echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                    next();next();next();
+                    setDisplay(3);
                 });</script>";
             }
             ?>
         <div class="col-12">
             <input type="submit" value="Next" id="next">
         </form>
-            <button onclick="back()" id="back">Back</button>
+            <button onclick="setDisplay(1)" id="back">Back</button>
             <?php
                 //Debug code
-                echo "Total Price: " . $totalPrice;
+                echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "Post Price: " . $post_price . "Size: " . $_SESSION["size"] . "</div>";
             ?>
         </div>
     </div>
@@ -273,36 +278,41 @@ function writeAddons(){
         <h1>Toss in some Add-ons!</h1>
         <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
         <form method="post">
+            <!-- php runs with isset so something needs to be checked to set it -->
+            <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
             <?php
                 writeAddons();
-                if (isset($_POST["add-ons"])){
-                    $post_val = $_POST["add-ons"];
-                    $post_price = 0;
+                if (isset($_POST["add-on"])){
+                    $post_val = $_POST["add-on"];
+                    $post_price = 0.00;
                     foreach ($post_val as $item){
-                        //foreach item, select the price
-                        $temp_price = $conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'");
-                        //if a size multiplier is to be applied, apply it
-                        if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
-                            $temp_price *= $size;
-                        //otherwise, use price as is and add this item's price to $post_price
-                        $post_price += $tempPrice;
+                        //emptyObject exists just so isset would work
+                        if ($item != "emptyObject"){
+                            //foreach item, select the price
+                            $temp_price = (double)$conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
+                            //if a size multiplier is to be applied, apply it
+                            if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
+                                $temp_price *= $_SESSION["size"];
+                            //otherwise, use price as is and add this item's price to $post_price
+                            $post_price += $temp_price;
+                        }
                     }
                     //when done iterating, add this money value to total
-                    $totalPrice += post_price;
+                    $_SESSION["totalPrice"] += $post_price;
                     //This would contain an array of items and then the TOTAL cost
-                    $sel_addons = array($post_val, $post_price);
+                    $_SESSION["sel_addons"] = array($post_val, $post_price);
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                        next();next();next();next();
+                        setDisplay(4);
                     });</script>";
                 }
             ?>
         <div class="col-12">
             <input type="submit" value="Next" id="next">
         </form>
-            <button onclick="back()" id="back">Back</button>
+            <button onclick="setDisplay(2)" id="back">Back</button>
             <?php
                 //Debug code
-                echo "Total Price: " . $totalPrice;
+                echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "</div>";
             ?>
         </div>
     </div>
@@ -311,7 +321,7 @@ function writeAddons(){
     <div class="row" id="payment">
         <h1>Checkout</h1>
         <div class="col-6">
-            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing Block Party LLC*.</p>
+            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC*.</p>
             <img class="hide-on-mobile" src="/img/placeholder.png">
         </div>
         <div class="col-6 contact-form">
@@ -332,10 +342,10 @@ function writeAddons(){
                 <!--<input type="submit" name="submit" value="Submit">-->
             </form>
             <button onclick="alert('No checkout page code yet!')" id="next">Next</button>
-            <button onclick="back()" id="back">Back</button>
+            <button onclick="setDisplay(3)" id="back">Back</button>
             <?php
                 //Debug code
-                echo "Total Price: " . $totalPrice;
+                echo "Total Price: " . $_SESSION["totalPrice"];
             ?>
         </div>
     </div>

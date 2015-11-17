@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/navfooter.css">
     <link rel="icon" href="../img/favicon.png">
     <script src="contact.js"></script>
-    <title>Block Party || Contact Page</title>
+    <title>BlockParty || Contact Page</title>
 </head>   
 <body> 
     <div class="desktop-nav">
@@ -40,8 +40,8 @@
     <h1>Contact Us</h1>
         <div class="row">
             <div class="col-6">
-                <p>Thanks for your interest in Block Party! If you have any additional questions about Block Party specifically, you can reach us using the contact form on this page, or by e-mailing us at <a href="mailto:contact@veblockparty.com">contact@veblockparty.com</a>.</p><br>
-			     <p>If you would like to reach us through mail, you can write to us, Block Party, at <a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5">11125 Knott Ave, Cypress, CA 90630*</a>.</p>
+                <p>Thanks for your interest in BlockParty! If you have any additional questions about BlockParty specifically, you can reach us using the contact form on this page, or by e-mailing us at <a href="mailto:contact@veblockparty.com">contact@veblockparty.com</a>.</p><br>
+			     <p>If you would like to reach us through mail, you can write to us, BlockParty, at <a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5">11125 Knott Ave, Cypress, CA 90630*</a>.</p>
                 <img class="hide-on-mobile" src="/img/placeholder.png">
             </div>
             <div class="col-6 contact-form">
@@ -69,7 +69,7 @@
         </div>
         </div>
         <div class="row">
-        <div class="col-12" id="copy">*Disclaimer: Block Party is part of a group of high school virtual companies called <a href="https://veinternational.org/" target="_blank">Virtual Enterprise</a>. All business prospects, products, and items depicted on this website are purely fictitious.<br><br>&copy; Oxford Academy Virtual Enterprise 2015-2016</div>
+        <div class="col-12" id="copy">*Disclaimer: BlockParty is part of a group of high school virtual companies called <a href="https://veinternational.org/" target="_blank">Virtual Enterprise</a>. All business prospects, products, and items depicted on this website are purely fictitious.<br><br>&copy; Oxford Academy Virtual Enterprise 2015-2016</div>
         </div>
     </footer>
 </html>
