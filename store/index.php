@@ -117,7 +117,7 @@ function writeAddons(){
     <link rel="stylesheet" href="../css/store.css">
     <link rel="stylesheet" href="../css/navfooter.css">
     <script src="store.js"></script>
-    <title>BlockParty || Store</title>
+    <title>Block Party || Store</title>
 </head>
 <body>
     <div class="desktop-nav">
@@ -231,9 +231,10 @@ function writeAddons(){
             }
         ?>
         <div class="col-12">
+            <input type="submit" value="Back" id="back">
             <input type="submit" value="Next" id="next">
         </form>
-            <button onclick="setDisplay(0)" id="back">Back</button>
+            <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
             <?php
                 //Debug code
                 echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "Post Price: " . $post_price . "Size: " . $_SESSION["size"] . "</div>";
@@ -257,14 +258,9 @@ function writeAddons(){
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "no-theme"){
-<<<<<<< HEAD
-                        $post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
-                        $post_price *= 1.4;
-=======
                         //$post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
                         //$post_price *= 1.4;
                         $post_price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
->>>>>>> origin/master
                     }
                     else
                         $post_price = 0;
@@ -276,9 +272,10 @@ function writeAddons(){
             }
             ?>
         <div class="col-12">
+            <input type="submit" value="Back" id="back">
             <input type="submit" value="Next" id="next">
         </form>
-            <button onclick="setDisplay(1)" id="back">Back</button>
+            <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
             <?php
                 //Debug code
                 echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "Post Price: " . $post_price . "Size: " . $_SESSION["size"] . "</div>";
@@ -297,12 +294,6 @@ function writeAddons(){
                 writeAddons();
                 if (isset($_POST["add-on"])){
                     $post_val = $_POST["add-on"];
-<<<<<<< HEAD
-                    $post_price = 0.00;
-                    foreach ($post_val as $item){
-                        //emptyObject exists just so isset would work
-                        if ($item != "emptyObject"){
-=======
                     //If any addon is selected (default is 1 bc of the emptyObject, then remove emptyObject, index 0
                     if (count($post_val) > 1){
                         unset($post_val[0]);   
@@ -311,7 +302,6 @@ function writeAddons(){
                     foreach ($post_val as $item){
                         //emptyObject exists just so isset would work
                         //if ($item != "emptyObject"){
->>>>>>> origin/master
                             //foreach item, select the price
                             $temp_price = (double)$conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
                             //if a size multiplier is to be applied, apply it
@@ -319,11 +309,7 @@ function writeAddons(){
                                 $temp_price *= $_SESSION["size"];
                             //otherwise, use price as is and add this item's price to $post_price
                             $post_price += $temp_price;
-<<<<<<< HEAD
-                        }
-=======
                         //}
->>>>>>> origin/master
                     }
                     //when done iterating, add this money value to total
                     $_SESSION["totalPrice"] += $post_price;
@@ -335,9 +321,10 @@ function writeAddons(){
                 }
             ?>
         <div class="col-12">
+            <input type="submit" value="Back" id="back">
             <input type="submit" value="Next" id="next">
         </form>
-            <button onclick="setDisplay(2)" id="back">Back</button>
+            <!--<button onclick="setDisplay(2)" id="back">Back</button>-->
             <?php
                 //Debug code
                 echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "</div>";
@@ -369,11 +356,7 @@ function writeAddons(){
                 </div>
                 <input type="submit" name="submit" value="Submit" id="next">
             </form>
-<<<<<<< HEAD
-            <button onclick="alert('No checkout page code yet!')" id="next">Next</button>
-=======
             <!--<button onclick="alert('No checkout page code yet!')" id="next">Next</button>-->
->>>>>>> origin/master
             <button onclick="setDisplay(3)" id="back">Back</button>
             <?php
                 //Debug code

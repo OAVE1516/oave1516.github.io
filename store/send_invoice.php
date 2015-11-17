@@ -36,7 +36,7 @@ $mail->Username = $webuser;
 $mail->Password = $webpass; 
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
-$mail->setFrom('website@veblockparty.com', 'Website Store Page');
+$mail->setFrom('invoice@veblockparty.com', 'BlockParty Invoice');
 $mail->isHTML(true);
 $mail->addAddress($email);
 $mail->addBCC('accounting@veblockparty.com');
