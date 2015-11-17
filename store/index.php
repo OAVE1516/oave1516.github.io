@@ -117,7 +117,7 @@ function writeAddons(){
     <link rel="stylesheet" href="../css/store.css">
     <link rel="stylesheet" href="../css/navfooter.css">
     <script src="store.js"></script>
-    <title>Block Party || Store</title>
+    <title>BlockParty || Store</title>
 </head>
 <body>
     <div class="desktop-nav">
