@@ -5,9 +5,11 @@
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     font-size: 1.5em;
+    background: #C8005A;
+    color: #eee;
 }
 
-#progress-size{
+/*#progress-size{
     background: #C8005A;
     color: #eee;
 }
@@ -15,7 +17,7 @@
 #progress-occasion, #progress-theme, #progress-add-ons, #progress-payment{
     background: #E00069;
     color: #eee;
-}
+}*/
 
 form{
     line-height: 200%;   
@@ -65,8 +67,8 @@ form{
     width: 100%;   
 }
 #next{
-    width: 47.5%;
-    float: right;
+    width: 100%;
+    /*float: right;*/
 }
 #back{
     width: 47.5%;
@@ -78,7 +80,10 @@ form{
     color: #fff;
     background-color: #555;
     padding: 0.5em 0em;
-    
+}
+
+.debug{
+    display: none;   
 }
 @media only screen and (max-width: 768px) {
     #cost{

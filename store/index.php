@@ -17,6 +17,10 @@ $occasions = $conn->query("SELECT * FROM products WHERE category = 2 ORDER BY na
 $themes = $conn->query("SELECT * FROM products WHERE category = 3 ORDER BY name");
 $addons = $conn->query("SELECT * FROM products WHERE category = 4 ORDER BY subcategory ASC, name");
 
+//10% tax
+$TAX_CONSTANT = .1;
+$BASE_SHIPPING = 15.0;
+
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
 function putInGrid($id, $category, $subcategory, $name, $image, $price, $description){
     //Sets default values if the database is empty
@@ -47,13 +51,17 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
         }
     }
     $buttonText = "Add $" . $price;
-    
+    $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
     if ($category != "add-on[]")
         $type = "radio";
     else
         $type = "checkbox";
     //Uses a template to print data into the html grid
-       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='" . $type . "' name='" . $category . "' value='" . $name . "' id='" . $id . "' data-price='" . $price . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
+    if ($category == "add-on[]" && $price < 0)
+       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
+    else{
+           echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='" . $type . "' name='" . $category . "' value='" . $name . "' id='" . $id . "' data-price='" . $price . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
+    }
 }
 
 function writeOccasions(){
@@ -107,7 +115,6 @@ function writeAddons(){
     }
 }
 
-//Kayla was here. Stop making Brandon do your homework. XD
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +126,7 @@ function writeAddons(){
     <link rel="stylesheet" href="../css/store.css">
     <link rel="stylesheet" href="../css/navfooter.css">
     <script src="store.js"></script>
-    <title>Block Party || Store</title>
+    <title>BlockParty || Store</title>
 </head>
 <body>
     <div class="desktop-nav">
@@ -150,17 +157,25 @@ function writeAddons(){
         <div class="col-fifth" id="progress-add-ons">4. Add Ons</div>
         <div class="col-fifth" id="progress-payment">5. Payment</div>
     </div>
-    <div class ="row" id="debug">
+    <div class ="debug row" id="debug">
+        <p>Post</p>
     <?php
-            echo "Debug<br>Total Price: " . $_SESSION["totalPrice"] . "<br>Post Price: " . $post_price . "<br>Size: " . $_SESSION["size"];
-            echo "Post: " . var_dump($_POST) . "<br>";
-            echo "Session: " . var_dump($_SESSION);
+            echo var_dump($_POST);
     ?>
+        <p>Session</p>
+        <?php
+            echo var_dump($_SESSION);
+        ?>
     </div>
     <div class="row center-text">
         <div id="contact-response">
             <?php
                 echo $_REQUEST["text"];
+                if ($_REQUEST["text"] != "Success! Invoice has been sent." && isset($_REQUEST["text"])){
+                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                        setDisplay(4);
+                    });</script>";
+                }
             ?>
         </div>
     </div>
@@ -177,12 +192,12 @@ function writeAddons(){
                 <label><input type="radio" name="size" value="medium"><span>Medium: 75-125</span></label>
                 <label><input type="radio" name="size" value="large"><span>Large: 125-175</span></label>
                 <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
-                <p>For sizes larger than 250 people, please <a href="/contact/">contact us.</a></p>
-                <input type="submit" value="Next">
+                <input type="submit" value="Next" style="clear: both;">
             </form>
+                <p>For sizes larger than 250 people, please <a href="/contact/">contact us.</a></p>
             <?php
                 //When the user submits the size, the form posts
-                if (isset($_POST["size"]) && !isset($_SESSION["DONE"])){
+                if (isset($_POST["size"]) && $_SESSION["STEP"] != 4){
                     switch ($_POST["size"]){
                         case "small":
                         $_SESSION["sel_size"] = "Small";
@@ -201,12 +216,13 @@ function writeAddons(){
                     }
                     //Define totalPrice as 0 at the start so past data does not interfere
                     $_SESSION["totalPrice"] = 0;
-                    $_SESSION["DONE"] = true;
                     //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         setDisplay(1);
                     });</script>";
                 }
+            else
+                $_SESSION["STEP"] = 0;
             ?>
         </div>
     </div>
@@ -224,7 +240,7 @@ function writeAddons(){
         </div>
         <?php
             writeOccasions();
-            if (isset($_POST["occasion"]) && !$_SESSION["DONE"]){
+            if (isset($_POST["occasion"])){
                 $post_val = $_POST["occasion"];
                 if ($post_val != "generic"){
                     $post_price = $conn->query("SELECT price FROM products WHERE category = 2 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
@@ -235,26 +251,16 @@ function writeAddons(){
                 }
                 $_SESSION["totalPrice"] = $post_price;
                 $_SESSION["sel_occasion"] =  array($post_val, $post_price);
-                $_SESSION["DONE"] = true;
-            }
-            if ($_SESSION["DONE"]){
-                /**
+                $_SESSION["STEP"]++;
                 echo "<script>document.addEventListener('DOMContentLoaded', function() {
                     setDisplay(2);
                 });</script>";
-                */
-                $_SESSION["DONE"] = false;
             }
-            else
-                echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                    setDisplay(0);
-                });</script>";
         ?>
         <div class="col-12">
-            <input type="submit" value="Back" id="back">
+            <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
             <input type="submit" value="Next" id="next">
         </form>
-            <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
         </div>
     </div>
 
@@ -271,7 +277,7 @@ function writeAddons(){
         </div>
             <?php
                 writeThemes();
-                if (isset($_POST["theme"]) && !$_SESSION["DONE"]){
+                if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "no-theme"){
                         $post_price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
@@ -280,25 +286,16 @@ function writeAddons(){
                         $post_price = 0;
                     $_SESSION["totalPrice"] += $post_price;
                     $_SESSION["sel_theme"] = array($post_val, $post_price);
-                    $_SESSION["DONE"] = true;
-                }
-                if ($_SESSION["DONE"]){
+                    $_SESSION["STEP"]++;
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         setDisplay(3);
                     });</script>";
-                    $_SESSION["DONE"] = false;
-                }
-                else{
-                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                        setDisplay(1);
-                    });</script>";   
                 }
             ?>
         <div class="col-12">
-            <input type="submit" value="Back" id="back">
+            <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
             <input type="submit" value="Next" id="next">
         </form>
-            <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
         </div>
     </div>
 
@@ -311,7 +308,7 @@ function writeAddons(){
             <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
             <?php
                 writeAddons();
-                if (isset($_POST["add-on"]) && !$_SESSION["DONE"]){
+                if (isset($_POST["add-on"])){
                     $post_val = $_POST["add-on"];
                     //If any addon is selected (default is 1 bc of the emptyObject, then remove emptyObject, index 0
                     if (count($post_val) > 1){
@@ -334,21 +331,14 @@ function writeAddons(){
                     $_SESSION["totalPrice"] += $post_price;
                     //This would contain an array of items and then the TOTAL cost
                     $_SESSION["sel_addons"] = array($post_val, $post_price);
-                    $_SESSION["DONE"] = true;
-                }
-                if ($_SESSION["DONE"]){
+                    $_SESSION["STEP"]++;
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         setDisplay(4);
                     });</script>";
-                    $_SESSION["DONE"] = false;
-                    /**
-                else
-                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                        setDisplay(2);
-                    });</script>";*/
+                }
             ?>
         <div class="col-12">
-            <input type="submit" value="Back" id="back">
+            <!--<button onclick="setDisplay(2)" id="back">Back</button>-->
             <input type="submit" value="Next" id="next">
         </form>
         </div>
@@ -378,13 +368,22 @@ function writeAddons(){
                 </div>
                 <input type="submit" name="submit" value="Submit" id="next">
             </form>
-            <!--<button onclick="alert('No checkout page code yet!')" id="next">Next</button>-->
-            <button onclick="setDisplay(3)" id="back">Back</button>
+                <p class="center-text">Subtotal:
+                <?php
+                    echo "$" . $_SESSION["totalPrice"] . "<br>Tax: $" . $_SESSION["totalPrice"] * $TAX_CONSTANT . "<br>Shipping: $" . $BASE_SHIPPING * $_SESSION["size"];
+                ?>
+                </p>
+                <h2>Total: 
+                <?php
+                    echo "$" . ($_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]));
+                ?>
+                </h2>
+            <!--<button onclick="setDisplay(3)" id="back">Back</button>-->
         </div>
     </div>
     </div>
     <!--Total Cost-->
-    <div id="cost">
+    <div id="cost" style="display: none;">
         <h2>Total Cost: $<span>Code WIP</span></h2>
     </div>
 </body>

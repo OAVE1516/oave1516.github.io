@@ -12,12 +12,12 @@ function setDisplay(index){
     document.getElementById(pages[index]).style.display="block";
     
     //Sets all progress to none
-    for (var progressBar = 0; progressBar < 5; progressBar++){
+/*    for (var progressBar = 0; progressBar < 5; progressBar++){
         setBackground(progressBar, incomplete);
     }
     for (var i = index; i >= 0; i--){
         setBackground(progress[i], complete);
-    }
+    }*/
     document.getElementById("progress-bar").scrollIntoView();
 }
 

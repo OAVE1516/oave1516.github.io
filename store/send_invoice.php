@@ -21,11 +21,13 @@ $zip = $_POST["zip"];
 //Takes the list of addons and puts them into a string
 $addons = "";
 foreach ($sel_addons[$ITEM] as $addon){
-    $addons .= $addon . ", ";   
+    $addons .= $addon . ", ";
 }
+if ($sel_addons[0] == "emptyObject")
+    $addons = "No addons, ";
 $addons .= "$";
 
-$body = "Customer Information: <br>" . $name . "<br>" . $email . "<br>" . $address . "<br>" . $city . " " . $state . " " . $zip . "<br><br>Invoice<br><br>Selected Size: " . $sel_size . "<br>Selected Occasion: " . $sel_occasion[$ITEM] . ", $" . $sel_occasion[$COST] . "<br>Selected Theme: " . $sel_theme[$ITEM] . ", $" . $sel_theme[$COST] . "<br>Selected Addons: " . $addons . $sel_addons[$COST] . "<br><br><b>TOTAL: $" . $total_price . "</b><br>Thank you for choosing BlockParty LLC. We hope you have enjoyed your experience.";
+$body = "Customer Information: <br>" . $name . "<br>" . $email . "<br>" . $address . "<br>" . $city . " " . $state . " " . $zip . "<br><br>Invoice<br><br>Selected Size: " . $sel_size . "<br>Selected Occasion: " . $sel_occasion[$ITEM] . ", $" . $sel_occasion[$COST] . "<br>Selected Theme: " . $sel_theme[$ITEM] . ", $" . $sel_theme[$COST] . "<br>Selected Addons: " . $addons . $sel_addons[$COST] . "<br><br>Subtotal: $" . $total_price . "<br>" . "Tax: $" . ($total_price * 0.1) . "<br>Shipping: $" . 15 * $_SESSION["size"] ."<br><b>Total: $" . ($total_price * 1.1 + (15 * $_SESSION["size"])) ."</b><br><br>Thank you for choosing BlockParty LLC. We hope you have enjoyed your experience.";
 
 $mail = new PHPMailer;
 
@@ -48,6 +50,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if(!$mail->send()) {
         header($location . "Message could not be sent. Mailer Error: " . $mail ->ErrorInfo);
     } else {
+        session_destroy();
         header($location . "Success! Invoice has been sent.");
     }
 }
