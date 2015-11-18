@@ -7,15 +7,14 @@ video {
     left: 0;
     left: 0;
     right: 0;
-    transform: translateY(10%);
+    transform: translateY(-20%);
     overflow: hidden;
-    width: 100%;
+    width:100%;
 }
 
 .video-container {
 	width:100%;
     overflow: hidden;
-    height: inherit;
 }
 
 .mbback{
