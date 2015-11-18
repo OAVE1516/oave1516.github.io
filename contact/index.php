@@ -58,7 +58,11 @@
 </body>
     <footer id="dark">
         <div class="row">
-        <div class="col-4"><a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a></div>
+        <div class="col-4">
+            <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
+            <a href="/sitemap">Site Map</a><br>
+            <a href="/attributions">Media Attributions</a>
+        </div>
         <div class="col-4">
             <h3>Connect with us online!</h3>
             <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/">Facebook</a><br>

@@ -7,7 +7,9 @@ video {
     left: 0;
     left: 0;
     right: 0;
-    !transform: translateX(-50%) translateY(-60%);
+    transform: translateY(10%);
+    overflow: hidden;
+    width: 100%;
 }
 
 .video-container {
@@ -65,8 +67,15 @@ h2, h3{
 }
 
 .whitebg h2, .whitebg p{
-    color: #222;   
-   
+    color: #222;     
 }
-
-
+.modify{
+    width: 70%;
+}
+.modify2{
+    width: 60%;    
+}
+.modify3{
+    width:80%;
+    
+}

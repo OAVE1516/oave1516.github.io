@@ -390,19 +390,27 @@ function writeAddons(){
 </body>
     <footer id="dark">
         <div class="row">
-        <div class="col-4"><a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a></div>
         <div class="col-4">
-            <h3>Connect with us online!</h3>
+            <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
+            <a href="/sitemap">Site Map</a><br>
+            <a href="/attributions">Media Attributions</a>
+        </div>
+        <div class="col-4">
+            <h3 style="font-weight:900">Connect with us online!</h3>
             <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/">Facebook</a><br>
             <img id="sm" src="/img/instagram.svg"/><a href="http://instagram.com/">Instagram</a>
         </div>
         <div class="col-4">
-            <h3>Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
+            <h3 style="font-weight:900">Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
         </div>
         </div>
         <div class="row">
-        <div class="col-12" id="copy">*Disclaimer: Block Party is part of a group of high school virtual companies called <a href="https://veinternational.org/" target="_blank">Virtual Enterprise</a>. All business prospects, products, and items depicted on this website are purely fictitious.<br><br>&copy; Oxford Academy Virtual Enterprise 2015-2016</div>
-        </div>
+        <div class="col-12" id="copy">*Disclaimer: BlockParty is part of a group of high school virtual companies called <a href="https://veinternational.org/" target="_blank">Virtual Enterprise</a>. All business prospects, products, and items depicted on this website are purely fictitious.<br><br>&copy; Oxford Academy Virtual Enterprise 2015-2016</div>
+            <div class="row">
+                <p><a href="/promotion/index.html">Promotional Page</a> <a href="/promotion/index.html">Attritubtions</p>
+            </div>
+  
+        </div>  
     </footer>
 </html>
 
