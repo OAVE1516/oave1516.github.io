@@ -106,6 +106,8 @@ function writeAddons(){
         putInGrid($row["id"], "add-on[]", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
+
+//Kayla was here. Stop making Brandon do your homework. XD
 ?>
 
 <!DOCTYPE html>
@@ -148,6 +150,13 @@ function writeAddons(){
         <div class="col-fifth" id="progress-add-ons">4. Add Ons</div>
         <div class="col-fifth" id="progress-payment">5. Payment</div>
     </div>
+    <div class ="row" id="debug">
+    <?php
+            echo "Debug<br>Total Price: " . $_SESSION["totalPrice"] . "<br>Post Price: " . $post_price . "<br>Size: " . $_SESSION["size"];
+            echo "Post: " . var_dump($_POST) . "<br>";
+            echo "Session: " . var_dump($_SESSION);
+    ?>
+    </div>
     <div class="row center-text">
         <div id="contact-response">
             <?php
@@ -173,7 +182,7 @@ function writeAddons(){
             </form>
             <?php
                 //When the user submits the size, the form posts
-                if (isset($_POST["size"])){
+                if (isset($_POST["size"]) && !isset($_SESSION["DONE"])){
                     switch ($_POST["size"]){
                         case "small":
                         $_SESSION["sel_size"] = "Small";
@@ -186,12 +195,13 @@ function writeAddons(){
                         $_SESSION["size"] = 2.3; break;
                         case "xlarge":
                         $_SESSION["sel_size"] = "Extra Large";
-                        $SESSION["size"] = 2.6; break;
+                        $_SESSION["size"] = 2.6; break;
                         default:
                             echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
                     }
                     //Define totalPrice as 0 at the start so past data does not interfere
                     $_SESSION["totalPrice"] = 0;
+                    $_SESSION["DONE"] = true;
                     //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         setDisplay(1);
@@ -228,9 +238,11 @@ function writeAddons(){
                 $_SESSION["DONE"] = true;
             }
             if ($_SESSION["DONE"]){
+                /**
                 echo "<script>document.addEventListener('DOMContentLoaded', function() {
                     setDisplay(2);
                 });</script>";
+                */
                 $_SESSION["DONE"] = false;
             }
             else
@@ -243,10 +255,6 @@ function writeAddons(){
             <input type="submit" value="Next" id="next">
         </form>
             <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
-            <?php
-                //Debug code
-                echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "Post Price: " . $post_price . "Size: " . $_SESSION["size"] . "</div>";
-            ?>
         </div>
     </div>
 
@@ -263,31 +271,34 @@ function writeAddons(){
         </div>
             <?php
                 writeThemes();
-                if (isset($_POST["theme"])){
+                if (isset($_POST["theme"]) && !$_SESSION["DONE"]){
                     $post_val = $_POST["theme"];
                     if ($post_val != "no-theme"){
-                        //$post_price = $conn->query("SELECT price FROM products WHERE category = 3 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
-                        //$post_price *= 1.4;
                         $post_price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
                     }
                     else
                         $post_price = 0;
-                $_SESSION["totalPrice"] += $post_price;
-                $_SESSION["sel_theme"] = array($post_val, $post_price);
-                echo "<script>document.addEventListener('DOMContentLoaded', function() {
-                    setDisplay(3);
-                });</script>";
-            }
+                    $_SESSION["totalPrice"] += $post_price;
+                    $_SESSION["sel_theme"] = array($post_val, $post_price);
+                    $_SESSION["DONE"] = true;
+                }
+                if ($_SESSION["DONE"]){
+                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                        setDisplay(3);
+                    });</script>";
+                    $_SESSION["DONE"] = false;
+                }
+                else{
+                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                        setDisplay(1);
+                    });</script>";   
+                }
             ?>
         <div class="col-12">
             <input type="submit" value="Back" id="back">
             <input type="submit" value="Next" id="next">
         </form>
             <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
-            <?php
-                //Debug code
-                echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "Post Price: " . $post_price . "Size: " . $_SESSION["size"] . "</div>";
-            ?>
         </div>
     </div>
 
@@ -300,11 +311,11 @@ function writeAddons(){
             <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
             <?php
                 writeAddons();
-                if (isset($_POST["add-on"])){
+                if (isset($_POST["add-on"]) && !$_SESSION["DONE"]){
                     $post_val = $_POST["add-on"];
                     //If any addon is selected (default is 1 bc of the emptyObject, then remove emptyObject, index 0
                     if (count($post_val) > 1){
-                        unset($post_val[0]);   
+                        unset($post_val[0]);
                     }
                     $post_price = 0.00;
                     foreach ($post_val as $item){
@@ -323,20 +334,23 @@ function writeAddons(){
                     $_SESSION["totalPrice"] += $post_price;
                     //This would contain an array of items and then the TOTAL cost
                     $_SESSION["sel_addons"] = array($post_val, $post_price);
+                    $_SESSION["DONE"] = true;
+                }
+                if ($_SESSION["DONE"]){
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
                         setDisplay(4);
                     });</script>";
-                }
+                    $_SESSION["DONE"] = false;
+                    /**
+                else
+                    echo "<script>document.addEventListener('DOMContentLoaded', function() {
+                        setDisplay(2);
+                    });</script>";*/
             ?>
         <div class="col-12">
             <input type="submit" value="Back" id="back">
             <input type="submit" value="Next" id="next">
         </form>
-            <!--<button onclick="setDisplay(2)" id="back">Back</button>-->
-            <?php
-                //Debug code
-                echo "<div class='row'>Debug Total Price: " . $_SESSION["totalPrice"] . "</div>";
-            ?>
         </div>
     </div>
 
@@ -366,10 +380,6 @@ function writeAddons(){
             </form>
             <!--<button onclick="alert('No checkout page code yet!')" id="next">Next</button>-->
             <button onclick="setDisplay(3)" id="back">Back</button>
-            <?php
-                //Debug code
-                echo "Total Price: " . $_SESSION["totalPrice"];
-            ?>
         </div>
     </div>
     </div>
