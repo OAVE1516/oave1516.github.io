@@ -230,7 +230,7 @@ function writeAddons(){
     <!--Occasion-->
     <div class="row" id="occasion">
         <h1>Choose an Occasion</h1>
-        <p>GOT AN OCCASION? WE CAN HOOK YOU UP!</p>
+        <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
         <form method="post">
         <div class="grid-3">
             <h3>Generic</h3>
@@ -267,7 +267,7 @@ function writeAddons(){
     <!--Theme-->
     <div class="row" id="theme">
         <h1>Pick a theme</h1>
-        <p>THEMES ARE DANK, YO! PICK ONE!</p>
+        <p>Themes add theme to your party. Pick one.</p>
         <form method="post">
         <div class="grid-3">
             <h3>No Theme</h3>
@@ -302,7 +302,7 @@ function writeAddons(){
     <!--Add Ons-->
     <div class="row" id="add-ons">
         <h1>Toss in some Add-ons!</h1>
-        <p>FOOD, PHOTOGRAPHY, MUSIC, EVEN AUDIO EQUIPMENT?!?!?!? YOU CAN'T GO WRONG WITH ADD ONS. JUST BE SURE TO GET THAT CREDIT CARD READY ;)</p>
+        <p>Optional add-ons really pack a surprise. Pick as many as you want; they'll fit your theme and occasion.</p>
         <form method="post">
             <!-- php runs with isset so something needs to be checked to set it -->
             <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
