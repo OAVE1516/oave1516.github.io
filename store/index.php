@@ -17,9 +17,15 @@ $occasions = $conn->query("SELECT * FROM products WHERE category = 2 ORDER BY na
 $themes = $conn->query("SELECT * FROM products WHERE category = 3 ORDER BY name");
 $addons = $conn->query("SELECT * FROM products WHERE category = 4 ORDER BY subcategory ASC, name");
 
+
 //10% tax
 $TAX_CONSTANT = .1;
 $BASE_SHIPPING = 15.0;
+
+//$$$$$
+function toDollars($value){
+    return number_format((float)$value, 2, '.', '');
+}
 
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
 function putInGrid($id, $category, $subcategory, $name, $image, $price, $description){
@@ -28,7 +34,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
         $image = "http://oave1516.github.io/img/placeholder.png";
     //Prices entered in DB should not be empty -- Should be a real price or -1
     if (empty($price))
-        $price = number_format((float)0, 2, '.', '');
+        $price = toDollars(0);
     //Good 'ol lorem ipsum
     if (empty($description))
         $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
@@ -37,17 +43,17 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     if ($price < 0){
         if ($category == "theme"){
             //All themes are to provide a multiplier of 1.4 to the price
-            $price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
+            $price = toDollars($_SESSION["totalPrice"] * 1.4);
         }
     }
     else{
         //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
         if ($category == "add-on[]" && $subcategory != 0){
-            $price = number_format((float)$price, 2, '.', '');
+            $price = toDollars($price);
         }
         //Otherwise, we multiply price by the $size multiplier
         else{
-            $price = number_format((float)$price * $_SESSION["size"], 2, '.', '');
+            $price = toDollars($price * $_SESSION["size"]);
         }
     }
     $buttonText = "Add $" . $price;
@@ -114,7 +120,6 @@ function writeAddons(){
         putInGrid($row["id"], "add-on[]", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -280,7 +285,7 @@ function writeAddons(){
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "no-theme"){
-                        $post_price = number_format((float)$_SESSION["totalPrice"] * 0.4, 2, '.', '');
+                        $post_price = toDollars($_SESSION["totalPrice"] * 1.4);
                     }
                     else
                         $post_price = 0;
