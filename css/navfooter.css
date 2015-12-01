@@ -89,4 +89,9 @@ footer h3{
         padding: 15px 30px;
         float: left;
     }
+    .mobile-nav-icon img {
+        overflow: auto;
+        width: 40%;
+        margin-left: 23%;
+    }
 }
