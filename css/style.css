@@ -83,7 +83,7 @@ table {
     vertical-align: top;
     padding: 15px;
 }
-
+<!--mainpageicons-->
 .col-0.5 {width: 4.165%;}
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -247,12 +247,14 @@ button:hover{
     }
     .hide-on-mobile{
         display: none; 
-
     }
     .hide-on-desktop{
         display: block;   
     }
     select{
+        text-align: center;
+    }
+    h1{
         text-align: center;
     }
 }
