@@ -258,3 +258,8 @@ button:hover{
         text-align: center;
     }
 }
+.col3{
+    vertical-align: middle;
+    margin-left: 10%;
+    margin-top: 6%;
+}

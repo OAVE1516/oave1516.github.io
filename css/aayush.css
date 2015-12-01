@@ -69,12 +69,26 @@ h2, h3{
 }
 .modify{
     width: 70%;
+    vertical-align: middle;
+    margin-left: 13%;
+    margin-top: 6%;
 }
 .modify2{
-    width: 60%;    
+    width: 60%; 
+    vertical-align: middle;
+    margin-left: 19%;
 }
 .modify3{
-    width:80%;    
+    width:80%;
+    vertical-align: middle;
+    margin-left: 13%;
+    margin-top: 6%;
+}
+.modify4{
+    width:85%;
+    vertical-align: middle;
+    margin-left: 7.5%;
+    margin-top: 2%;
 }
 .background{
     background-color: #1B75BB;
