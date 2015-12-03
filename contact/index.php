@@ -60,9 +60,23 @@
         <div class="row">
         <div class="col-4">
             <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
-            <a href="/sitemap">Site Map</a><br>
+            <p>Site Map<p>
+            <ul class="center-text">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            <li>
+                <a href="/store/">Store</a>
+            </li>
+            <li>
+                <a href="/contact/">Contact</a>
+            </li>
+            </ul>
             <a href="/attributions">Media Attributions</a>
-        </div>
+            </div>
         <div class="col-4">
             <h3>Connect with us online!</h3>
             <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/" target="_blank">Facebook</a><br>
