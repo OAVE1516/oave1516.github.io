@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/store.css">
+    <link rel="stylesheet" href="../css/navfooter.css">
+    <script src="store.js"></script>
+    <title>BlockParty || Store</title>
+</head>
+<body>
+    <div class="desktop-nav">
+    <nav>
+        <div class="container">
+        <ul> 
+            <a href="/"><img src="/img/logo.svg"></a>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/about">About</a></li>
+	   </ul>
+        </div>
+    </nav>
+    </div>
+    <div class="mobile-nav row">
+    <nav>
+        <div class="mobile-nav-icon"><a href="/"><img src="/img/home.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/about"><img src="/img/about.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/store"><img src="/img/store.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/contact/"><img src="/img/contact.svg"></a></div>
+    </nav>
+    </div>
+    <div class="store container">
+    <div class="row" id="progress-bar">
+        <div class="col-fifth" id="progress-size">1. Size</div>
+        <div class="col-fifth" id="progress-occasion">2. Occasion</div>
+        <div class="col-fifth" id="progress-theme">3. Theme</div>
+        <div class="col-fifth" id="progress-add-ons">4. Add Ons</div>
+        <div class="col-fifth" id="progress-payment">5. Payment</div>
+    </div>
+    <div class ="debug row" id="debug">
+    </div>
+    <div class="row center-text">
+        <div id="contact-response">
+        </div>
+    </div>
+    <!--Size-->
+    <div class="row" id="size">
+        <h1>Pick a size</h1>
+        <div class="col-6">
+            <p>Here at BlockParty, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+            <img class="hide-on-mobile" src="/img/placeholder.png">
+        </div>
+        <div class="col-6">
+            <form method="post">
+                <label><input type="radio" name="size" value="small" checked><span>Small: 50-75</span></label>
+                <label><input type="radio" name="size" value="medium"><span>Medium: 75-125</span></label>
+                <label><input type="radio" name="size" value="large"><span>Large: 125-175</span></label>
+                <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
+                <input type="submit" value="Next" style="clear: both;">
+            </form>
+                <p>For sizes larger than 250 people, please <a href="/contact/">contact us.</a></p>
+        </div>
+    </div>
+
+    <!--Occasion-->
+    <div class="row" id="occasion">
+        <h1>Choose an Occasion</h1>
+        <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
+        <div class="col-6">
+            <div class="description">
+            <img src="/img/placeholder.png">
+            <h3>Item Description</h3>
+                <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.</p>
+                <h3>Add $30.00</h3>
+            </div>
+        </div>
+        <div class="col-6">
+        <form method="post">
+            <label><input type="radio" name="occasion" value="generic" id="generic" data-price="30.00" data-description="Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra." checked><span>Generic</span></label>
+            <!--
+        <div class="grid-3">
+            <h3>Generic</h3>
+            <img src="/img/placeholder.png">
+            <label><input type="radio" name="occasion" value="generic" checked id="generic" data-price="30.00"><span>Add $30.00</span></label>
+            <p>Even the description is generic.</p>
+        </div>
+        <div class="col-12">
+-->
+            <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
+        </div>
+            <input type="submit" value="Next" id="next">
+        </form>
+        </div>
+    </div>
+
+    <!--Theme-->
+    <div class="row" id="theme">
+        <h1>Pick a theme</h1>
+        <p>Themes add theme to your party. Pick one.</p>
+        <form method="post">
+        <div class="grid-3">
+            <h3>No Theme</h3>
+            <img src="/img/placeholder.png">
+            <label><input type="radio" name="theme" value="no-theme" checked id="no-theme" data-price="0.00"><span>Add $0.00</span></label>
+            <p>Maybe you don't need a crazy theme to have fun. Plain decorations all around.</p>
+        </div>
+        <div class="col-12">
+            <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
+            <input type="submit" value="Next" id="next">
+        </form>
+        </div>
+    </div>
+
+    <!--Add Ons-->
+    <div class="row" id="add-ons">
+        <h1>Toss in some Add-ons!</h1>
+        <p>Optional add-ons really pack a surprise. Pick as many as you want; they'll fit your theme and occasion.</p>
+        <form method="post">
+            <!-- php runs with isset so something needs to be checked to set it -->
+            <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
+        <div class="col-12">
+            <!--<button onclick="setDisplay(2)" id="back">Back</button>-->
+            <input type="submit" value="Next" id="next">
+        </form>
+        </div>
+    </div>
+
+    <!-- Payment-->
+    <div class="row" id="payment">
+        <h1>Checkout</h1>
+        <div class="col-6">
+            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC*.</p>
+            <img class="hide-on-mobile" src="/img/placeholder.png">
+        </div>
+        <div class="col-6 contact-form">
+            <form action="send_invoice.php" method="POST">
+                <h3>Your Name</h3><input type="text" name="name" id="name">
+                <h3>Your E-mail</h3><input type="text" name="email" id="email">
+                <h3>Street Address</h3><input type="text" name="address" id="address">
+                <h3>City</h3><input type="text" name="city" id="city">
+                <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
+                    <h3>State</h3>
+                    <select name="state">
+                    <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                    </select>
+                </div>
+                <div style="width: 75%; float: left; padding: 0px;">
+                    <h3>Zip Code</h3><input type="text" name="zip" id="zip">
+                </div>
+                <input type="submit" name="submit" value="Submit" id="next">
+            </form>
+            <!--<button onclick="setDisplay(3)" id="back">Back</button>-->
+        </div>
+    </div>
+    </div>
+    <!--Total Cost-->
+    <div id="cost" style="display: none;">
+        <h2>Total Cost: $<span>Code WIP</span></h2>
+    </div>
+</body>
+    <footer id="dark">
+        <div class="row">
+        <div class="col-4">
+            <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
+            <a href="/sitemap">Site Map</a><br>
+            <a href="/attributions">Media Attributions</a>
+        </div>
+        <div class="col-4">
+            <h3 style="font-weight:900">Connect with us online!</h3>
+            <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/">Facebook</a><br>
+            <img id="sm" src="/img/instagram.svg"/><a href="http://instagram.com/">Instagram</a>
+        </div>
+        <div class="col-4">
+            <h3 style="font-weight:900">Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12" id="copy">*Disclaimer: BlockParty is part of a group of high school virtual companies called <a href="https://veinternational.org/" target="_blank">Virtual Enterprise</a>. All business prospects, products, and items depicted on this website are purely fictitious.<br><br>&copy; Oxford Academy Virtual Enterprise 2015-2016</div>
+            <div class="row">
+                <p><a href="/promotion/index.html">Promotional Page</a> <a href="/promotion/index.html">Attritubtions</p>
+            </div>
+  
+        </div>  
+    </footer>
+</html>

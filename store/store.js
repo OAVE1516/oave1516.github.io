@@ -25,6 +25,15 @@ function setBackground(element, value){
     document.getElementById(element).style.background=value;
 }
 
+//Image id will be different for each so accomdate for that using pageID
+function showItem(pageID, itemID){
+    var data = document.getElementById(itemID).dataset;
+    var description = data.description;
+    var price = data.price;
+    var image = data.image;
+    var targetLocation = document.getElementsByClassName("description")[pageID];
+    targetLocation.innerHTML = "<img src='" + image + "'><p>" + description + "</p><h3>Add $" + price + "</h3>";
+}
 /**
 function next(){
     setDisplay(pages[step], pages[step+1]);

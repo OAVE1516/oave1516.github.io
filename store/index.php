@@ -27,6 +27,57 @@ function toDollars($value){
     return number_format((float)$value, 2, '.', '');
 }
 
+//Fills the list with items from the database
+function populateList($id, $category, $subcategory, $name, $image, $price, $description){
+    //Sets default values if the database is empty
+    if (empty($image))
+        $image = "http://oave1516.github.io/img/placeholder.png";
+    //Prices entered in DB should not be empty -- Should be a real price or -1
+    if (empty($price))
+        $price = toDollars(0);
+    //Good 'ol lorem ipsum
+    if (empty($description))
+        $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
+    
+    //Non priced items (multipliers) are logged as -1 in the database
+    if ($price < 0){
+        if ($category == "theme"){
+            //All themes are to provide a multiplier of 1.4 to the price
+            $price = toDollars($_SESSION["totalPrice"] * 1.4);
+        }
+    }
+    else{
+        //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
+        if ($category == "add-on[]" && $subcategory != 0){
+            $price = toDollars($price);
+        }
+        //Otherwise, we multiply price by the $size multiplier
+        else{
+            $price = toDollars($price * $_SESSION["size"]);
+        }
+    }
+    $buttonText = $name;
+    $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
+    if ($category != "add-on[]")
+        $type = "radio";
+    else
+        $type = "checkbox";
+    //Uses a template to print data into the list
+    if ($category == "add-on[]" && $price < 0)
+        //EDIT THIS
+       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
+    else{
+           echo "<label><input type='" . $type .
+               "' name='" . $category .
+               "' value='" . $name .
+               "' id='" . $id .
+               "' data-price='". $price .
+               "' data-description='" . $description .
+               "' data-image='" . $image .
+               "'><span>" .$buttonText . "</span></label>";
+    }
+}
+
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
 function putInGrid($id, $category, $subcategory, $name, $image, $price, $description){
     //Sets default values if the database is empty
@@ -66,7 +117,16 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     if ($category == "add-on[]" && $price < 0)
        echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
     else{
-           echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" ."<label><input type='" . $type . "' name='" . $category . "' value='" . $name . "' id='" . $id . "' data-price='" . $price . "'><span>" . $buttonText . "</span></label>" . "<p>" . $description . "</p></div>";
+           echo "<div class='grid-3'>" .
+               "<h3>" . $name . "</h3>" .
+               "<img src='" . $image . "'>" .
+               "<label><input type='" . $type .
+               "' name='" . $category .
+               "' value='" . $name .
+               "' id='" . $id .
+               "' data-price='". $price * $_SESSION["size"] .
+               "'><span>" .$buttonText . "</span></label>" .
+               "<p>" . $description . "</p></div>";
     }
 }
 
