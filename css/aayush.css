@@ -11,14 +11,7 @@ video {
     overflow: hidden;
     width:100%;
 }
-.mobilephoto4{
-    height: 150px;
-    width: 150px;
-    align-content: center;
-    margin-left: 13%;
-    
-    
-}
+
 .video-container {
 	width:100%;
     overflow: hidden;
@@ -100,7 +93,12 @@ h2, h3{
 .background{
     background-color: #1B75BB;
 }
-
+.mobilephoto4{
+    height: 150px;
+    width: 150px;
+    align-content: center;
+    margin-left: 13%;
+}
 @media only screen and (max-width: 768px) {
     .maintext{
         font-size: 7em;  
@@ -110,15 +108,26 @@ h2, h3{
         width:50%;
         margin-left: 25%;
     }
+    .mobilephoto4{
+    height: 150px;
+    width: 150px;
+    align-content: center;
+    margin-left: 13%;
+}
 }
 
 @media only screen and (Max-width: 492px){
     .maintext{
-        font-size: 4em; 
-        overflow: auto;
+        font-size: 4em;
     }
     .mobilephoto{
         width:50%;
         margin-left: 25%;
+    }
+    .mobilephoto4{
+        height: 150px;
+        width: 150px;
+        align-content: center;
+        margin-left: 29.5%;
     }
 }
