@@ -33,6 +33,27 @@ function showItem(pageID, itemID){
     var image = data.image;
     var targetLocation = document.getElementsByClassName("description")[pageID];
     targetLocation.innerHTML = "<img src='" + image + "'><p>" + description + "</p><h3>Add $" + price + "</h3>";
+    return true;
+}
+
+function setEventListeners(pageName){
+    var pID = 0;
+    switch (pageName){
+        case: "occasion";
+            pID = 0; break;
+        case: "theme";
+            pID = 1; break;
+        case: "add-ons";
+            pID = 2; break;
+        default: 
+            console.log("rip code");
+    }
+    var kids = document.getElementById(pageName).form.children;
+    var iID = -1;
+    for (var i = 0; i < kids.length; i++){
+        iID = kids[i].id;
+        kids[i].addEventListener("click", showItem(pID, iID));
+    }
 }
 /**
 function next(){

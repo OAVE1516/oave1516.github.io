@@ -133,7 +133,8 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
 function writeOccasions(){
     global $occasions;
     while ($row = $occasions->fetch_assoc()){
-           putInGrid($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        populateList($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+           //putInGrid($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
@@ -293,16 +294,21 @@ function writeAddons(){
     </div>
 
     <!--Occasion-->
+    
     <div class="row" id="occasion">
         <h1>Choose an Occasion</h1>
         <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
-        <form method="post">
-        <div class="grid-3">
-            <h3>Generic</h3>
+        <div class="col-6">
+            <div class="description">
             <img src="/img/placeholder.png">
-            <label><input type="radio" name="occasion" value="generic" checked id="generic" data-price="30.00"><span>Add $30.00</span></label>
-            <p>Even the description is generic.</p>
+            <h3>Item Description</h3>
+                <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.</p>
+                <h3>Add $30.00</h3>
+            </div>
         </div>
+        <div class="col-6">
+        <form method="post">
+            <label><input type="radio" name="occasion" value="generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." checked><span>Generic</span></label>
         <?php
             writeOccasions();
             if (isset($_POST["occasion"])){
@@ -322,10 +328,11 @@ function writeAddons(){
                 });</script>";
             }
         ?>
+        </form>
+        <script>setEventListeners("occasion");</script>
         <div class="col-12">
             <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
             <input type="submit" value="Next" id="next">
-        </form>
         </div>
     </div>
 
