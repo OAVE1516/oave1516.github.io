@@ -34,8 +34,7 @@ logo{
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-    
+} 
 footer{
     text-align: center;
     color: #eee;
@@ -49,27 +48,22 @@ footer .row{
     margin-right: auto;
     max-width: 900px;
 }
-
 #sm{
     display: inline;
     height: 1em;
     width: 10%;   
 }
-
 nav img{
     width: 7em;
     float: left;
     vertical-align: middle;
 }
-
 footer a{
     transition: color 0.15s;
 }
-
 footer h3{
     padding-bottom: 0.5em;   
 }
-
 .mobile-nav{
     display: none;   
 }
@@ -85,13 +79,13 @@ footer h3{
         float: none;
     }
     .mobile-nav-icon{
-        width: 25%;
-        padding: 15px 30px;
+        width: 35%;
+        padding: 15px 15px;
         float: left;
     }
     .mobile-nav-icon img {
         overflow: auto;
-        width: 40%;
-        margin-left: 23%;
+        width: 30%;
+        margin-left: 15%;
     }
 }

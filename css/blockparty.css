@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
 video {
     position: absolute;
     z-index: -1;
@@ -11,12 +10,10 @@ video {
     overflow: hidden;
     width:100%;
 }
-
 .video-container {
 	width:100%;
     overflow: hidden;
 }
-
 .mbback{
     position: absolute;
     top: 0;
@@ -28,7 +25,6 @@ video {
     height: 2500px;
     z-index: -100;
 }
-
 .maintext{
     padding-top: 50px;
     color: #eee;
@@ -36,9 +32,7 @@ video {
     text-align: center;
     font-family: "Roboto", sans-serif;
     font-weight: 300;
-    
 }
-
 .maintext2{
     color: #eee;
     font-size: 2em;
@@ -48,47 +42,17 @@ video {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
 }
-
 h2, h3{
     color: #eee;
 }
-
 .graybg{
     background: #555;
 }
-
 .graybg p{
     color: #eee;   
 }
-
-.whitebg{
-}
-
 .whitebg h2, .whitebg p{
     color: #222;     
-}
-.modify{
-    width: 70%;
-    vertical-align: middle;
-    margin-left: 13%;
-    margin-top: 6%;
-}
-.modify2{
-    width: 60%; 
-    vertical-align: middle;
-    margin-left: 19%;
-}
-.modify3{
-    width:80%;
-    vertical-align: middle;
-    margin-left: 13%;
-    margin-top: 6%;
-}
-.modify4{
-    width:85%;
-    vertical-align: middle;
-    margin-left: 7.5%;
-    margin-top: 2%;
 }
 .background{
     background-color: #1B75BB;
@@ -96,8 +60,10 @@ h2, h3{
 .mobilephoto4{
     height: 150px;
     width: 150px;
-    align-content: center;
-    margin-left: 13%;
+    
+}
+.testing{
+    text-align: center;
 }
 @media only screen and (max-width: 768px) {
     .maintext{
@@ -109,13 +75,14 @@ h2, h3{
         margin-left: 25%;
     }
     .mobilephoto4{
-    height: 150px;
-    width: 150px;
-    align-content: center;
-    margin-left: 13%;
+        height: 30%;
+        width: 30%;
+        display: inline-block;
+    }
+    .mobilephoto4 img{
+        display: block;
+    }
 }
-}
-
 @media only screen and (Max-width: 492px){
     .maintext{
         font-size: 4em;
@@ -127,7 +94,9 @@ h2, h3{
     .mobilephoto4{
         height: 150px;
         width: 150px;
-        align-content: center;
-        margin-left: 29.5%;
+        display: inline-block;
+    }
+    .mobilephoto4 img{
+        display:block;
     }
 }
