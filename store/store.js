@@ -32,29 +32,30 @@ function showItem(pageID, itemID){
     var price = data.price;
     var image = data.image;
     var targetLocation = document.getElementsByClassName("description")[pageID];
-    targetLocation.innerHTML = "<img src='" + image + "'><p>" + description + "</p><h3>Add $" + price + "</h3>";
-    return true;
+    targetLocation.innerHTML = "<img src='" + image + "'><h3>Add $" + price + "</h3><p>" + description + "</p>";
 }
 
-function setEventListeners(pageName){
+/*function setEventListeners(pageName){
     var pID = 0;
     switch (pageName){
-        case: "occasion";
+        case "occasion-form":
             pID = 0; break;
-        case: "theme";
+        case "theme-form":
             pID = 1; break;
-        case: "add-ons";
+        case "add-ons-form":
             pID = 2; break;
         default: 
-            console.log("rip code");
+            console.log("Choosing the pID for the eventListener is hard apparently");
     }
-    var kids = document.getElementById(pageName).form.children;
+    var kids = document.getElementById(pageName).children;
     var iID = -1;
     for (var i = 0; i < kids.length; i++){
         iID = kids[i].id;
-        kids[i].addEventListener("click", showItem(pID, iID));
+        kids[i].addEventListener("change", function(){
+            showItem(pID, iID)
+        });
     }
-}
+}*/
 /**
 function next(){
     setDisplay(pages[step], pages[step+1]);

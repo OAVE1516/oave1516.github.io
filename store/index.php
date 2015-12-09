@@ -29,6 +29,20 @@ function toDollars($value){
 
 //Fills the list with items from the database
 function populateList($id, $category, $subcategory, $name, $image, $price, $description){
+    $pageIndex = -1;
+    switch ($category){
+        case "occasion":
+        $pageIndex = 0; break;
+        case "theme":
+        $pageIndex = 1; break;
+        case "add-ons":
+        $pageIndex = 2; break;
+        default: 
+        echo "Category to index in populateList no worko"; break;
+    }
+    //Escapes the quotes so when printed to a JS dataset, the HTML doesn't screw up
+    $description = htmlspecialchars($description, ENT_QUOTES);
+    
     //Sets default values if the database is empty
     if (empty($image))
         $image = "http://oave1516.github.io/img/placeholder.png";
@@ -74,6 +88,7 @@ function populateList($id, $category, $subcategory, $name, $image, $price, $desc
                "' data-price='". $price .
                "' data-description='" . $description .
                "' data-image='" . $image .
+               "' onclick='showItem($pageIndex, " . $id . ")'" .
                "'><span>" .$buttonText . "</span></label>";
     }
 }
@@ -141,7 +156,8 @@ function writeOccasions(){
 function writeThemes(){
     global $themes;
     while ($row = $themes->fetch_assoc()){
-           putInGrid($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        populateList($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        //putInGrid($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
@@ -300,15 +316,14 @@ function writeAddons(){
         <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
         <div class="col-6">
             <div class="description">
-            <img src="/img/placeholder.png">
-            <h3>Item Description</h3>
-                <p>Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.</p>
+                <img src="/img/placeholder.png">
                 <h3>Add $30.00</h3>
+                <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
             </div>
         </div>
         <div class="col-6">
-        <form method="post">
-            <label><input type="radio" name="occasion" value="generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." checked><span>Generic</span></label>
+        <form method="post" id="occasion-form">
+            <label><input type="radio" name="occasion" value="generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/placeholder.png" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
         <?php
             writeOccasions();
             if (isset($_POST["occasion"])){
@@ -328,25 +343,33 @@ function writeAddons(){
                 });</script>";
             }
         ?>
+        <input type="submit" value="Next" id="next">
         </form>
-        <script>setEventListeners("occasion");</script>
-        <div class="col-12">
-            <!--<button onclick="setDisplay(0)" id="back">Back</button>-->
-            <input type="submit" value="Next" id="next">
-        </div>
+    </div>
     </div>
 
     <!--Theme-->
     <div class="row" id="theme">
         <h1>Pick a theme</h1>
         <p>Themes add theme to your party. Pick one.</p>
-        <form method="post">
+        <!--<form method="post" id="theme-form">
         <div class="grid-3">
             <h3>No Theme</h3>
             <img src="/img/placeholder.png">
             <label><input type="radio" name="theme" value="no-theme" checked id="no-theme" data-price="0.00"><span>Add $0.00</span></label>
             <p>Maybe you don't need a crazy theme to have fun. Plain decorations all around.</p>
+        </div>-->
+        <div class="col-6">
+            <div class="description">
+                <img src="/img/placeholder.png">
+                <h3>Add $30.00</h3>
+                <p>Sometimes you don’t need a theme to have a great time. Without a theme, you’re free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we’ll be there to help with the process.
+</p>
+            </div>
         </div>
+        <div class="col-6">
+        <form method="post" id="theme-form">
+            <label><input type="radio" name="theme" value="no-theme" id="no-theme" data-price="0.00" data-description="Sometimes you don’t need a theme to have a great time. Without a theme, you’re free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we’ll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(0, 'no-theme')" checked><span>No Theme</span></label>
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){
@@ -364,18 +387,17 @@ function writeAddons(){
                     });</script>";
                 }
             ?>
-        <div class="col-12">
             <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
             <input type="submit" value="Next" id="next">
         </form>
-        </div>
+    </div>
     </div>
 
     <!--Add Ons-->
     <div class="row" id="add-ons">
         <h1>Toss in some Add-ons!</h1>
         <p>Optional add-ons really pack a surprise. Pick as many as you want; they'll fit your theme and occasion.</p>
-        <form method="post">
+        <form method="post" id="add-ons-form">
             <!-- php runs with isset so something needs to be checked to set it -->
             <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
             <?php
@@ -440,63 +462,58 @@ function writeAddons(){
                 </div>
                 <input type="submit" name="submit" value="Submit" id="next">
             </form>
+            <?php
+                $finalPrices = array(
+                    "subtotal"=>$_SESSION["totalPrice"],
+                    "tax"=>$_SESSION["totalPrice"] * $TAX_CONSTANT,
+                    "shipping"=>$BASE_SHIPPING * $_SESSION["size"],
+                    "grandTotal"=>$_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"])
+                );
+                foreach ($finalPrices as $price=>$value){
+                    $value = toDollars($value);   
+                }
+            ?>
                 <p class="center-text">Subtotal:
                 <?php
-                    echo "$" . $_SESSION["totalPrice"] . "<br>Tax: $" . $_SESSION["totalPrice"] * $TAX_CONSTANT . "<br>Shipping: $" . $BASE_SHIPPING * $_SESSION["size"];
+                    echo "$" . $finalPrices["subtotal"] . "<br>Tax: $" . $finalPrices["tax"] . "<br>Shipping: $" . $finalPrices["shipping"];
                 ?>
                 </p>
                 <h2>Total: 
                 <?php
-                    echo "$" . ($_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]));
+                    echo "$" . $finalPrices["grandTotal"];
+                    $_SESSION["finalPrices"] = $finalPrices;
                 ?>
                 </h2>
             <!--<button onclick="setDisplay(3)" id="back">Back</button>-->
         </div>
     </div>
-    </div>
     <!--Total Cost-->
     <div id="cost" style="display: none;">
         <h2>Total Cost: $<span>Code WIP</span></h2>
     </div>
+</div>
+</div>
 </body>
-    <footer id="dark">
-        <div class="row">
-        <div class="col-4">
-            <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
-            <p>Site Map<p>
-            <ul class="center-text">
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/about/">About</a>
-            </li>
-            <li>
-                <a href="/store/">Store</a>
-            </li>
-            <li>
-                <a href="/contact/">Contact</a>
-            </li>
-            </ul>
-            <a href="/attributions">Media Attributions</a>
-        </div>
-        <div class="col-4">
-            <h3 style="font-weight:900">Connect with us online!</h3>
-            <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/">Facebook</a><br>
-            <img id="sm" src="/img/instagram.svg"/><a href="http://instagram.com/">Instagram</a>
-        </div>
-        <div class="col-4">
-            <h3 style="font-weight:900">Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-12" id="copy">*Disclaimer: BlockParty is part of a group of high school virtual companies called <a href="https://veinternational.org/" target="_blank">Virtual Enterprise</a>. All business prospects, products, and items depicted on this website are purely fictitious.<br><br>&copy; Oxford Academy Virtual Enterprise 2015-2016</div>
-            <div class="row">
-                <p><a href="/promotion/index.html">Promotional Page</a> <a href="/promotion/index.html">Attritubtions</p>
-            </div>
-  
-        </div>  
-    </footer>
+<footer id="dark">
+    <div class="row">
+    <div class="col-4">
+        <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
+        <a href="/sitemap">Site Map</a><br>
+        <a href="/attributions">Media Attributions</a>
+    </div>
+    <div class="col-4">
+        <h3>Connect with us online!</h3>
+        <img id="sm" src="/img/facebook.svg"/><a href="https://www.facebook.com/veblockparty/">Facebook</a><br>
+        <img id="sm" src="/img/instagram.svg"/><a href="https://instagram.com/veblockparty/">Instagram</a>
+    </div>
+    <div class="col-4">
+        <h3>Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-12" id="copy">*Disclaimer: This is an official <a href="https://veinternational.org/" target="_blank">Virtual Enterprises International</a> firm website and is for educational purposes only. (2015-2016 – BlockParty LLC)<br>All business prospects, products, and items depicted on this website are purely fictitious</div>
+    </div>
+</footer>
 </html>
 
 <?php

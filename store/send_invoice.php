@@ -7,6 +7,7 @@ $sel_occasion = $_SESSION["sel_occasion"];
 $sel_theme = $_SESSION["sel_theme"];
 $sel_addons = $_SESSION["sel_addons"];
 $total_price = $_SESSION["totalPrice"];
+$prices = $_SESSION["finalPrices"];
 
 $ITEM = 0;
 $COST = 1;
@@ -27,7 +28,17 @@ if ($sel_addons[0] == "emptyObject")
     $addons = "No addons, ";
 $addons .= "$";
 
-$body = "Customer Information: <br>" . $name . "<br>" . $email . "<br>" . $address . "<br>" . $city . " " . $state . " " . $zip . "<br><br>Invoice<br><br>Selected Size: " . $sel_size . "<br>Selected Occasion: " . $sel_occasion[$ITEM] . ", $" . $sel_occasion[$COST] . "<br>Selected Theme: " . $sel_theme[$ITEM] . ", $" . $sel_theme[$COST] . "<br>Selected Addons: " . $addons . $sel_addons[$COST] . "<br><br>Subtotal: $" . $total_price . "<br>" . "Tax: $" . ($total_price * 0.1) . "<br>Shipping: $" . 15 * $_SESSION["size"] ."<br><b>Total: $" . ($total_price * 1.1 + (15 * $_SESSION["size"])) ."</b><br><br>Thank you for choosing BlockParty LLC. We hope you have enjoyed your experience.";
+$body = "Customer Information: <br>$name<br>$email<br>$address<br>$city $state $zip<br><br>
+Invoice<br><br>
+Selected Size: $sel_size<br>
+Selected Occasion: $sel_occasion[$ITEM], $$sel_occasion[$COST]<br>
+Selected Theme: $sel_theme[$ITEM], $$sel_theme[$COST]<br>
+Selected Addons: $addons<br>
+Subtotal: $${prices['subtotal']}<br>
+Tax: $${prices['tax']}<br>
+Shipping: $${prices['shipping']}br>
+<b>Total: $${prices['grandTotal']}</b><br><br>
+Thank you for choosing BlockParty LLC. We hope you have enjoyed your experience.";
 
 $mail = new PHPMailer;
 
