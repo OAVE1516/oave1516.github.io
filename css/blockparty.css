@@ -108,7 +108,7 @@ h2, h3{
 }
 @media only screen and (Max-width: 492px){
     .maintext{
-        font-size: 4em;
+        font-size: 3.55em;
     }
     .mobilephoto{
         width:50%;
