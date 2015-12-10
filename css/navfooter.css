@@ -79,9 +79,10 @@ footer h3{
         float: none;
     }
     .mobile-nav-icon{
-        width: 35%;
+        width: 25%;
         padding: 15px 15px;
         float: left;
+        height: 20%;
     }
     .mobile-nav-icon img {
         overflow: auto;
