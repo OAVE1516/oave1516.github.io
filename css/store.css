@@ -89,6 +89,7 @@ form{
     height: 200px;
     overflow: auto;
 }
+
 @media only screen and (max-width: 768px) {
     #cost{
         position: fixed;
