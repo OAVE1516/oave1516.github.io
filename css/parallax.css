@@ -1,5 +1,4 @@
 .parallax {
-    height: 600px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -10,9 +9,16 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.parallax-0{
+    background-image: url("../img/balloons-dark.jpg");
+    height: 100vh;
+}
 .parallax-1 {
     background-image: url("../img/presents-white.jpg");
 }
 .parallax-2 {
     background-image: url("../img/rave-white.jpg");
+}
+.row-padding{
+    padding: 7em 0em;   
 }

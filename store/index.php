@@ -76,6 +76,7 @@ function populateList($id, $category, $subcategory, $name, $image, $price, $desc
         $type = "radio";
     else
         $type = "checkbox";
+    $image = "/img/products/" . $image;
     //Uses a template to print data into the list
     if ($category == "add-on[]" && $price < 0)
         //EDIT THIS
@@ -266,7 +267,7 @@ function writeAddons(){
         <h1>Pick a size</h1>
         <div class="col-6">
             <p>Here at BlockParty, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
-            <img class="hide-on-mobile" src="/img/placeholder.png">
+            <img class="hide-on-mobile" src="/img/sizes.png" style="padding: 30px">
         </div>
         <div class="col-6">
             <form method="post">
@@ -363,13 +364,13 @@ function writeAddons(){
             <div class="description">
                 <img src="/img/placeholder.png">
                 <h3>Add $30.00</h3>
-                <p>Sometimes you don’t need a theme to have a great time. Without a theme, you’re free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we’ll be there to help with the process.
+                <p>Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process.
 </p>
             </div>
         </div>
         <div class="col-6">
         <form method="post" id="theme-form">
-            <label><input type="radio" name="theme" value="no-theme" id="no-theme" data-price="0.00" data-description="Sometimes you don’t need a theme to have a great time. Without a theme, you’re free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we’ll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(0, 'no-theme')" checked><span>No Theme</span></label>
+            <label><input type="radio" name="theme" value="no-theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(0, 'no-theme')" checked><span>No Theme</span></label>
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){

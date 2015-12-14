@@ -11,9 +11,8 @@ nav{
 nav li { 
     font-size: 2em; 
     font-style: bold;
-    padding: 40px;
+    padding: 30px 40px;
     float: right;
-    vertical-align: middle;
 }
 nav a { 
     color: black;
@@ -54,7 +53,7 @@ footer .row{
     width: 10%;   
 }
 nav img{
-    width: 7em;
+    width: 5em;
     float: left;
     vertical-align: middle;
 }
