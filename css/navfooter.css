@@ -2,6 +2,7 @@ li {
     display: inline;
 }
 nav{
+    position: relative;
     background: #eee;
     padding-top: 1em;
     padding-bottom: 1em;

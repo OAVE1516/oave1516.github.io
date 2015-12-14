@@ -450,7 +450,8 @@ function writeAddons(){
             <form action="send_invoice.php" method="POST">
                 <h3>Your Name</h3><input type="text" name="name" id="name">
                 <h3>Your E-mail</h3><input type="text" name="email" id="email">
-                <h3>Street Address</h3><input type="text" name="address" id="address">
+                <h3>Your School</h3><input type="text" name="school" id="school">
+                <h3>Ship to Address</h3><input type="text" name="address" id="address">
                 <h3>City</h3><input type="text" name="city" id="city">
                 <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
                     <h3>State</h3>
@@ -465,14 +466,14 @@ function writeAddons(){
             </form>
             <?php
                 $finalPrices = array(
-                    "subtotal"=>$_SESSION["totalPrice"],
-                    "tax"=>$_SESSION["totalPrice"] * $TAX_CONSTANT,
-                    "shipping"=>$BASE_SHIPPING * $_SESSION["size"],
-                    "grandTotal"=>$_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"])
+                    "subtotal"=>toDollars($_SESSION["totalPrice"]),
+                    "tax"=>toDollars($_SESSION["totalPrice"] * $TAX_CONSTANT),
+                    "shipping"=>toDollars($BASE_SHIPPING * $_SESSION["size"]),
+                    "grandTotal"=>toDollars($_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
                 );
-                foreach ($finalPrices as $price=>$value){
+               /* foreach ($finalPrices as $price=>$value){
                     $value = toDollars($value);   
-                }
+                }*/
             ?>
                 <p class="center-text">Subtotal:
                 <?php
