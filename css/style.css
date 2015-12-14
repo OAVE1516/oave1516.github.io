@@ -182,7 +182,7 @@ select{
 }
 
 input[type='submit']{
-    background-color: #C8005A;
+    background-color: #555;
     color: #eee;
     font-size: 30px;
     padding: 10px 20px 10px 20px;
@@ -195,7 +195,7 @@ input[type='submit']{
 }
 
 input[type='submit']:hover{
-    background: #E00069;
+    background: #222;
 }
 
 .contact-form h3{

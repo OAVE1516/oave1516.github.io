@@ -41,11 +41,11 @@ function populateList($id, $category, $subcategory, $name, $image, $price, $desc
         echo "Category to index in populateList no worko"; break;
     }
     //Escapes the quotes so when printed to a JS dataset, the HTML doesn't screw up
-    $description = htmlspecialchars($description, ENT_QUOTES);
+    $description = htmlspecialchars($description, ENT_QUOTES | ENT_SUBSTITUTE);
     
     //Sets default values if the database is empty
     if (empty($image))
-        $image = "http://oave1516.github.io/img/placeholder.png";
+        $image = "placeholder.png";
     //Prices entered in DB should not be empty -- Should be a real price or -1
     if (empty($price))
         $price = toDollars(0);
@@ -444,7 +444,7 @@ function writeAddons(){
         <h1>Checkout</h1>
         <div class="col-6">
             <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC*.</p>
-            <img class="hide-on-mobile" src="/img/placeholder.png">
+            <img class="hide-on-mobile" src="/img/logo.svg">
         </div>
         <div class="col-6 contact-form">
             <form action="send_invoice.php" method="POST">

@@ -52,10 +52,10 @@ form{
 }
 
 .store label:hover{
-    background-color:#0098CB;   
+    background-color: #0098CB;   
 }
 .store label input:checked + span{
-    background-color: #0098CB;
+    background-color: #C8005A;
 }
 
 .store span {
