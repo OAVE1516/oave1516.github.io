@@ -240,6 +240,7 @@ function writeAddons(){
         <div class="col-fifth" id="progress-add-ons">4. Add Ons</div>
         <div class="col-fifth" id="progress-payment">5. Payment</div>
     </div>
+    <noscript>This page requires JavaScript to run. Either enable JavaScript or use the offline order form found <a href="catalog.pdf">here.</a></noscript>
     <div class ="debug row" id="debug">
         <p>Post</p>
     <?php
@@ -451,7 +452,7 @@ function writeAddons(){
                 <h3>Your Name</h3><input type="text" name="name" id="name">
                 <h3>Your E-mail</h3><input type="text" name="email" id="email">
                 <h3>Your School</h3><input type="text" name="school" id="school">
-                <h3>Ship to Address</h3><input type="text" name="address" id="address">
+                <h3>Shipping Address</h3><input type="text" name="address" id="address">
                 <h3>City</h3><input type="text" name="city" id="city">
                 <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
                     <h3>State</h3>
@@ -490,7 +491,10 @@ function writeAddons(){
         </div>
     </div>
     <!--Total Cost-->
-    <div id="cost" style="display: none;">
+    <div id="cost" style="display: none;" data-total="
+        <?php
+            echo toDollars($_SESSION["totalPrice"]);
+        ?>">
         <h2>Total Cost: $<span>Code WIP</span></h2>
     </div>
 </div>

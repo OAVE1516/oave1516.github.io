@@ -125,6 +125,7 @@ body{
 
 p{
     line-height: 150%;
+    text-align: justify;
 }
 
 a{
@@ -171,10 +172,12 @@ img{
 textarea{
     width: 100%;
     resize: none;
+    font-family: 'Roboto', sans-serif;
 }
 
 input[type='text']{
     width: 100%;
+    
 }
 
 select{
