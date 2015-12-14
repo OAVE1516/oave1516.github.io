@@ -1,0 +1,18 @@
+.parallax {
+    height: 600px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.vertical-center{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.parallax-1 {
+    background-image: url("../img/presents-white.jpg");
+}
+.parallax-2 {
+    background-image: url("../img/rave-white.jpg");
+}
