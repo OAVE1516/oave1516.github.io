@@ -56,8 +56,8 @@ function populateList($id, $category, $subcategory, $name, $image, $price, $desc
     //Non priced items (multipliers) are logged as -1 in the database
     if ($price < 0){
         if ($category == "theme"){
-            //All themes are to provide a multiplier of 1.4 to the price
-            $price = toDollars($_SESSION["totalPrice"] * 1.4);
+            //All themes are to provide a multiplier of 0.4 to the price
+            $price = toDollars($_SESSION["totalPrice"] * 0.4);
         }
     }
     else{
@@ -109,8 +109,8 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     //Non priced items (multipliers) are logged as -1 in the database
     if ($price < 0){
         if ($category == "theme"){
-            //All themes are to provide a multiplier of 1.4 to the price
-            $price = toDollars($_SESSION["totalPrice"] * 1.4);
+            //All themes are to provide a multiplier of 0.4 to the price
+            $price = toDollars($_SESSION["totalPrice"] * 0.4);
         }
     }
     else{
@@ -193,10 +193,12 @@ function writeAddons(){
             echo "<h2 class='left-text'>Setup</h2>";
             $step++;
         }
+        /*
         if ($row["subcategory"] == $OUTDOOR && $step == $OUTDOOR){
             echo "<h2 class='left-text'>Outdoor Equipment</h2>";
             $step++;
         }
+        **/
         putInGrid($row["id"], "add-on[]", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
@@ -381,7 +383,7 @@ function writeAddons(){
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "No Theme"){
-                        $post_price = toDollars($_SESSION["totalPrice"] * 1.4);
+                        $post_price = toDollars($_SESSION["totalPrice"] * 0.4);
                     }
                     else
                         $post_price = 0;
