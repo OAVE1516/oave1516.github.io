@@ -84,6 +84,10 @@ h2, h3{
 .testing{
     text-align: center;
 }
+
+#get-started{
+    float: none;   
+}
 @media only screen and (max-width: 768px) {
     .maintext{
         font-size: 7em;  

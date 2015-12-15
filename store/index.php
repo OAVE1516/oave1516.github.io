@@ -372,7 +372,7 @@ function writeAddons(){
         </div>
         <div class="col-6">
         <form method="post" id="theme-form">
-            <label><input type="radio" name="theme" value="no-theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(0, 'no-theme')" checked><span>No Theme</span></label>
+            <label><input type="radio" name="theme" value="no-theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){
@@ -518,7 +518,7 @@ function writeAddons(){
     </div>
     </div>
         <div class="row">
-            <div class="col-12" id="copy">*Disclaimer: This is an official <a href="https://veinternational.org/" target="_blank">Virtual Enterprises International</a> firm website for educational purposes only for 2015-16. – BlockParty LLC<br>All business prospects, products, and items depicted on this website are purely fictitious.</div>
+            <div class="col-12" id="copy">*Disclaimer: This is an official <a href="https://veinternational.org/" target="_blank">Virtual Enterprises International</a> firm website for educational purposes only for 2015-16. - BlockParty LLC<br>All business prospects, products, and items depicted on this website are purely fictitious.</div>
         </div>
 </footer>
 </html>
