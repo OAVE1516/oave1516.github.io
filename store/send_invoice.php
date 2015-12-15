@@ -52,12 +52,10 @@ $mail->Port = 587;
 $mail->setFrom('invoice@veblockparty.com', 'BlockParty Invoice');
 $mail->isHTML(true);
 $mail->addAddress($email);
-/**
 $mail->addBCC('accounting@veblockparty.com');
 $mail->addBCC('sales@veblockparty.com');
 $mail->addBCC('marketing@veblockparty.com');
 $mail->addBCC('administration@veblockparty.com');
-*/
 $mail->Subject = "BlockParty Invoice";
 $mail->Body = $body;
 
