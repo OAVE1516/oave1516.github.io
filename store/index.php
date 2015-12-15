@@ -129,6 +129,8 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
         $type = "radio";
     else
         $type = "checkbox";
+    
+    $image = "/img/products/" . $image;
     //Uses a template to print data into the html grid
     if ($category == "add-on[]" && $price < 0)
        echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
@@ -318,14 +320,14 @@ function writeAddons(){
         <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
         <div class="col-6">
             <div class="description">
-                <img src="/img/generic.jpg">
+                <img src="/img/products/generic.jpg">
                 <h3>Add $30.00</h3>
                 <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
             </div>
         </div>
         <div class="col-6">
         <form method="post" id="occasion-form">
-            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/generic.jpg" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
         <?php
             writeOccasions();
             if (isset($_POST["occasion"])){
@@ -365,7 +367,7 @@ function writeAddons(){
         </div>-->
         <div class="col-6">
             <div class="description">
-                <img src="/img/placeholder.png">
+                <img src="/img/products/Themes.png">
                 <h3>Add $30.00</h3>
                 <p>Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process.
 </p>
@@ -373,7 +375,7 @@ function writeAddons(){
         </div>
         <div class="col-6">
         <form method="post" id="theme-form">
-            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>
+            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){
