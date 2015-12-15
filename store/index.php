@@ -325,18 +325,19 @@ function writeAddons(){
         </div>
         <div class="col-6">
         <form method="post" id="occasion-form">
-            <label><input type="radio" name="occasion" value="generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/placeholder.png" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/placeholder.png" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
         <?php
             writeOccasions();
             if (isset($_POST["occasion"])){
                 $post_val = $_POST["occasion"];
-                if ($post_val != "generic"){
+                if ($post_val != "Generic"){
                     $post_price = $conn->query("SELECT price FROM products WHERE category = 2 AND name = '" . $post_val . "'")->fetch_assoc()["price"];
                     $post_price *= $_SESSION["size"];
                 }
                 else{
                     $post_price = 30;
                 }
+                $post_price = toDollars($post_price);
                 $_SESSION["totalPrice"] = $post_price;
                 $_SESSION["sel_occasion"] =  array($post_val, $post_price);
                 $_SESSION["STEP"]++;
@@ -372,16 +373,17 @@ function writeAddons(){
         </div>
         <div class="col-6">
         <form method="post" id="theme-form">
-            <label><input type="radio" name="theme" value="no-theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>
+            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/placeholder.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
-                    if ($post_val != "no-theme"){
+                    if ($post_val != "No Theme"){
                         $post_price = toDollars($_SESSION["totalPrice"] * 1.4);
                     }
                     else
                         $post_price = 0;
+                    $post_price = toDollars($post_price);
                     $_SESSION["totalPrice"] += $post_price;
                     $_SESSION["sel_theme"] = array($post_val, $post_price);
                     $_SESSION["STEP"]++;
@@ -402,7 +404,7 @@ function writeAddons(){
         <p>Optional add-ons really pack a surprise. Pick as many as you want; they'll fit your theme and occasion.</p>
         <form method="post" id="add-ons-form">
             <!-- php runs with isset so something needs to be checked to set it -->
-            <div style="display: none"><input type="checkbox" name="add-on[]" value="emptyObject" checked></div>
+            <div style="display: none"><input type="checkbox" name="add-on[]" value="No Add-ons" checked></div>
             <?php
                 writeAddons();
                 if (isset($_POST["add-on"])){
@@ -424,6 +426,7 @@ function writeAddons(){
                             $post_price += $temp_price;
                         //}
                     }
+                    $post_price = toDollars($post_price);
                     //when done iterating, add this money value to total
                     $_SESSION["totalPrice"] += $post_price;
                     //This would contain an array of items and then the TOTAL cost
@@ -446,7 +449,43 @@ function writeAddons(){
         <h1>Checkout</h1>
         <div class="col-6">
             <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC*.</p>
-            <img class="hide-on-mobile" src="/img/logo.svg">
+            <h3>Order Summary</h3>
+            <p>
+            <?php
+                $finalPrices = array(
+                    "subtotal"=>toDollars($_SESSION["totalPrice"]),
+                    "tax"=>toDollars($_SESSION["totalPrice"] * $TAX_CONSTANT),
+                    "shipping"=>toDollars($BASE_SHIPPING * $_SESSION["size"]),
+                    "grandTotal"=>toDollars($_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
+                );
+                $_SESSION["finalPrices"] = $finalPrices;
+                $sel_size = $_SESSION["sel_size"];
+                $sel_occasion = $_SESSION["sel_occasion"];
+                $sel_theme = $_SESSION["sel_theme"];
+                $sel_addons = $_SESSION["sel_addons"];
+                $total_price = $_SESSION["totalPrice"];
+                $prices = $_SESSION["finalPrices"];
+                $ITEM = 0;
+                $COST = 1;
+                $addons = "";
+                foreach ($_SESSION['sel_addons'][0] as $addon){
+                    $addons .= $addon . ", ";
+                }
+                echo "Selected Size: $sel_size<br>
+                Selected Occasion: $sel_occasion[$ITEM], $$sel_occasion[$COST]<br>
+                Selected Theme: $sel_theme[$ITEM], $$sel_theme[$COST]<br>
+                Selected Addons: $addons $$sel_addons[$COST]<br>"
+            ?></p>
+            <p class="center-text">Subtotal:
+                <?php
+                    echo "$" . $finalPrices["subtotal"] . "<br>Tax: $" . $finalPrices["tax"] . "<br>Shipping: $" . $finalPrices["shipping"];
+                ?>
+                </p>
+                <h2>Total: 
+                <?php
+                    echo "$" . $finalPrices["grandTotal"];
+                ?>
+                </h2>
         </div>
         <div class="col-6 contact-form">
             <form action="send_invoice.php" method="POST">
@@ -464,28 +503,6 @@ function writeAddons(){
                 <div style="width: 75%; float: left; padding: 0px;">
                     <h3>Zip Code</h3><input type="text" name="zip" id="zip">
                 </div>
-            <?php
-                $finalPrices = array(
-                    "subtotal"=>toDollars($_SESSION["totalPrice"]),
-                    "tax"=>toDollars($_SESSION["totalPrice"] * $TAX_CONSTANT),
-                    "shipping"=>toDollars($BASE_SHIPPING * $_SESSION["size"]),
-                    "grandTotal"=>toDollars($_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
-                );
-               /* foreach ($finalPrices as $price=>$value){
-                    $value = toDollars($value);   
-                }*/
-            ?>
-                <p class="center-text">Subtotal:
-                <?php
-                    echo "$" . $finalPrices["subtotal"] . "<br>Tax: $" . $finalPrices["tax"] . "<br>Shipping: $" . $finalPrices["shipping"];
-                ?>
-                </p>
-                <h2>Total: 
-                <?php
-                    echo "$" . $finalPrices["grandTotal"];
-                    $_SESSION["finalPrices"] = $finalPrices;
-                ?>
-                </h2>
         <div id="back" onclick="setDisplay(3)">Back</div>
                 <input type="submit" name="submit" value="Submit" id="next">
             </form>
@@ -501,26 +518,40 @@ function writeAddons(){
 </div>
 </div>
 </body>
-<footer id="dark">
-    <div class="row">
-    <div class="col-4">
-        <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
-        <a href="/sitemap">Site Map</a><br>
-        <a href="/attributions">Media Attributions</a>
-    </div>
-    <div class="col-4">
-        <h3>Connect with us online!</h3>
-        <img id="sm" src="/img/facebook.svg"/><a href="https://www.facebook.com/veblockparty/">Facebook</a><br>
-        <img id="sm" src="/img/instagram.svg"/><a href="https://instagram.com/veblockparty/">Instagram</a>
-    </div>
-    <div class="col-4">
-        <h3>Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
-    </div>
-    </div>
+    <footer id="dark">
+        <div class="row">
+        <div class="col-4">
+            <a href="http://www.lunarpages.com"><img id="lunar" src="/img/lunarlogo.png"></a>
+            <p class="center-text">Site Map<p>
+            <ul class="center-text">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            <li>
+                <a href="/store/">Store</a>
+            </li>
+            <li>
+                <a href="/contact/">Contact</a>
+            </li>
+            </ul>
+            <a href="/attributions">Media Attributions</a>
+        </div>
+        <div class="col-4">
+            <h3 style="font-weight:900">Connect with us online!</h3>
+            <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/" target="_blank">Facebook</a><br>
+            <img id="sm" src="/img/instagram.svg"/><a href="http://instagram.com/" target="_blank">Instagram</a>
+        </div>
+        <div class="col-4">
+            <h3 style="font-weight:900">Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
+        </div>
+        </div>
         <div class="row">
             <div class="col-12" id="copy">*Disclaimer: This is an official <a href="https://veinternational.org/" target="_blank">Virtual Enterprises International</a> firm website for educational purposes only for 2015-16. - BlockParty LLC<br>All business prospects, products, and items depicted on this website are purely fictitious.</div>
         </div>
-</footer>
+    </footer>
 </html>
 
 <?php

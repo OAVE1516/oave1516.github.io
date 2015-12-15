@@ -25,22 +25,20 @@ $addons = "";
 foreach ($sel_addons[$ITEM] as $addon){
     $addons .= $addon . ", ";
 }
-if ($sel_addons[0] == "emptyObject")
-    $addons = "No addons, ";
 
-$body = "Customer Information: <br>$name<br>$email<br>$school<br>$address<br>$city $state $zip<br><br>
+$body = "Customer Information: <br>$name<br>$email<br>$school<br>$address<br>$city, $state $zip<br><br>
 Invoice<br><br>
 Selected Size: $sel_size<br>
 Selected Occasion: $sel_occasion[$ITEM], $$sel_occasion[$COST]<br>
 Selected Theme: $sel_theme[$ITEM], $$sel_theme[$COST]<br>
-Selected Addons: $addons, $$sel_addons[$COST]<br>
+Selected Addons: $addons $$sel_addons[$COST]<br>
 Subtotal: $${prices['subtotal']}<br>
 Tax: $${prices['tax']}<br>
 Shipping: $${prices['shipping']}<br>
 <b>Total: $${prices['grandTotal']}</b><br><br>
 
 To make your payment, go to your Virtual Enterprise Portal and transfer the provided total price to Block Party account <b>#630244170</b><br><br>
-Thank you for choosing BlockParty LLC. We hope you have enjoyed your experience.";
+Thank you for choosing BlockParty LLC. We hope you will enjoy your experience.";
 
 $mail = new PHPMailer;
 
