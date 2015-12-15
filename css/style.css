@@ -83,7 +83,6 @@ table {
     vertical-align: top;
     padding: 15px;
 }
-<!--mainpageicons-->
 .col-0.5 {width: 4.165%;}
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -108,7 +107,11 @@ table {
 .row{
     clear: both;   
 }
-
+.vertical-center{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 .center-text{text-align: center;}
 .left-text{text-align: left;}
 .right-text{text-align: right;}
@@ -235,12 +238,15 @@ button:hover{
     display: none;   
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 492px) {
     [class*="col-"]{
         width: 100%;
     }
     [class*="grid-"]{
         width: 100%;   
+    }
+    .col-3{
+        width: 50%;   
     }
     button{
         width: 100%;   

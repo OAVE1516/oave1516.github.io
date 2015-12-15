@@ -267,7 +267,7 @@ function writeAddons(){
     <div class="row" id="size">
         <h1>Pick a size</h1>
         <div class="col-6">
-            <p>Here at BlockParty, we make every effort to accomodate to your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+            <p>Here at BlockParty, we make every effort to accomodate your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
             <img class="hide-on-mobile" src="/img/sizes.png" style="padding: 30px">
         </div>
         <div class="col-6">
@@ -278,7 +278,7 @@ function writeAddons(){
                 <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
                 <input type="submit" value="Next" style="clear: both;">
             </form>
-                <p>For sizes larger than 250 people, please <a href="/contact/">contact us.</a></p>
+                <p>For parties larger than 250 people, please <a href="/contact/">contact us.</a></p>
             <?php
                 //When the user submits the size, the form posts
                 if (isset($_POST["size"]) && $_SESSION["STEP"] != 4){
@@ -345,6 +345,7 @@ function writeAddons(){
                 });</script>";
             }
         ?>
+        <div id="back" onclick="setDisplay(0)">Back</div>
         <input type="submit" value="Next" id="next">
         </form>
     </div>
@@ -389,7 +390,7 @@ function writeAddons(){
                     });</script>";
                 }
             ?>
-            <!--<button onclick="setDisplay(1)" id="back">Back</button>-->
+            <div id="back" onclick="setDisplay(1)">Back</div>
             <input type="submit" value="Next" id="next">
         </form>
     </div>
@@ -434,7 +435,7 @@ function writeAddons(){
                 }
             ?>
         <div class="col-12">
-            <!--<button onclick="setDisplay(2)" id="back">Back</button>-->
+        <div id="back" onclick="setDisplay(2)">Back</div>
             <input type="submit" value="Next" id="next">
         </form>
         </div>
@@ -463,8 +464,6 @@ function writeAddons(){
                 <div style="width: 75%; float: left; padding: 0px;">
                     <h3>Zip Code</h3><input type="text" name="zip" id="zip">
                 </div>
-                <input type="submit" name="submit" value="Submit" id="next">
-            </form>
             <?php
                 $finalPrices = array(
                     "subtotal"=>toDollars($_SESSION["totalPrice"]),
@@ -487,7 +486,9 @@ function writeAddons(){
                     $_SESSION["finalPrices"] = $finalPrices;
                 ?>
                 </h2>
-            <!--<button onclick="setDisplay(3)" id="back">Back</button>-->
+        <div id="back" onclick="setDisplay(3)">Back</div>
+                <input type="submit" name="submit" value="Submit" id="next">
+            </form>
         </div>
     </div>
     <!--Total Cost-->
@@ -516,9 +517,9 @@ function writeAddons(){
         <h3>Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
     </div>
     </div>
-    <div class="row">
-        <div class="col-12" id="copy">*Disclaimer: This is an official <a href="https://veinternational.org/" target="_blank">Virtual Enterprises International</a> firm website and is for educational purposes only. (2015-2016 – BlockParty LLC)<br>All business prospects, products, and items depicted on this website are purely fictitious</div>
-    </div>
+        <div class="row">
+            <div class="col-12" id="copy">*Disclaimer: This is an official <a href="https://veinternational.org/" target="_blank">Virtual Enterprises International</a> firm website for educational purposes only for 2015-16. – BlockParty LLC<br>All business prospects, products, and items depicted on this website are purely fictitious.</div>
+        </div>
 </footer>
 </html>
 
