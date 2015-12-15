@@ -197,7 +197,6 @@ input[type='submit']{
     border: 0;
     width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-weight: bold;
 }
 
 input[type='submit']:hover{
