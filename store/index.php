@@ -318,14 +318,14 @@ function writeAddons(){
         <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
         <div class="col-6">
             <div class="description">
-                <img src="/img/placeholder.png">
+                <img src="/img/generic.jpg">
                 <h3>Add $30.00</h3>
                 <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
             </div>
         </div>
         <div class="col-6">
         <form method="post" id="occasion-form">
-            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/placeholder.png" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/generic.jpg" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
         <?php
             writeOccasions();
             if (isset($_POST["occasion"])){
