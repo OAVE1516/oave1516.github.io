@@ -56,8 +56,8 @@ function populateList($id, $category, $subcategory, $name, $image, $price, $desc
     //Non priced items (multipliers) are logged as -1 in the database
     if ($price < 0){
         if ($category == "theme"){
-            //All themes are to provide a multiplier of 0.4 to the price
-            $price = toDollars($_SESSION["totalPrice"] * 0.4);
+            //All themes provide a 0.4 multiplier to the current price (size multiplier times occasion price , index 1 of sel_occ is the price)
+            $price = toDollars($_SESSION["size"] * $_SESSION["sel_occasion"][1] * 0.4);
         }
     }
     else{
@@ -107,13 +107,13 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
         $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
     
     //Non priced items (multipliers) are logged as -1 in the database
-    if ($price < 0){
+   /* if ($price < 0){
         if ($category == "theme"){
             //All themes are to provide a multiplier of 0.4 to the price
             $price = toDollars($_SESSION["totalPrice"] * 0.4);
         }
     }
-    else{
+    else{*/
         //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
         if ($category == "add-on[]" && $subcategory != 0){
             $price = toDollars($price);
@@ -122,7 +122,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
         else{
             $price = toDollars($price * $_SESSION["size"]);
         }
-    }
+    //}
     $buttonText = "Add $" . $price;
     $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
     if ($category != "add-on[]")
@@ -383,12 +383,12 @@ function writeAddons(){
                 if (isset($_POST["theme"])){
                     $post_val = $_POST["theme"];
                     if ($post_val != "No Theme"){
-                        $post_price = toDollars($_SESSION["totalPrice"] * 0.4);
+                        $post_price = toDollars($_SESSION["size"] * $_SESSION["sel_occasion"][1] * 0.4);
                     }
                     else
                         $post_price = 0;
                     $post_price = toDollars($post_price);
-                    $_SESSION["totalPrice"] += $post_price;
+                    //$_SESSION["totalPrice"] += $post_price;
                     $_SESSION["sel_theme"] = array($post_val, $post_price);
                     $_SESSION["STEP"]++;
                     echo "<script>document.addEventListener('DOMContentLoaded', function() {
@@ -432,7 +432,7 @@ function writeAddons(){
                     }
                     $post_price = toDollars($post_price);
                     //when done iterating, add this money value to total
-                    $_SESSION["totalPrice"] += $post_price;
+                    //$_SESSION["totalPrice"] += $post_price;
                     //This would contain an array of items and then the TOTAL cost
                     $_SESSION["sel_addons"] = array($post_val, $post_price);
                     $_SESSION["STEP"]++;
@@ -456,18 +456,11 @@ function writeAddons(){
             <h3>Order Summary</h3>
             <p>
             <?php
-                $finalPrices = array(
-                    "subtotal"=>toDollars($_SESSION["totalPrice"]),
-                    "tax"=>toDollars($_SESSION["totalPrice"] * $TAX_CONSTANT),
-                    "shipping"=>toDollars($BASE_SHIPPING * $_SESSION["size"]),
-                    "grandTotal"=>toDollars($_SESSION["totalPrice"] * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
-                );
-                $_SESSION["finalPrices"] = $finalPrices;
                 $sel_size = $_SESSION["sel_size"];
                 $sel_occasion = $_SESSION["sel_occasion"];
                 $sel_theme = $_SESSION["sel_theme"];
                 $sel_addons = $_SESSION["sel_addons"];
-                $total_price = $_SESSION["totalPrice"];
+                $total_price = $_SESSION["totalPrice"] + $sel_occasion[$COST] + $sel_theme[$COST] + $sel_addons[$COST];
                 $prices = $_SESSION["finalPrices"];
                 $ITEM = 0;
                 $COST = 1;
@@ -475,6 +468,14 @@ function writeAddons(){
                 foreach ($_SESSION['sel_addons'][0] as $addon){
                     $addons .= $addon . ", ";
                 }
+                $finalPrices = array(
+                    "subtotal"=>toDollars($total_price),
+                    "tax"=>toDollars($total_price * $TAX_CONSTANT),
+                    "shipping"=>toDollars($BASE_SHIPPING * $_SESSION["size"]),
+                    "grandTotal"=>toDollars($total_price * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
+                );
+                $_SESSION["finalPrices"] = $finalPrices;
+                
                 echo "Selected Size: $sel_size<br>
                 Selected Occasion: $sel_occasion[$ITEM], $$sel_occasion[$COST]<br>
                 Selected Theme: $sel_theme[$ITEM], $$sel_theme[$COST]<br>
@@ -545,8 +546,8 @@ function writeAddons(){
         </div>
         <div class="col-4">
             <h3 style="font-weight:900">Connect with us online!</h3>
-            <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/" target="_blank">Facebook</a><br>
-            <img id="sm" src="/img/instagram.svg"/><a href="http://instagram.com/" target="_blank">Instagram</a>
+            <img id="sm" src="/img/facebook.svg"/><a href="https://www.facebook.com/veblockparty/" target="_blank">Facebook</a><br>
+            <img id="sm" src="/img/instagram.svg"/><a href="https://www.instagram.com/veblockparty/" target="_blank">Instagram</a>
         </div>
         <div class="col-4">
             <h3 style="font-weight:900">Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
