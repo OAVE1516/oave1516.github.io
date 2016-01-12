@@ -6,7 +6,7 @@ $conn = new mysqli($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error)
-    die("Connection failed to the server failed. Please email it@veblockparty.com<br>" . $conn->connect_error);
+    die("Connection to the server failed. Please email it@veblockparty.com<br>" . $conn->connect_error);
 
 // Check database selection
 if (!$conn->select_db($database))
@@ -62,13 +62,13 @@ function populateList($id, $category, $subcategory, $name, $image, $price, $desc
     }
     else{
         //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
-        if ($category == "add-on[]" && $subcategory != 0){
+        /*if ($category == "add-on[]" && $subcategory != 0){
             $price = toDollars($price);
-        }
+        }*/
         //Otherwise, we multiply price by the $size multiplier
-        else{
+        //else{
             $price = toDollars($price * $_SESSION["size"]);
-        }
+        //}
     }
     $buttonText = $name;
     $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
@@ -115,13 +115,13 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     }
     else{
         //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
-        if ($category == "add-on[]" && $subcategory != 0){
-            $price = toDollars($price);
-        }
+        //if ($category == "add-on[]" && $subcategory != 0){
+            //$price = toDollars($price);
+        //}
         //Otherwise, we multiply price by the $size multiplier
-        else{
+        //else{
             $price = toDollars($price * $_SESSION["size"]);
-        }
+        //}
     }
     $buttonText = "Add $" . $price;
     $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
@@ -233,7 +233,7 @@ function writeAddons(){
         <div class="mobile-nav-icon"><a href="/"><img src="/img/home.svg"></a></div>
         <div class="mobile-nav-icon"><a href="/about"><img src="/img/about.svg"></a></div>
         <div class="mobile-nav-icon"><a href="/store"><img src="/img/store.svg"></a></div>
-        <div class="mobile-nav-icon"><a href="/contact/"><img src="/img/contact.svg"></a></div>
+        <div class="mobile-nav-icon"><a href="/contact"><img src="/img/contact.svg"></a></div>
     </nav>
     </div>
     <div class="store container">
@@ -255,6 +255,9 @@ function writeAddons(){
             echo var_dump($_SESSION);
         ?>
     </div>
+    <!--Size-->
+    <div class="row" id="size">
+        
     <div class="row center-text">
         <div id="contact-response">
             <?php
@@ -267,8 +270,6 @@ function writeAddons(){
             ?>
         </div>
     </div>
-    <!--Size-->
-    <div class="row" id="size">
         <h1>Pick a size</h1>
         <div class="col-6">
             <p>Here at BlockParty, we make every effort to accomodate your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
@@ -276,17 +277,21 @@ function writeAddons(){
         </div>
         <div class="col-6">
             <form method="post">
-                <label><input type="radio" name="size" value="small" checked><span>Small: 50-75</span></label>
-                <label><input type="radio" name="size" value="medium"><span>Medium: 75-125</span></label>
+                <label><input type="radio" name="size" value="xsmall"><span>Extra Small: Under 50</span></label>
+                <label><input type="radio" name="size" value="small"><span>Small: 50-75</span></label>
+                <label><input type="radio" name="size" value="medium" checked><span>Medium: 75-125</span></label>
                 <label><input type="radio" name="size" value="large"><span>Large: 125-175</span></label>
                 <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
                 <input type="submit" value="Next" style="clear: both;">
             </form>
-                <p>For parties larger than 250 people, please <a href="/contact/">contact us.</a></p>
+                <p>For parties larger than 250 people, please contact us at contact@veblockparty.com</a></p>
             <?php
                 //When the user submits the size, the form posts
                 if (isset($_POST["size"]) && $_SESSION["STEP"] != 4){
                     switch ($_POST["size"]){
+                        case "xsmall":
+                        $_SESSION["sel_size"] = "Extra Small";
+                        $_SESSION["size"] = 0.6; break;
                         case "small":
                         $_SESSION["sel_size"] = "Small";
                         $_SESSION["size"] = 1; break;
@@ -370,7 +375,7 @@ function writeAddons(){
         <div class="col-6">
             <div class="description">
                 <img src="/img/products/Themes.png">
-                <h3>Add $30.00</h3>
+                <h3>Add $0.00</h3>
                 <p>Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process.
 </p>
             </div>
@@ -424,7 +429,7 @@ function writeAddons(){
                             //foreach item, select the price
                             $temp_price = (double)$conn->query("SELECT price FROM products WHERE category = 4 AND name = '" . $item . "'")->fetch_assoc()["price"];
                             //if a size multiplier is to be applied, apply it
-                            if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
+                            //if ($conn->query("SELECT subcategory FROM products WHERE name = '" . $item . "'") == 0)
                                 $temp_price *= $_SESSION["size"];
                             //otherwise, use price as is and add this item's price to $post_price
                             $post_price += $temp_price;
@@ -447,12 +452,11 @@ function writeAddons(){
         </form>
         </div>
     </div>
-
     <!-- Payment-->
     <div class="row" id="payment">
         <h1>Checkout</h1>
         <div class="col-6">
-            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC*.</p>
+            <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC.</p>
             <h3>Order Summary</h3>
             <p>
             <?php
@@ -493,20 +497,26 @@ function writeAddons(){
         </div>
         <div class="col-6 contact-form">
             <form action="send_invoice.php" method="POST">
-                <h3>Your Name</h3><input type="text" name="name" id="name">
-                <h3>Your E-mail</h3><input type="text" name="email" id="email">
-                <h3>Your School</h3><input type="text" name="school" id="school">
-                <h3>Shipping Address</h3><input type="text" name="address" id="address">
-                <h3>City</h3><input type="text" name="city" id="city">
+                <form action="save_invoice.php" method="POST">
+                <h3>Name*</h3><input type="text" name="name" id="name" required>
+                <h3>E-mail*</h3><input type="text" name="email" id="email" required>
+                <h3>Phone Number</h3><input type="text" name="phone" id="phone">
+                <h3>School</h3><input type="text" name="school" id="school">
+                <h3>Shipping Address*</h3><input type="text" name="address" id="address" required>
+                <h3>City*</h3><input type="text" name="city" id="city" required>
                 <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
                     <h3>State</h3>
                     <select name="state">
-                    <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                        <option value="CA">CA</option></option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
                     </select>
                 </div>
                 <div style="width: 75%; float: left; padding: 0px;">
-                    <h3>Zip Code</h3><input type="text" name="zip" id="zip">
+                    <h3>Zip Code*</h3><input type="text" name="zip" id="zip" required>
                 </div>
+                <h3>Party Date*</h3><input type="text" name="date" id="date" required>
+                <h3>Comments or special instructions</h3>
+                <textarea name="comments"></textarea>
+                <!--<h3>Order Taken By</h3><input type="text" name="person" id="person">-->
         <div id="back" onclick="setDisplay(3)">Back</div>
                 <input type="submit" name="submit" value="Submit" id="next">
             </form>
