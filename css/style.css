@@ -65,7 +65,7 @@ table {
     max-width: 960px;
 }
 
-.container:after {
+.container:after, .row:after {
     visibility: hidden;
     display: block;
     font-size: 0;
@@ -168,7 +168,7 @@ h3{
 }
 
 img{
-    width: 100%;
+    max-width: 100%;
 }
 
 
