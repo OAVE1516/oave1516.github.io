@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/navfooter.css">
     <link rel="stylesheet" href="css/parallax.css">
     <link rel="icon" href="img/favicon.png">
+    <script src="scripts/smoothscroll.js"></script>
 </head>
 <body>
     <div class="desktop-nav main-page">
@@ -35,11 +36,11 @@
             <div class="vertical-center">
                 <h1 class="maintext">BlockParty</h1>
                 <h1 class="maintext2" >Packing a surprise</h1>
-                <div class="center" style="width: 10%; padding-top: 3em;"><img src="img/downarrow.svg"></div>
+                <div class="center" style="width: 10%; padding-top: 3em; cursor:pointer"><a><img src="img/downarrow.svg" onclick="EPPZScrollTo.scrollVerticalToElementById('firstChild', 0)" onscroll="EPPZScrollTo.scrollVerticalToElementById('firstChild', 0)"></a></div>
                 <h2>Learn more</h2>
             </div>
         </div>
-            <div class="graybg">
+            <div class="graybg" id="firstChild">
             <div class="row container row-padding">
             <div class="col-3">
                 <h3 style="font-weight:900">Simplicity</h3>
