@@ -28,6 +28,64 @@ function toDollars($value){
 }
 
 //Fills the list with items from the database
+function populatePage($id, $category, $subcategory, $name, $image, $price, $description){
+    $pageIndex = -1;
+    switch ($category){
+        case "occasion":
+        $pageIndex = 0; break;
+        case "theme":
+        $pageIndex = 1; break;
+        case "add-ons":
+        $pageIndex = 2; break;
+        default: 
+        echo "Category to index in populateList no worko"; break;
+    }
+    //Escapes the quotes so when printed to a JS dataset, the HTML doesn't screw up
+    $description = htmlspecialchars($description, ENT_QUOTES | ENT_SUBSTITUTE);
+    
+    //Sets default values if the database is empty
+    if (empty($image))
+        $image = "placeholder.png";
+    //Prices entered in DB should not be empty -- Should be a real price or -1
+    if (empty($price))
+        $price = toDollars(0);
+    //Good 'ol lorem ipsum
+    if (empty($description))
+        $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
+    
+    //Non priced items (multipliers) are logged as -1 in the database
+    if ($price < 0){
+        if ($category == "theme"){
+            //All themes provide a 0.4 multiplier to the current price (size multiplier times occasion price , index 1 of sel_occ is the price)
+            $price = toDollars($_SESSION["size"] * $_SESSION["sel_occasion"][1] * 0.4);
+        }
+    }
+    else{
+            $price = toDollars($price * $_SESSION["size"]);
+    }
+    $buttonText = $name;
+    $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
+    if ($category != "add-on[]")
+        $type = "radio";
+    else
+        $type = "checkbox";
+    $image = "/img/products/" . $image;
+    //Uses a template to print data into the list
+    if ($category == "add-on[]" && $price < 0)
+       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
+    else{
+           echo "<div class='item'>
+           <img src='$image'><br>
+           <h3>$name</h3>
+           <label><input type='radio' name='$category' value='$name' id='$id'
+           data-price='$price'
+           data-description='$description'
+           data-image='$image'
+           onclick='showItem($pageIndex, $id)'>
+           <span>Add $$price</span></label>
+           </div>";
+    }
+}
 function populateList($id, $category, $subcategory, $name, $image, $price, $description){
     $pageIndex = -1;
     switch ($category){
@@ -149,15 +207,17 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
 function writeOccasions(){
     global $occasions;
     while ($row = $occasions->fetch_assoc()){
-        populateList($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
-           //putInGrid($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        populatePage($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        //populateList($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        //putInGrid($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
 function writeThemes(){
     global $themes;
     while ($row = $themes->fetch_assoc()){
-        populateList($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        populatePage($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
+        //populateList($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
         //putInGrid($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
@@ -211,6 +271,7 @@ function writeAddons(){
     <link rel="stylesheet" href="../css/store.css">
     <link rel="stylesheet" href="../css/navfooter.css">
     <script src="store.js"></script>
+    <script src="/scripts/smoothscroll.js"></script>
     <title>BlockParty || Store</title>
 </head>
 <body>
@@ -323,16 +384,24 @@ function writeAddons(){
     <div class="row" id="occasion">
         <h1>Choose an Occasion</h1>
         <p>Have a specific occasion in mind? We can help provide fitting resources.</p>
+        <div class="description row">
         <div class="col-6">
-            <div class="description">
-                <img src="/img/products/generic.jpg">
-                <h3>Add $30.00</h3>
-                <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
-            </div>
+            <img src="/img/products/generic.jpg">
         </div>
         <div class="col-6">
+            <h3>Add $30.00</h3>
+            <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
+        </div>
+        </div>
+        <div class="product-parent">
+        <div class="product-list row">
+        <div class="col-12">
         <form method="post" id="occasion-form">
-            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" onclick="showItem(0, 'generic')" checked><span>Generic</span></label>
+            <div class="item">
+            <img src="../img/products/generic.jpg"><br>
+                <h3>Generic</h3>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" onclick="showItem(0, 'generic')" checked><span>Add $30.00</span></label>
+            </div>
         <?php
             writeOccasions();
             if (isset($_POST["occasion"])){
@@ -353,23 +422,35 @@ function writeAddons(){
                 });</script>";
             }
         ?>
+    </div>
+    </div>
+    </div>
         <div id="back" onclick="setDisplay(0)">Back</div>
         <input type="submit" value="Next" id="next">
         </form>
-    </div>
-    </div>
+</div>
 
     <!--Theme-->
     <div class="row" id="theme">
         <h1>Pick a theme</h1>
         <p>Themes add theme to your party. Pick one.</p>
-        <!--<form method="post" id="theme-form">
-        <div class="grid-3">
-            <h3>No Theme</h3>
-            <img src="/img/placeholder.png">
-            <label><input type="radio" name="theme" value="no-theme" checked id="no-theme" data-price="0.00"><span>Add $0.00</span></label>
-            <p>Maybe you don't need a crazy theme to have fun. Plain decorations all around.</p>
-        </div>-->
+        <div class="description row">
+        <div class="col-6">
+            <img src="/img/products/Themes.png">
+        </div>
+        <div class="col-6">
+            <h3>Add $0.00</h3>
+            <p>Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process.</p>
+        </div>
+        </div>
+        <div class="product-list row">
+        <div class="col-12">
+        <form method="post" id="theme-form">
+            <div class="item">
+            <img src="../img/products/Themes.png"><br>
+                <h3>Generic</h3>
+            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>Add $0.00</span></label>
+            </div><!--
         <div class="col-6">
             <div class="description">
                 <img src="/img/products/Themes.png">
@@ -380,7 +461,7 @@ function writeAddons(){
         </div>
         <div class="col-6">
         <form method="post" id="theme-form">
-            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>
+            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>-->
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){
@@ -399,11 +480,12 @@ function writeAddons(){
                     });</script>";
                 }
             ?>
-            <div id="back" onclick="setDisplay(1)">Back</div>
-            <input type="submit" value="Next" id="next">
+    </div>
+    </div>
+        <div id="back" onclick="setDisplay(1)">Back</div>
+        <input type="submit" value="Next" id="next">
         </form>
-    </div>
-    </div>
+</div>
 
     <!--Add Ons-->
     <div class="row" id="add-ons">
