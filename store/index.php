@@ -189,18 +189,18 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     $image = "/img/products/" . $image;
     //Uses a template to print data into the html grid
     if ($category == "add-on[]" && $price < 0)
-       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
+       echo "<div class='item'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
     else{
-           echo "<div class='grid-3'>" .
+           echo "<div class='item'>" .
+               "<img src='" . $image . "'><br>" .
                "<h3>" . $name . "</h3>" .
-               "<img src='" . $image . "'>" .
                "<label><input type='" . $type .
                "' name='" . $category .
                "' value='" . $name .
                "' id='" . $id .
                "' data-price='". $price * $_SESSION["size"] .
                "'><span>" .$buttonText . "</span></label>" .
-               "<p>" . $description . "</p></div>";
+               "</div>";
     }
 }
 
@@ -397,6 +397,10 @@ function writeAddons(){
         <div class="product-list row">
         <div class="col-12">
         <form method="post" id="occasion-form">
+            <div class="row">
+        <div id="back" onclick="setDisplay(0)">Back</div>
+        <input type="submit" value="Next" id="next">
+            </div>
             <div class="item">
             <img src="../img/products/generic.jpg"><br>
                 <h3>Generic</h3>
@@ -425,8 +429,6 @@ function writeAddons(){
     </div>
     </div>
     </div>
-        <div id="back" onclick="setDisplay(0)">Back</div>
-        <input type="submit" value="Next" id="next">
         </form>
 </div>
 
@@ -446,22 +448,15 @@ function writeAddons(){
         <div class="product-list row">
         <div class="col-12">
         <form method="post" id="theme-form">
+            <div class="row">
+        <div id="back" onclick="setDisplay(1)">Back</div>
+        <input type="submit" value="Next" id="next">
+            </div>
             <div class="item">
             <img src="../img/products/Themes.png"><br>
                 <h3>Generic</h3>
             <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>Add $0.00</span></label>
-            </div><!--
-        <div class="col-6">
-            <div class="description">
-                <img src="/img/products/Themes.png">
-                <h3>Add $0.00</h3>
-                <p>Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process.
-</p>
             </div>
-        </div>
-        <div class="col-6">
-        <form method="post" id="theme-form">
-            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>No Theme</span></label>-->
             <?php
                 writeThemes();
                 if (isset($_POST["theme"])){
@@ -482,8 +477,6 @@ function writeAddons(){
             ?>
     </div>
     </div>
-        <div id="back" onclick="setDisplay(1)">Back</div>
-        <input type="submit" value="Next" id="next">
         </form>
 </div>
 
@@ -492,7 +485,10 @@ function writeAddons(){
         <h1>Toss in some Add-ons!</h1>
         <p>Optional add-ons really pack a surprise. Pick as many as you want; they'll fit your theme and occasion.</p>
         <form method="post" id="add-ons-form">
-            <!-- php runs with isset so something needs to be checked to set it -->
+            <div class="row">
+        <div id="back" onclick="setDisplay(2)">Back</div>
+        <input type="submit" value="Next" id="next">
+                </div>
             <div style="display: none"><input type="checkbox" name="add-on[]" value="No Add-ons" checked></div>
             <?php
                 writeAddons();
@@ -526,9 +522,9 @@ function writeAddons(){
                     });</script>";
                 }
             ?>
-        <div class="col-12">
+        <div class="row">
         <div id="back" onclick="setDisplay(2)">Back</div>
-            <input type="submit" value="Next" id="next">
+        <input type="submit" value="Next" id="next">
         </form>
         </div>
     </div>
@@ -578,7 +574,6 @@ function writeAddons(){
         </div>
         <div class="col-6 contact-form">
             <form action="send_invoice.php" method="POST">
-                <form action="save_invoice.php" method="POST">
                 <h3>Name*</h3><input type="text" name="name" id="name" required>
                 <h3>E-mail*</h3><input type="text" name="email" id="email" required>
                 <h3>Phone Number</h3><input type="text" name="phone" id="phone">
@@ -598,10 +593,12 @@ function writeAddons(){
                 <h3>Comments or special instructions</h3>
                 <textarea name="comments"></textarea>
                 <!--<h3>Order Taken By</h3><input type="text" name="person" id="person">-->
-        <div id="back" onclick="setDisplay(3)">Back</div>
-                <input type="submit" name="submit" value="Submit" id="next">
-            </form>
+            
+            <div id="back" onclick="setDisplay(3)">Back</div>
+            <input type="submit" name="submit" value="Submit" id="next">
         </div>
+            </form>
+    <div class="row">
     </div>
     <!--Total Cost-->
     <div id="cost" style="display: none;" data-total="
