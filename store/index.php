@@ -536,14 +536,14 @@ function writeAddons(){
             <h3>Order Summary</h3>
             <p>
             <?php
+                $ITEM = 0;
+                $COST = 1;
                 $sel_size = $_SESSION["sel_size"];
                 $sel_occasion = $_SESSION["sel_occasion"];
                 $sel_theme = $_SESSION["sel_theme"];
                 $sel_addons = $_SESSION["sel_addons"];
-                $total_price = $_SESSION["totalPrice"] + $sel_occasion[$COST] + $sel_theme[$COST] + $sel_addons[$COST];
+                $total_price = $sel_occasion[$COST] + $sel_theme[$COST] + $sel_addons[$COST];
                 $prices = $_SESSION["finalPrices"];
-                $ITEM = 0;
-                $COST = 1;
                 $addons = "";
                 foreach ($_SESSION['sel_addons'][0] as $addon){
                     $addons .= $addon . ", ";
