@@ -78,8 +78,8 @@
         </div>
         <div class="col-4">
             <h3 style="font-weight:900">Connect with us online!</h3>
-            <img id="sm" src="/img/facebook.svg"/><a href="https://facebook.com/" target="_blank">Facebook</a><br>
-            <img id="sm" src="/img/instagram.svg"/><a href="http://instagram.com/" target="_blank">Instagram</a>
+            <img id="sm" src="/img/facebook.svg"/><a href="https://www.facebook.com/veblockparty/" target="_blank">Facebook</a><br>
+            <img id="sm" src="/img/instagram.svg"/><a href="https://www.instagram.com/veblockparty/" target="_blank">Instagram</a>
         </div>
         <div class="col-4">
             <h3 style="font-weight:900">Visit Us!*</h3><a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5" target="_blank">11125 Knott Avenue,<br>Cypress, CA 90630</a>
