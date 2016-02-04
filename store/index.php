@@ -350,19 +350,19 @@ function writeAddons(){
                     switch ($_POST["size"]){
                         case "xsmall":
                         $_SESSION["sel_size"] = "Extra Small";
-                        $_SESSION["size"] = 0.6; break;
+                        $_SESSION["size"] = 1; break;
                         case "small":
                         $_SESSION["sel_size"] = "Small";
-                        $_SESSION["size"] = 1; break;
+                        $_SESSION["size"] = 1.75; break;
                         case "medium":
                         $_SESSION["sel_size"] = "Medium";
-                        $_SESSION["size"] = 1.75; break;
+                        $_SESSION["size"] = 2.3; break;
                         case "large":
                         $_SESSION["sel_size"] = "Large";
-                        $_SESSION["size"] = 2.3; break;
+                        $_SESSION["size"] = 2.6; break;
                         case "xlarge":
                         $_SESSION["sel_size"] = "Extra Large";
-                        $_SESSION["size"] = 2.6; break;
+                        $_SESSION["size"] = 3; break;
                         default:
                             echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
                     }
