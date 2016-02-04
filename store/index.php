@@ -593,7 +593,6 @@ function writeAddons(){
                 <h3>Comments or special instructions</h3>
                 <textarea name="comments"></textarea>
                 <!--<h3>Order Taken By</h3><input type="text" name="person" id="person">-->
-            
             <div id="back" onclick="setDisplay(3)">Back</div>
             <input type="submit" name="submit" value="Submit" id="next">
         </div>

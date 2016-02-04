@@ -61,7 +61,7 @@ Tax: $${prices['tax']}<br>
 Shipping: $${prices['shipping']}<br>
 <b>Total: $${prices['grandTotal']}</b><br><br>
 Additional Comments: $comments<br><br>
-Party Arrival Date: $date<br><br>;
+Party Arrival Date: $date<br><br>
 
 To make your payment, go to your Virtual Enterprise Portal.
 <ul>
