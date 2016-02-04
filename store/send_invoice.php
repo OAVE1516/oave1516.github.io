@@ -63,7 +63,15 @@ Shipping: $${prices['shipping']}<br>
 Additional Comments: $comments<br><br>
 Party Arrival Date: $date<br><br>;
 
-To make your payment, go to your Virtual Enterprise Portal and transfer the provided total price to Block Party account <b>#630244170</b><br><br>
+To make your payment, go to your Virtual Enterprise Portal.
+<ul>
+<li>Go to the Payees tab in your personal bank account</li>
+<li>Click on Add Payee</li>
+<li>Search Block Party or use the account number #630244170</li>
+<li>Then use the Bill payment tab and select Block Party as a payee</li>
+<li>Transfer your order total to the amount box</li>
+<li>Save.</li>
+</ul>
 Thank you for choosing BlockParty LLC. We hope you will enjoy your experience.";
 
 $mail = new PHPMailer;
