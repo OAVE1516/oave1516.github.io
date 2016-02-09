@@ -175,7 +175,7 @@ img{
 textarea{
     width: 100%;
     resize: none;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
 }
 
 input[type='text']{

@@ -455,7 +455,7 @@ function writeAddons(){
     <!-- Payment-->
     <div class="row" id="payment">
         <h1>Checkout</h1>
-        <div class="col-6">
+        <div class ="col-12">
             <p>Just one more step before you can finish placing your order! We will send an invoice to the email you provide and send your BlockParty&trade; to the provided shipping address (US Residents only). Thank you for choosing BlockParty LLC.</p>
             <h3>Order Summary</h3>
             <p>
@@ -490,13 +490,15 @@ function writeAddons(){
                     echo "$" . $finalPrices["subtotal"] . "<br>Tax: $" . $finalPrices["tax"] . "<br>Shipping: $" . $finalPrices["shipping"];
                 ?>
                 </p>
-                <h2>Total: 
+                <h2 class="center-text">Total: 
                 <?php
                     echo "$" . $finalPrices["grandTotal"];
                 ?>
                 </h2>
         </div>
-        <div class="col-6 contact-form">
+    </div>
+    <div class="row">
+        <div class="col-12 contact-form">
             <form action="send_invoice.php" method="POST">
                 <h3>Name*</h3><input type="text" name="name" id="name" required>
                 <h3>E-mail*</h3><input type="text" name="email" id="email" required>
