@@ -74,81 +74,15 @@ function populatePage($id, $category, $subcategory, $name, $image, $price, $desc
     if ($category == "add-on[]" && $price < 0)
        echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
     else{
-           echo "<div class='item'>
+           echo "<div class='item' onclick='showItem($pageIndex, $id)'>
            <img src='$image'><br>
            <h3>$name</h3>
            <label><input type='radio' name='$category' value='$name' id='$id'
            data-price='$price'
            data-description='$description'
-           data-image='$image'
-           onclick='showItem($pageIndex, $id)'>
+           data-image='$image''>
            <span>Add $$price</span></label>
            </div>";
-    }
-}
-function populateList($id, $category, $subcategory, $name, $image, $price, $description){
-    $pageIndex = -1;
-    switch ($category){
-        case "occasion":
-        $pageIndex = 0; break;
-        case "theme":
-        $pageIndex = 1; break;
-        case "add-ons":
-        $pageIndex = 2; break;
-        default: 
-        echo "Category to index in populateList no worko"; break;
-    }
-    //Escapes the quotes so when printed to a JS dataset, the HTML doesn't screw up
-    $description = htmlspecialchars($description, ENT_QUOTES | ENT_SUBSTITUTE);
-    
-    //Sets default values if the database is empty
-    if (empty($image))
-        $image = "placeholder.png";
-    //Prices entered in DB should not be empty -- Should be a real price or -1
-    if (empty($price))
-        $price = toDollars(0);
-    //Good 'ol lorem ipsum
-    if (empty($description))
-        $description = "Morbi blandit semper neque, eget tincidunt massa interdum a. Morbi quis risus dolor. Donec aliquet malesuada pharetra.";
-    
-    //Non priced items (multipliers) are logged as -1 in the database
-    if ($price < 0){
-        if ($category == "theme"){
-            //All themes provide a 0.4 multiplier to the current price (size multiplier times occasion price , index 1 of sel_occ is the price)
-            $price = toDollars($_SESSION["size"] * $_SESSION["sel_occasion"][1] * 0.4);
-        }
-    }
-    else{
-        //If it's an addon, flat rate regardless of size, except for $subcategory = 0, food
-        /*if ($category == "add-on[]" && $subcategory != 0){
-            $price = toDollars($price);
-        }*/
-        //Otherwise, we multiply price by the $size multiplier
-        //else{
-            $price = toDollars($price * $_SESSION["size"]);
-        //}
-    }
-    $buttonText = $name;
-    $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
-    if ($category != "add-on[]")
-        $type = "radio";
-    else
-        $type = "checkbox";
-    $image = "/img/products/" . $image;
-    //Uses a template to print data into the list
-    if ($category == "add-on[]" && $price < 0)
-        //EDIT THIS
-       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
-    else{
-           echo "<label><input type='" . $type .
-               "' name='" . $category .
-               "' value='" . $name .
-               "' id='" . $id .
-               "' data-price='". $price .
-               "' data-description='" . $description .
-               "' data-image='" . $image .
-               "' onclick='showItem($pageIndex, " . $id . ")'" .
-               "'><span>" .$buttonText . "</span></label>";
     }
 }
 
@@ -191,7 +125,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     if ($category == "add-on[]" && $price < 0)
        echo "<div class='item'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
     else{
-           echo "<div class='item'>" .
+           echo "<div class='item' onclick='check($id)'>" .
                "<img src='" . $image . "'><br>" .
                "<h3>" . $name . "</h3>" .
                "<label><input type='" . $type .
@@ -208,8 +142,6 @@ function writeOccasions(){
     global $occasions;
     while ($row = $occasions->fetch_assoc()){
         populatePage($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
-        //populateList($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
-        //putInGrid($row["id"], "occasion", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
@@ -217,8 +149,6 @@ function writeThemes(){
     global $themes;
     while ($row = $themes->fetch_assoc()){
         populatePage($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
-        //populateList($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
-        //putInGrid($row["id"], "theme", null, $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
 
@@ -251,12 +181,6 @@ function writeAddons(){
             echo "<h2 class='left-text'>Setup</h2>";
             $step++;
         }
-        /*
-        if ($row["subcategory"] == $OUTDOOR && $step == $OUTDOOR){
-            echo "<h2 class='left-text'>Outdoor Equipment</h2>";
-            $step++;
-        }
-        **/
         putInGrid($row["id"], "add-on[]", $row["subcategory"], $row["name"], $row["image"], $row["price"], $row["description"]);
     }
 }
@@ -401,10 +325,10 @@ function writeAddons(){
         <div id="back" onclick="setDisplay(0)">Back</div>
         <input type="submit" value="Next" id="next">
             </div>
-            <div class="item">
+            <div class="item" onclick="showItem(0, 'generic')">
             <img src="../img/products/generic.jpg"><br>
                 <h3>Generic</h3>
-            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" onclick="showItem(0, 'generic')" checked><span>Add $30.00</span></label>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" checked><span>Add $30.00</span></label>
             </div>
         <?php
             writeOccasions();
@@ -452,10 +376,10 @@ function writeAddons(){
         <div id="back" onclick="setDisplay(1)">Back</div>
         <input type="submit" value="Next" id="next">
             </div>
-            <div class="item">
+            <div class="item" onclick="showItem(1, 'no-theme')">
             <img src="../img/products/Themes.png"><br>
                 <h3>Generic</h3>
-            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" onclick="showItem(1, 'no-theme')" checked><span>Add $0.00</span></label>
+            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" checked><span>Add $0.00</span></label>
             </div>
             <?php
                 writeThemes();
