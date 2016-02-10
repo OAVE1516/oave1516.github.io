@@ -171,16 +171,23 @@ img{
     max-width: 100%;
 }
 
-
 textarea{
     width: 100%;
     resize: none;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
 }
 
 input[type='text']{
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+}
+input[type='text']{
     width: 100%;
-    
 }
 
 select{
@@ -237,6 +244,21 @@ button:hover{
     display: none;   
 }
 
+table{
+    width: 100%;
+}
+tr{
+    line-height: 150%;
+}
+td:nth-child(2){
+    text-align: left;
+}
+td:nth-child(3){
+    text-align: right;
+}
+td{
+    border-bottom: 1px solid #555;
+}
 @media only screen and (max-width: 492px) {
     [class*="col-"]{
         width: 100%;

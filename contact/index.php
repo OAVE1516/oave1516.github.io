@@ -39,11 +39,13 @@
     </div>
     <h1>Contact Us</h1>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <p>Thank you for your interest in BlockParty! If you have any additional questions, comments, or concerns, you can reach us by using the contact form on this page, or by e-mailing us at <a href="mailto:contact@veblockparty.com">contact@veblockparty.com</a>.</p><br>
 			     <p>If you would like to reach us through mail, you can write to us at <a href="https://www.google.com/maps/place/11125+Knott+Ave,+Cypress,+CA+90630/@33.8268232,-118.0361785,15z/data=!4m2!3m1!1s0x80dd29291591741b:0x814e6f997e29e1d5">11125 Knott Ave, Cypress, CA 90630*</a>.</p>
             </div>
-            <div class="col-6 contact-form">
+    </div>
+    <div class="row">
+            <div class="col-12 contact-form">
                 <form action="contact.php" method="POST">
                     <h3>Your Name</h3><input type="text" name="name" id="name">
                     <h3>Your E-mail</h3><input type="text" name="email" id="email">
@@ -53,6 +55,7 @@
                 </form>
             </div>
 	</div>
+    </div>
 </div>
 </body>
     <footer id="dark">

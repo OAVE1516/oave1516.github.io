@@ -468,10 +468,11 @@ function writeAddons(){
                 $sel_addons = $_SESSION["sel_addons"];
                 $total_price = $sel_occasion[$COST] + $sel_theme[$COST] + $sel_addons[$COST];
                 $prices = $_SESSION["finalPrices"];
-                $addons = "";
+                $finalAddons = "";
                 foreach ($_SESSION['sel_addons'][0] as $addon){
-                    $addons .= $addon . ", ";
+                    $finalAddons .= $addon . ", ";
                 }
+                $finalAddons = substr($finalAddons, 0, -2);
                 $finalPrices = array(
                     "subtotal"=>toDollars($total_price),
                     "tax"=>toDollars($total_price * $TAX_CONSTANT),
@@ -479,24 +480,47 @@ function writeAddons(){
                     "grandTotal"=>toDollars($total_price * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
                 );
                 $_SESSION["finalPrices"] = $finalPrices;
-                
-                echo "Selected Size: $sel_size<br>
-                Selected Occasion: $sel_occasion[$ITEM], $$sel_occasion[$COST]<br>
-                Selected Theme: $sel_theme[$ITEM], $$sel_theme[$COST]<br>
-                Selected Addons: $addons $$sel_addons[$COST]<br>"
-            ?></p>
-            <p class="center-text">Subtotal:
-                <?php
-                    echo "$" . $finalPrices["subtotal"] . "<br>Tax: $" . $finalPrices["tax"] . "<br>Shipping: $" . $finalPrices["shipping"];
-                ?>
-                </p>
-                <h2 class="center-text">Total: 
-                <?php
-                    echo "$" . $finalPrices["grandTotal"];
-                ?>
-                </h2>
+                echo "
+                    <table>
+                        <tr>
+                            <td>Selected Size</td><td></td>
+                            <td>$sel_size</td>
+                        </tr>
+                        <tr>
+                            <td>Seleted Occasion</td>
+                            <td>$sel_occasion[$ITEM]</td>
+                            <td>$$sel_occasion[$COST]</td>
+                        </tr>
+                        <tr>
+                            <td>Selected Theme</td>
+                            <td>$sel_theme[$ITEM]</td>
+                            <td>$$sel_theme[$COST]</td>
+                        </tr>
+                        <tr>
+                            <td>Selected Addons</td>
+                            <td>$finalAddons</td>
+                            <td>$$sel_addons[$COST]</td>
+                        </tr>
+                        <tr>
+                            <td>Subtotal</td><td></td>
+                            <td>$${finalPrices['subtotal']}</td>
+                        </tr>
+                        <tr>
+                            <td>Tax</td><td></td>
+                            <td>$${finalPrices['tax']}</td>
+                        </tr>
+                        <tr>
+                            <td>Shipping</td><td></td>
+                            <td>$${finalPrices['shipping']}</td>
+                        </tr>
+                        <tr>
+                            <td><h2>Grand Total</h2></td><td></td>
+                            <td><h2 class='right-text'>$${finalPrices['grandTotal']}</h2></td>
+                        </tr>
+                    </table>
+                ";
+            ?>
         </div>
-    </div>
     <div class="row">
         <div class="col-12 contact-form">
             <form action="send_invoice.php" method="POST">
@@ -504,8 +528,8 @@ function writeAddons(){
                 <h3>E-mail*</h3><input type="text" name="email" id="email" required>
                 <h3>Phone Number</h3><input type="text" name="phone" id="phone">
                 <h3>School</h3><input type="text" name="school" id="school">
-                <h3>Shipping Address*</h3><input type="text" name="address" id="address" required>
-                <h3>City*</h3><input type="text" name="city" id="city" required>
+                <h3>Shipping Address</h3><input type="text" name="address" id="address">
+                <h3>City</h3><input type="text" name="city" id="city">
                 <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
                     <h3>State</h3>
                     <select name="state">
@@ -513,9 +537,9 @@ function writeAddons(){
                     </select>
                 </div>
                 <div style="width: 75%; float: left; padding: 0px;">
-                    <h3>Zip Code*</h3><input type="text" name="zip" id="zip" required>
+                    <h3>Zip Code</h3><input type="text" name="zip" id="zip">
                 </div>
-                <h3>Party Date*</h3><input type="text" name="date" id="date" required>
+                <h3>Party Date</h3><input type="text" name="date" id="date">
                 <h3>Comments or special instructions</h3>
                 <textarea name="comments"></textarea>
                 <!--<h3>Order Taken By</h3><input type="text" name="person" id="person">-->
@@ -523,14 +547,6 @@ function writeAddons(){
             <input type="submit" name="submit" value="Submit" id="next">
         </div>
             </form>
-    <div class="row">
-    </div>
-    <!--Total Cost-->
-    <div id="cost" style="display: none;" data-total="
-        <?php
-            echo toDollars($_SESSION["totalPrice"]);
-        ?>">
-        <h2>Total Cost: $<span>Code WIP</span></h2>
     </div>
 </div>
 </div>

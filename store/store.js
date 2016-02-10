@@ -25,6 +25,7 @@ function showItem(pageID, itemID){
     //targetLocation.innerHTML = "<img src='" + image + "'><h3>Add $" + price + "</h3><p>" + description + "</p>";
     targetLocation.innerHTML = "<div class='col-6'><img src='" + image + "'></div><div class='col-6'><h3>Add $" + price + "</h3><p>" + description + "</p>";
     EPPZScrollTo.scrollVerticalToElementById('progress-bar', 0);
+    document.getElementById(itemID).checked = true;
 }
 
 function check(id){
