@@ -240,9 +240,7 @@ function writeAddons(){
     </div>
     <!--Size-->
     <div class="row" id="size">
-        
-    <div class="row center-text">
-        <div id="contact-response">
+        <div id="contact-response" class="center-text">
             <?php
                 echo $_REQUEST["text"];
                 if ($_REQUEST["text"] != "Success! Invoice has been sent." && isset($_REQUEST["text"])){
@@ -252,13 +250,17 @@ function writeAddons(){
                 }
             ?>
         </div>
-    </div>
         <h1>Pick a size</h1>
+        <p>Here at BlockParty, we make every effort to accomodate your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
         <div class="col-6">
-            <p>Here at BlockParty, we make every effort to accomodate your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
+            <h2>Browse premade parties</h2>
+            <p>We have premade selections of BlockParties based on some of our most popular parties. Choose what you like, and you will be at checkout in no time! To take a look, click on the button below. Alternatively, check out our custom party builder that lets you pick and choose your details to your liking.</p><br>
+            <button onclick="location.href = '/readymade'" style="width: 100%">View our selections</button>
             <img class="hide-on-mobile" src="/img/sizes.png" style="padding: 30px">
         </div>
         <div class="col-6">
+            <h2>Or build your own party</h2>
+            <p>If you don't like being constrained to premade sets, we have a fully customizable party builder which gives you thousands of possibilities. First, you will need to choose a size, indicating how many people you are expecting.</p>
             <form method="post">
                 <label><input type="radio" name="size" value="xsmall"><span>Extra Small: Under 50</span></label>
                 <label><input type="radio" name="size" value="small"><span>Small: 50-75</span></label>
@@ -267,7 +269,6 @@ function writeAddons(){
                 <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
                 <input type="submit" value="Next" style="clear: both;">
             </form>
-                <p>For parties larger than 250 people, please contact us at contact@veblockparty.com</a></p>
             <?php
                 //When the user submits the size, the form posts
                 if (isset($_POST["size"]) && $_SESSION["STEP"] != 4){
