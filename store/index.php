@@ -71,19 +71,20 @@ function populatePage($id, $category, $subcategory, $name, $image, $price, $desc
         $type = "checkbox";
     $image = "/img/products/" . $image;
     //Uses a template to print data into the list
-    if ($category == "add-on[]" && $price < 0)
-       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
-    else{
+//    if ($category == "add-on[]" && $price < 0)
+//       echo "<div class='grid-3'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
+//    else{
            echo "<div class='item' onclick='showItem($pageIndex, $id)'>
            <img src='$image'><br>
            <h3>$name</h3>
            <label><input type='radio' name='$category' value='$name' id='$id'
            data-price='$price'
+           data-name='$name'
            data-description='$description'
            data-image='$image''>
-           <span>Add $$price</span></label>
+           <span>Add</span></label>
            </div>";
-    }
+    //}
 }
 
 //The HTML page uses a responsive inline-block grid (3 per row desktop, 1 per row on mobile)
@@ -113,7 +114,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
         //Otherwise, we multiply price by the $size multiplier
         //else{
             $price = toDollars($price * $_SESSION["size"]);
-    $buttonText = "Add $" . $price;
+    $buttonText = "Select";
     $contactUs = " Please <a href='/contact' target='_blank'>contact us</a> if you would like to order this item.";
     if ($category != "add-on[]")
         $type = "radio";
@@ -122,9 +123,9 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
     
     $image = "/img/products/" . $image;
     //Uses a template to print data into the html grid
-    if ($category == "add-on[]" && $price < 0)
-       echo "<div class='item'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
-    else{
+//    if ($category == "add-on[]" && $price < 0)
+//       echo "<div class='item'>" . "<h3>" . $name . "</h3>" . "<img src='" . $image . "'>" . "<p>" . $description . $contactUs . "</p></div>";
+//    else{
            echo "<div class='item' onclick='check($id)'>" .
                "<img src='" . $image . "'><br>" .
                "<h3>" . $name . "</h3>" .
@@ -135,7 +136,7 @@ function putInGrid($id, $category, $subcategory, $name, $image, $price, $descrip
                "' data-price='". $price * $_SESSION["size"] .
                "'><span>" .$buttonText . "</span></label>" .
                "</div>";
-    }
+    //}
 }
 
 function writeOccasions(){
@@ -250,47 +251,40 @@ function writeAddons(){
                 }
             ?>
         </div>
+        <div class="row">
         <h1>Pick a size</h1>
         <p>Here at BlockParty, we make every effort to accomodate your function's needs. You can customize the contents to match your event idea. First, we will need to know how many people you are expecting.</p>
         <div class="col-6">
             <h2>Browse premade parties</h2>
             <p>We have premade selections of BlockParties based on some of our most popular parties. Choose what you like, and you will be at checkout in no time! To take a look, click on the button below. Alternatively, check out our custom party builder that lets you pick and choose your details to your liking.</p><br>
-            <button onclick="location.href = '/readymade'" style="width: 100%">View our selections</button>
-            <img class="hide-on-mobile" src="/img/sizes.png" style="padding: 30px">
         </div>
         <div class="col-6">
             <h2>Or build your own party</h2>
             <p>If you don't like being constrained to premade sets, we have a fully customizable party builder which gives you thousands of possibilities. First, you will need to choose a size, indicating how many people you are expecting.</p>
-            <form method="post">
-                <label><input type="radio" name="size" value="xsmall"><span>Extra Small: Under 50</span></label>
-                <label><input type="radio" name="size" value="small"><span>Small: 50-75</span></label>
-                <label><input type="radio" name="size" value="medium" checked><span>Medium: 75-125</span></label>
-                <label><input type="radio" name="size" value="large"><span>Large: 125-175</span></label>
-                <label><input type="radio" name="size" value="xlarge"><span>Extra Large: 175-250</span></label>
-                <input type="submit" value="Next" style="clear: both;">
-            </form>
             <?php
                 //When the user submits the size, the form posts
                 if (isset($_POST["size"]) && $_SESSION["STEP"] != 4){
-                    switch ($_POST["size"]){
-                        case "xsmall":
-                        $_SESSION["sel_size"] = "Extra Small";
-                        $_SESSION["size"] = 1; break;
-                        case "small":
-                        $_SESSION["sel_size"] = "Small";
-                        $_SESSION["size"] = 1.75; break;
-                        case "medium":
-                        $_SESSION["sel_size"] = "Medium";
-                        $_SESSION["size"] = 2.3; break;
-                        case "large":
-                        $_SESSION["sel_size"] = "Large";
-                        $_SESSION["size"] = 2.6; break;
-                        case "xlarge":
-                        $_SESSION["sel_size"] = "Extra Large";
-                        $_SESSION["size"] = 3; break;
-                        default:
-                            echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
-                    }
+//                    switch ($_POST["size"]){
+//                        case "xsmall":
+//                        $_SESSION["sel_size"] = "Extra Small";
+//                        $_SESSION["size"] = 1; break;
+//                        case "small":
+//                        $_SESSION["sel_size"] = "Small";
+//                        $_SESSION["size"] = 1.75; break;
+//                        case "medium":
+//                        $_SESSION["sel_size"] = "Medium";
+//                        $_SESSION["size"] = 2.3; break;
+//                        case "large":
+//                        $_SESSION["sel_size"] = "Large";
+//                        $_SESSION["size"] = 2.6; break;
+//                        case "xlarge":
+//                        $_SESSION["sel_size"] = "Extra Large";
+//                        $_SESSION["size"] = 3; break;
+//                        default:
+//                            echo "Something went wrong with the size selection. Please contact it@veblockparty.com and describe what happened. The post array at size reads: " . $_POST["size"];
+//                    }
+                    $_SESSION["sel_size"] = "";
+                    $_SESSION["size"] = -1;
                     //Define totalPrice as 0 at the start so past data does not interfere
                     $_SESSION["totalPrice"] = 0;
                     //Need to check if DOM is ready or we get some null errors because content hasn't finished loading yet
@@ -301,6 +295,19 @@ function writeAddons(){
             else
                 $_SESSION["STEP"] = 0;
             ?>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+            
+            <button onclick="location.href = '/readymade'" style="width: 100%">View our selections</button>
+            </div>
+            <div class="col-6">
+            <form method="post">
+                <label style="display: none;"><input type="radio" name="size" value="xsmall" checked><span>Extra Small: Under 50</span></label>
+                <input type="submit" value="Get Started" style="clear: both;">
+            </form>
+            </div>
         </div>
     </div>
 
@@ -314,7 +321,7 @@ function writeAddons(){
             <img src="/img/products/generic.jpg">
         </div>
         <div class="col-6">
-            <h3>Add $30.00</h3>
+            <h3>Generic</h3>
             <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
         </div>
         </div>
@@ -329,7 +336,7 @@ function writeAddons(){
             <div class="item" onclick="showItem(0, 'generic')">
             <img src="../img/products/generic.jpg"><br>
                 <h3>Generic</h3>
-            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" checked><span>Add $30.00</span></label>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-name="Generic" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" checked><span>Add</span></label>
             </div>
         <?php
             writeOccasions();
@@ -366,7 +373,7 @@ function writeAddons(){
             <img src="/img/products/Themes.png">
         </div>
         <div class="col-6">
-            <h3>Add $0.00</h3>
+            <h3>No Theme</h3>
             <p>Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process.</p>
         </div>
         </div>
@@ -379,8 +386,8 @@ function writeAddons(){
             </div>
             <div class="item" onclick="showItem(1, 'no-theme')">
             <img src="../img/products/Themes.png"><br>
-                <h3>Generic</h3>
-            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" checked><span>Add $0.00</span></label>
+                <h3>No Theme</h3>
+            <label><input type="radio" name="theme" value="No Theme" id="no-theme" data-price="0.00" data-name="No Theme" data-description="Sometimes you don't need a theme to have a great time. Without a theme, you're free to truly make the party your own. Think of this as a blank canvas for your creativity. Regardless of what you want to do, we'll be there to help with the process." data-image="/img/products/Themes.png" checked><span>Add</span></label>
             </div>
             <?php
                 writeThemes();
@@ -474,33 +481,30 @@ function writeAddons(){
                     $finalAddons .= $addon . ", ";
                 }
                 $finalAddons = substr($finalAddons, 0, -2);
+                $total_price = rand(1673, 1763);
                 $finalPrices = array(
                     "subtotal"=>toDollars($total_price),
                     "tax"=>toDollars($total_price * $TAX_CONSTANT),
-                    "shipping"=>toDollars($BASE_SHIPPING * $_SESSION["size"]),
-                    "grandTotal"=>toDollars($total_price * (1 + $TAX_CONSTANT) + ($BASE_SHIPPING * $_SESSION["size"]))
+                    "shipping"=>toDollars(42),
+                    "grandTotal"=>toDollars($total_price * (1 + $TAX_CONSTANT) + (42))
                 );
                 $_SESSION["finalPrices"] = $finalPrices;
                 echo "
                     <table>
                         <tr>
-                            <td>Selected Size</td><td></td>
-                            <td>$sel_size</td>
-                        </tr>
-                        <tr>
                             <td>Seleted Occasion</td>
                             <td>$sel_occasion[$ITEM]</td>
-                            <td>$$sel_occasion[$COST]</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Selected Theme</td>
                             <td>$sel_theme[$ITEM]</td>
-                            <td>$$sel_theme[$COST]</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Selected Addons</td>
                             <td>$finalAddons</td>
-                            <td>$$sel_addons[$COST]</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Subtotal</td><td></td>
@@ -527,22 +531,9 @@ function writeAddons(){
             <form action="send_invoice.php" method="POST">
                 <h3>Name*</h3><input type="text" name="name" id="name" required>
                 <h3>E-mail*</h3><input type="text" name="email" id="email" required>
-                <h3>Phone Number</h3><input type="text" name="phone" id="phone">
-                <h3>School</h3><input type="text" name="school" id="school">
-                <h3>Shipping Address</h3><input type="text" name="address" id="address">
-                <h3>City</h3><input type="text" name="city" id="city">
-                <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
-                    <h3>State</h3>
-                    <select name="state">
-                        <option value="CA">CA</option></option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
-                    </select>
                 </div>
-                <div style="width: 75%; float: left; padding: 0px;">
-                    <h3>Zip Code</h3><input type="text" name="zip" id="zip">
-                </div>
-                <h3>Party Date</h3><input type="text" name="date" id="date">
                 <h3>Comments or special instructions</h3>
-                <textarea name="comments"></textarea>
+                <textarea name="comments" rows='4'></textarea>
                 <!--<h3>Order Taken By</h3><input type="text" name="person" id="person">-->
             <div id="back" onclick="setDisplay(3)">Back</div>
             <input type="submit" name="submit" value="Submit" id="next">

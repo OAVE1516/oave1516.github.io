@@ -19,11 +19,12 @@ function setBackground(element, value){
 function showItem(pageID, itemID){
     var data = document.getElementById(itemID).dataset;
     var description = data.description;
+    var name = data.name;
     var price = data.price;
     var image = data.image;
     var targetLocation = document.getElementsByClassName("description")[pageID];
     //targetLocation.innerHTML = "<img src='" + image + "'><h3>Add $" + price + "</h3><p>" + description + "</p>";
-    targetLocation.innerHTML = "<div class='col-6'><img src='" + image + "'></div><div class='col-6'><h3>Add $" + price + "</h3><p>" + description + "</p>";
+    targetLocation.innerHTML = "<div class='col-6'><img src='" + image + "'></div><div class='col-6'><h3>" + name + "</h3><p>" + description + "</p>";
     EPPZScrollTo.scrollVerticalToElementById('progress-bar', 0);
     document.getElementById(itemID).checked = true;
 }
