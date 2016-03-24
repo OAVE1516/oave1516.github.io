@@ -336,7 +336,7 @@ function writeAddons(){
             <div class="item" onclick="showItem(0, 'generic')">
             <img src="../img/products/generic.jpg"><br>
                 <h3>Generic</h3>
-            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-name="Generic" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" checked><span>Add</span></label>
+            <label><input type="radio" name="occasion" value="Generic" id="generic" data-price="30.00" data-name="Generic" data-description="Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that. By choosing this package, you have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event." data-image="/img/products/generic.jpg" checked><span>Add</span></label>
             </div>
         <?php
             writeOccasions();
@@ -492,7 +492,7 @@ function writeAddons(){
                 echo "
                     <table>
                         <tr>
-                            <td>Seleted Occasion</td>
+                            <td>Selected Occasion</td>
                             <td>$sel_occasion[$ITEM]</td>
                             <td></td>
                         </tr>
