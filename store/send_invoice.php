@@ -14,6 +14,8 @@ $COST = 1;
 
 $name = $_POST["name"];
 $email = $_POST["email"];
+$credit = $_POST["credit"];
+$expiration = $_POST["expiration"];
 $phone = $_POST["phone"];
 $school = $_POST["school"];
 $address = $_POST["address"];
@@ -61,9 +63,11 @@ Tax: $${prices['tax']}<br>
 Shipping: $${prices['shipping']}<br>
 <b>Total: $${prices['grandTotal']}</b><br><br>
 Additional Comments: $comments<br><br>
-Party Arrival Date: $date<br><br>
+Party Arrival Date: $date<br><br>";
 
-To make your payment, go to your Virtual Enterprise Portal.
+$credit = "You have paid by credit card ($credit exp $expiration).<br>Thank you for choosing BlockParty LLC. We hope you will enjoy your experience."
+    
+$nocredit = "To make your payment, go to your Virtual Enterprise Portal.
 <ul>
 <li>Go to the Payees tab in your personal bank account</li>
 <li>Click on Add Payee</li>
@@ -73,6 +77,13 @@ To make your payment, go to your Virtual Enterprise Portal.
 <li>Save.</li>
 </ul>
 Thank you for choosing BlockParty LLC. We hope you will enjoy your experience.";
+
+if (empty($credit)){
+    $body .= $credit;
+}
+else{
+    $body .= $nocredit;
+}
 
 $mail = new PHPMailer;
 

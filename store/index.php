@@ -528,7 +528,10 @@ function writeAddons(){
             <form action="send_invoice.php" method="POST">
                 <h3>Name*</h3><input type="text" name="name" id="name" required>
                 <h3>E-mail*</h3><input type="text" name="email" id="email" required>
+                <h3>Credit Card Number</h3><input type="text" name="credit" id="credit">
+                <h3>Expiration</h3><input type="text" name="expiration" id="expiration">
                 <h3>School</h3><input type="text" name="school" id="school">
+                <h3>Address</h3><input type="text" name="address" id="address">
                 <h3>City</h3><input type="text" name="city" id="city">
                 <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
                     <h3>State</h3>
