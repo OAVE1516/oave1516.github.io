@@ -315,7 +315,7 @@ function writeAddons(){
         </div>
         <div class="col-6">
             <h3>Add $30.00</h3>
-            <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that and by choosing this package, you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
+            <p>Sometimes all you need are just the basics. Sometimes, you just want to have an event and not put a label on things. Here at BlockParty we provide just that. by choosing this packageB you essentially have created a blank canvas for your event. You have all the power to choose from our selection of add-ons and truly make your event.</p>
         </div>
         </div>
         <div class="product-parent">
@@ -488,7 +488,7 @@ function writeAddons(){
                             <td>$sel_size</td>
                         </tr>
                         <tr>
-                            <td>Seleted Occasion</td>
+                            <td>Selected Occasion</td>
                             <td>$sel_occasion[$ITEM]</td>
                             <td>$$sel_occasion[$COST]</td>
                         </tr>

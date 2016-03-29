@@ -21,8 +21,8 @@ $city = $_POST["city"];
 $state = $_POST["state"];
 $zip = $_POST["zip"];
 $date = $_POST["date"];
-$person = $_POST["person"];
 $comments = $_POST["comments"];
+//$person = $_POST["person"];
 
 //Takes the list of addons and puts them into a string
 $addons = "";
