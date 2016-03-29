@@ -57,7 +57,8 @@ function populatePage($id, $category, $subcategory, $name, $image, $price, $desc
     if ($price < 0){
         if ($category == "theme"){
             //All themes provide a 0.4 multiplier to the current price (size multiplier times occasion price , index 1 of sel_occ is the price)
-            $price = toDollars($_SESSION["size"] * $_SESSION["sel_occasion"][1] * 0.4);
+            //$price = toDollars($_SESSION["size"] * $_SESSION["sel_occasion"][1] * 0.4);
+            $price = toDollars($_SESSION["totalPrice"] * 0.4);
         }
     }
     else{
@@ -527,9 +528,7 @@ function writeAddons(){
             <form action="send_invoice.php" method="POST">
                 <h3>Name*</h3><input type="text" name="name" id="name" required>
                 <h3>E-mail*</h3><input type="text" name="email" id="email" required>
-                <h3>Phone Number</h3><input type="text" name="phone" id="phone">
                 <h3>School</h3><input type="text" name="school" id="school">
-                <h3>Shipping Address</h3><input type="text" name="address" id="address">
                 <h3>City</h3><input type="text" name="city" id="city">
                 <div style="width: 25%; float: left; padding: 0px 15px 0px 0px;">
                     <h3>State</h3>
@@ -537,13 +536,10 @@ function writeAddons(){
                         <option value="CA">CA</option></option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
                     </select>
                 </div>
-                <div style="width: 75%; float: left; padding: 0px;">
-                    <h3>Zip Code</h3><input type="text" name="zip" id="zip">
-                </div>
                 <h3>Party Date</h3><input type="text" name="date" id="date">
                 <h3>Comments or special instructions</h3>
                 <textarea name="comments"></textarea>
-                <!--<h3>Order Taken By</h3><input type="text" name="person" id="person">-->
+                <h3>Order Taken By</h3><input type="text" name="person" id="person">
             <div id="back" onclick="setDisplay(3)">Back</div>
             <input type="submit" name="submit" value="Submit" id="next">
         </div>
