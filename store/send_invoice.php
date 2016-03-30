@@ -65,7 +65,7 @@ Shipping: $${prices['shipping']}<br>
 Additional Comments: $comments<br><br>
 Party Arrival Date: $date<br><br>";
 
-$credit = "You have paid by credit card ($credit exp $expiration).<br>Thank you for choosing BlockParty LLC. We hope you will enjoy your experience."
+$creditmessage = "You have paid by credit card ($credit exp $expiration).<br>Thank you for choosing BlockParty LLC. We hope you will enjoy your experience.";
     
 $nocredit = "To make your payment, go to your Virtual Enterprise Portal.
 <ul>
@@ -78,8 +78,8 @@ $nocredit = "To make your payment, go to your Virtual Enterprise Portal.
 </ul>
 Thank you for choosing BlockParty LLC. We hope you will enjoy your experience.";
 
-if (empty($credit)){
-    $body .= $credit;
+if ($credit){
+    $body .= $creditmessage;
 }
 else{
     $body .= $nocredit;
