@@ -16,12 +16,10 @@ $name = $_POST["name"];
 $email = $_POST["email"];
 $credit = $_POST["credit"];
 $expiration = $_POST["expiration"];
-$phone = $_POST["phone"];
 $school = $_POST["school"];
 $address = $_POST["address"];
 $city = $_POST["city"];
 $state = $_POST["state"];
-$zip = $_POST["zip"];
 $date = $_POST["date"];
 $comments = $_POST["comments"];
 //$person = $_POST["person"];
@@ -51,9 +49,8 @@ Party Arrival Date: $date";*/
 
 $body = "Name: $name<br>
 Email: $email<br>
-Phone: $phone<br>
 School: $school<br>
-Address: $address $city, $state $zip<br><br>
+Address: $address $city, $state<br><br>
 Selected Size: $sel_size<br>
 Selected Occasion: $sel_occasion[$ITEM], $$sel_occasion[$COST]<br>
 Selected Theme: $sel_theme[$ITEM], $$sel_theme[$COST]<br>
@@ -62,8 +59,7 @@ Subtotal: $${prices['subtotal']}<br>
 Tax: $${prices['tax']}<br>
 Shipping: $${prices['shipping']}<br>
 <b>Total: $${prices['grandTotal']}</b><br><br>
-Additional Comments: $comments<br><br>
-Party Arrival Date: $date<br><br>";
+Additional Comments: $comments<br><br>";
 
 $creditmessage = "You have paid by credit card ($credit exp $expiration).<br>Thank you for choosing BlockParty LLC. We hope you will enjoy your experience.";
     
